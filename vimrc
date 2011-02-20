@@ -21,8 +21,8 @@ set incsearch   "find the next match as we type the search
 set hlsearch    "hilight searches by default
 
 set number      "add line numbers
-""set showbreak=...
-""set wrap linebreak nolist
+set showbreak=...
+set wrap linebreak nolist
 
 "add some line space for easy reading
 set linespace=4
@@ -80,7 +80,8 @@ set statusline+=\ %P    "percent through file
 set laststatus=2
 
 "turn off needless toolbar on gvim/mvim
-""set guioptions-=T
+set guioptions-=T
+set guioptions-=m
 
 "recalculate the trailing whitespace warning when idle, and after saving
 ""autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
