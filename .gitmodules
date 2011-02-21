@@ -52,6 +52,3 @@
 [submodule "bundle/SQLUtilities"]
 	path = bundle/SQLUtilities
 	url = https://github.com/vim-scripts/SQLUtilities.git
-[submodule "bundle/dbext"]
-	path = bundle/dbext
-	url = https://github.com/vim-scripts/dbext.vim.git
