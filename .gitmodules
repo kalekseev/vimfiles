@@ -43,3 +43,9 @@
 [submodule "bundle/vim-ruby"]
 	path = bundle/vim-ruby
 	url = https://github.com/vim-ruby/vim-ruby.git
+[submodule "bundle/vim-ruby-sinatra"]
+	path = bundle/vim-ruby-sinatra
+	url = https://github.com/hallison/vim-ruby-sinatra.git
+[submodule "bundle/matchit"]
+	path = bundle/matchit
+	url = https://github.com/vim-scripts/matchit.zip.git
