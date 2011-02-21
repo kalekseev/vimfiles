@@ -2990,7 +2990,7 @@ To specify the type of database you connect to most often, you can place the
  Or if you simply wanted to extended the existing defaults, you can
  retrieve the existing setting using dbext's DB_listOption function and
  concatenate the new regex separated by a comma: >
-        autocmd BufRead */MyProjectDir/* DBSetOption variable_def_regex=,\<\(p_\|lv_\)\w\+\>
+        autocmd BufRead MyProjectDir DBSetOption variable_def_regex=,\<\(p_\|lv_\)\w\+\>
 <
         
 
