@@ -1,1 +1,2 @@
-readme
+for add docs for new plugin call `pathogen#helptags()`
+`apt-get install exuberant-ctags ncurses-term`

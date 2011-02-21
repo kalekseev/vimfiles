@@ -2,7 +2,7 @@
 filetype off
 
 "load pathogen managed plugins
-call pathogen#helptags()
+"call pathogen#helptags()
 call pathogen#runtime_append_all_bundles()
 
 "Use Vim settings, rather then Vi settings (much better!).
