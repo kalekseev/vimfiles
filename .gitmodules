@@ -52,3 +52,6 @@
 [submodule "bundle/pythoncomplete"]
 	path = bundle/pythoncomplete
 	url = https://github.com/vim-scripts/pythoncomplete.git
+[submodule "bundle/python_highlighting"]
+	path = bundle/python_highlighting
+	url = https://github.com/vim-scripts/python.vim--Vasiliev.git
