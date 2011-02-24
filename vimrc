@@ -240,14 +240,14 @@ if has("gui_running")
     "tell the term has 256 colors
     set t_Co=256
 
-    colorscheme railscasts
+    colorscheme molokai
     set guitablabel=%M%t
     set lines=40
     set columns=115
 
     if has("gui_gnome")
         set term=gnome-256color
-        colorscheme railscasts
+        colorscheme molokai
         set guifont=Monospace\ Bold\ 10
     endif
 
@@ -273,10 +273,10 @@ else
     "dont load csapprox if there is no gui support - silences an annoying warning
     let g:CSApprox_loaded = 1
 
-    "set railscasts colorscheme when running vim in gnome terminal
+    "set molokai colorscheme when running vim in gnome terminal
     if $COLORTERM == 'gnome-terminal'
         set term=gnome-256color
-        colorscheme railscasts
+        colorscheme molokai
     else
         colorscheme default
     endif
@@ -288,7 +288,7 @@ endif
 
 silent! nmap <silent> <Leader>p :NERDTreeToggle<CR>
 ""nnoremap <silent> <C-f> :call FindInNERDTree()<CR>
-nnoremap <silent> <C-f> :NERDTree<CR>
+nnoremap <silent> <C-f> :NERDTreeFind<CR>
 
 "make <c-l> clear the highlight as well as redraw
 nnoremap <C-L> :nohls<CR><C-L>
