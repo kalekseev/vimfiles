@@ -288,7 +288,7 @@ endif
 
 silent! nmap <silent> <Leader>p :NERDTreeToggle<CR>
 ""nnoremap <silent> <C-f> :call FindInNERDTree()<CR>
-map <C-f> :NERDTreeFind<CR>
+nnoremap <silent> <C-f> :NERDTree<CR>
 
 "make <c-l> clear the highlight as well as redraw
 nnoremap <C-L> :nohls<CR><C-L>
