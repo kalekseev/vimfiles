@@ -395,3 +395,6 @@ nmap <S-Tab> gT
 ""vmap <D-]> >gv
 
 ""let ScreenShot = {'Icon':0, 'Credits':0, 'force_background':'#FFFFFF'}
+let twitvim_enable_python = 1
+let twitvim_browser_cmd = '/usr/bin/firefox-4.0'
+let twitvim_api_root = "https://api.twitter.com/1"

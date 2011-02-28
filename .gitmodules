@@ -55,3 +55,6 @@
 [submodule "bundle/python_highlighting"]
 	path = bundle/python_highlighting
 	url = https://github.com/vim-scripts/python.vim--Vasiliev.git
+[submodule "bundle/TwitVim"]
+	path = bundle/TwitVim
+	url = https://github.com/vim-scripts/TwitVim.git
