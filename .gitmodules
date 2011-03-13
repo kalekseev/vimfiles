@@ -64,3 +64,6 @@
 [submodule "bundle/gist"]
 	path = bundle/gist
 	url = https://github.com/mattn/gist-vim.git
+[submodule "bundle/vim-latext"]
+	path = bundle/vim-latext
+	url = https://github.com/vim-scripts/LaTeX-Suite-aka-Vim-LaTeX.git
