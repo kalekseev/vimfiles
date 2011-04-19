@@ -400,3 +400,7 @@ nmap <S-Tab> gT
 let twitvim_enable_python = 1
 let twitvim_browser_cmd = '/usr/bin/firefox-4.0'
 let twitvim_api_root = "https://api.twitter.com/1"
+
+
+noremap <F5> <ESC>:w<CR>:silent execute "!python %"<CR><CR>
+
