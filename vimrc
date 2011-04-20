@@ -283,7 +283,8 @@ else
 endif
 
 set colorcolumn=80
-highlight ColorColumn ctermbg=gray guibg=#252627
+"highlight ColorColumn ctermbg=gray guibg=#252627
+highlight ColorColumn ctermbg=NONE guibg=#252627
 " PeepOpen uses <Leader>p as well so you will need to redefine it so something
 " else in your ~/.vimrc file, such as:
 " nmap <silent> <Leader>q <Plug>PeepOpen
