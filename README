@@ -3,6 +3,5 @@ for add docs for new plugin call `pathogen#helptags()`
 
 TODO
 snippets
-git branch?
 compile python in vim sample ':vnoremap <f5> :!python<CR>
 http://vim.wikia.com/wiki/Execute_Python_from_within_current_file
