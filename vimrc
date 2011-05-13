@@ -71,7 +71,10 @@ set statusline=%f       "tail of the filename
 "set statusline+=%{&paste?'[paste]':''}
 "set statusline+=%*
 
-set statusline+=%=      "left/right separator
+"set statusline+=%=      "left/right separator
+"fugitive branch name in statusline
+
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P 
 
 "set statusline+=%{StatuslineCurrentHighlight()}\ \ "current highlight
 
@@ -83,6 +86,9 @@ set laststatus=2
 "turn off needless toolbar on gvim/mvim
 set guioptions-=T
 set guioptions-=m
+
+"auto-clean fugitive buffers
+autocmd BufReadPost fugitive://* set bufhidden=delete
 
 "recalculate the trailing whitespace warning when idle, and after saving
 ""autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
