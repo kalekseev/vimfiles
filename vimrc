@@ -1,6 +1,7 @@
 "necessary on some Linux distros for pathogen to properly load bundles
 filetype off
 
+source ~/.vim/bundle/vim-pathogen/autoload/pathogen.vim
 "load pathogen managed plugins
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
@@ -37,7 +38,7 @@ set visualbell t_vb=
 ""set fo=l
 
 "statusline setup
-set statusline=%f       "tail of the filename
+"set statusline=%f       "tail of the filename
 
 "Git
 "set statusline+=[%{GitBranch()}]
@@ -246,7 +247,9 @@ if has("gui_running")
     "tell the term has 256 colors
     set t_Co=256
 
-    colorscheme molokai
+    set background=dark
+    colorscheme solarized
+
     set guitablabel=%M%t
     set lines=40
     set columns=115
@@ -288,9 +291,11 @@ else
     endif
 endif
 
-set colorcolumn=80
+if has('gui_running')
+  set colorcolumn=80
+endif
 "highlight ColorColumn ctermbg=gray guibg=#252627
-highlight ColorColumn ctermbg=NONE guibg=#252627
+"highlight ColorColumn ctermbg=NONE guibg=#252627
 " PeepOpen uses <Leader>p as well so you will need to redefine it so something
 " else in your ~/.vimrc file, such as:
 " nmap <silent> <Leader>q <Plug>PeepOpen

@@ -5,3 +5,9 @@ TODO
 snippets
 compile python in vim sample ':vnoremap <f5> :!python<CR>
 http://vim.wikia.com/wiki/Execute_Python_from_within_current_file
+
+Command-T install
+apt-get install ruby1.8-dev
+cd /.vim/bundle/Command-T/ruby/command-t
+ruby extconf.rb
+make
