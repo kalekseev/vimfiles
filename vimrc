@@ -79,9 +79,9 @@ set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 "set statusline+=%{StatuslineCurrentHighlight()}\ \ "current highlight
 
-set statusline+=%c,     "cursor column
-set statusline+=%l/%L   "cursor line/total lines
-set statusline+=\ %P    "percent through file
+"set statusline+=%c,     "cursor column
+"set statusline+=%l/%L   "cursor line/total lines
+"set statusline+=\ %P    "percent through file
 set laststatus=2
 
 "turn off needless toolbar on gvim/mvim
@@ -251,33 +251,11 @@ if has("gui_running")
     colorscheme solarized
 
     set guitablabel=%M%t
-    set lines=40
-    set columns=115
+    set lines=30
+    set columns=100
 
-    if has("gui_gnome")
-        set term=gnome-256color
-        colorscheme molokai
-        set guifont=Monospace\ Bold\ 10
-    endif
-
-    if has("gui_mac") || has("gui_macvim")
-        set guifont=Menlo:h14
-        " key binding for Command-T to behave properly
-        " uncomment to replace the Mac Command-T key to Command-T plugin
-        "macmenu &File.New\ Tab key=<nop>
-        "map <D-t> :CommandT<CR>
-        " make Mac's Option key behave as the Meta key
-        set invmmta
-        try
-          set transparency=5
-        catch
-        endtry
-    endif
-
-    if has("gui_win32") || has("gui_win32s")
-        set guifont=Consolas:h12
-        set enc=utf-8
-    endif
+    set guifont=Inconsolata\ 14
+    set colorcolumn=80
 else
     "dont load csapprox if there is no gui support - silences an annoying warning
     let g:CSApprox_loaded = 1
@@ -291,9 +269,6 @@ else
     endif
 endif
 
-if has('gui_running')
-  set colorcolumn=80
-endif
 "highlight ColorColumn ctermbg=gray guibg=#252627
 "highlight ColorColumn ctermbg=NONE guibg=#252627
 " PeepOpen uses <Leader>p as well so you will need to redefine it so something
@@ -402,17 +377,10 @@ nmap <C-s> :w<CR>
 nmap <Tab> gt
 nmap <S-Tab> gT
 
-"Key mapping for textmate-like indentation
-""nmap <D-[> <<
-""nmap <D-]> >>
-""vmap <D-[> <gv
-""vmap <D-]> >gv
-
 ""let ScreenShot = {'Icon':0, 'Credits':0, 'force_background':'#FFFFFF'}
 let twitvim_enable_python = 1
 let twitvim_browser_cmd = '/usr/bin/firefox-4.0'
 let twitvim_api_root = "https://api.twitter.com/1"
 
 
-noremap <F5> <ESC>:w<CR>:silent execute "!python %"<CR><CR>
-
+noremap <F5> <ESC>:w<CR>:execute "!python %"<CR><CR>
