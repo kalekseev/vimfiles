@@ -252,9 +252,10 @@ if has("gui_running")
 
     set guitablabel=%M%t
     set lines=30
-    set columns=100
+    set columns=84
 
-    set guifont=Inconsolata\ 14
+    "set guifont=Inconsolata\ 14
+    set guifont=Consolas\ 14
     set colorcolumn=80
 else
     "dont load csapprox if there is no gui support - silences an annoying warning
