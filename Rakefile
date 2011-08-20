@@ -1,19 +1,20 @@
 require 'rake'
 
 MODULES = {
-  :'vim-pathogen' => 'https://github.com/tpope/vim-pathogen.git',
-  :NERD_tree => 'https://github.com/scrooloose/nerdtree.git',
-  :'vim-fugitive' => 'https://github.com/tpope/vim-fugitive.git',
-  :'vim-surround' => 'https://github.com/tpope/vim-surround.git',
-  :syntastic => 'https://github.com/scrooloose/syntastic.git',
-  :Align => 'https://github.com/vim-scripts/Align.git',
-  :supertab => 'https://github.com/ervandew/supertab.git',
-  :'vim-ruby' => 'https://github.com/vim-ruby/vim-ruby.git',
-  :'vim-ruby-sinatra' => 'https://github.com/hallison/vim-ruby-sinatra.git',
-  :SQLUtilities => 'https://github.com/vim-scripts/SQLUtilities.git',
-  :tComment => 'https://github.com/vim-scripts/tComment.git',
-  :'Command-T' => 'https://github.com/wincent/Command-T.git',
+  :'vim-pathogen'         => 'https://github.com/tpope/vim-pathogen.git',
+  :NERD_tree              => 'https://github.com/scrooloose/nerdtree.git',
+  :'vim-fugitive'         => 'https://github.com/tpope/vim-fugitive.git',
+  :'vim-surround'         => 'https://github.com/tpope/vim-surround.git',
+  :syntastic              => 'https://github.com/scrooloose/syntastic.git',
+  :Align                  => 'https://github.com/vim-scripts/Align.git',
+  :supertab               => 'https://github.com/ervandew/supertab.git',
+  :'vim-ruby'             => 'https://github.com/vim-ruby/vim-ruby.git',
+  :'vim-ruby-sinatra'     => 'https://github.com/hallison/vim-ruby-sinatra.git',
+  :SQLUtilities           => 'https://github.com/vim-scripts/SQLUtilities.git',
+  :tComment               => 'https://github.com/vim-scripts/tComment.git',
+  :'Command-T'            => 'https://github.com/wincent/Command-T.git',
   :'vim-colors-solarized' => 'git://github.com/altercation/vim-colors-solarized.git',
+  :'vim-gnupg'            => 'git://gitorious.org/vim-gnupg/vim-gnupg.git',
 }
 
 desc 'install modules'

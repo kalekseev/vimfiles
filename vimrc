@@ -380,8 +380,9 @@ nmap <S-Tab> gT
 
 ""let ScreenShot = {'Icon':0, 'Credits':0, 'force_background':'#FFFFFF'}
 let twitvim_enable_python = 1
-let twitvim_browser_cmd = '/usr/bin/firefox-4.0'
-let twitvim_api_root = "https://api.twitter.com/1"
+let twitvim_browser_cmd   = '/usr/bin/firefox-4.0'
+let twitvim_api_root      = "https://api.twitter.com/1"
 
+"let g:SuperTabDefaultCompletionType = 'context'
 
 noremap <F5> <ESC>:w<CR>:execute "!python %"<CR><CR>
