@@ -11,10 +11,10 @@ MODULES = {
   :'vim-ruby'             => 'https://github.com/vim-ruby/vim-ruby.git',
   :'vim-ruby-sinatra'     => 'https://github.com/hallison/vim-ruby-sinatra.git',
   :SQLUtilities           => 'https://github.com/vim-scripts/SQLUtilities.git',
-  :tComment               => 'https://github.com/vim-scripts/tComment.git',
   :'Command-T'            => 'https://github.com/wincent/Command-T.git',
   :'vim-colors-solarized' => 'git://github.com/altercation/vim-colors-solarized.git',
   :'vim-gnupg'            => 'git://gitorious.org/vim-gnupg/vim-gnupg.git',
+  :'vim-commentary'       => 'https://github.com/tpope/vim-commentary.git',
 }
 
 desc 'install modules'
