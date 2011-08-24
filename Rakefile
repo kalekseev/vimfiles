@@ -16,6 +16,7 @@ MODULES = {
   :'vim-colors-solarized' => 'git://github.com/altercation/vim-colors-solarized.git',
   :'vim-gnupg'            => 'git://gitorious.org/vim-gnupg/vim-gnupg.git',
   :'vim-commentary'       => 'https://github.com/tpope/vim-commentary.git',
+  :vimwiki                => 'git://github.com/vim-scripts/vimwiki.git',
 }
 
 desc 'install modules'
@@ -38,37 +39,15 @@ task :install do
   end
 end
 
-# [submodule "bundle/haml"]
-# 	path = bundle/haml
 # 	url = https://github.com/tpope/vim-haml.git
-# [submodule "bundle/markdown"]
-# 	path = bundle/markdown
 # 	url = https://github.com/tpope/vim-markdown.git
-# [submodule "bundle/taglist"]
-# 	path = bundle/taglist
 # 	url = https://github.com/vim-scripts/taglist.vim.git
-# [submodule "bundle/bufexplorer"]
-# 	path = bundle/bufexplorer
 # 	url = https://github.com/vim-scripts/bufexplorer.zip.git
-# [submodule "bundle/matchit"]
-# 	path = bundle/matchit
 # 	url = https://github.com/vim-scripts/matchit.zip.git
-# [submodule "bundle/pythoncomplete"]
-# 	path = bundle/pythoncomplete
 # 	url = https://github.com/vim-scripts/pythoncomplete.git
-# [submodule "bundle/python_highlighting"]
-# 	path = bundle/python_highlighting
 # 	url = https://github.com/vim-scripts/python.vim--Vasiliev.git
-# [submodule "bundle/TwitVim"]
-# 	path = bundle/TwitVim
 # 	url = https://github.com/vim-scripts/TwitVim.git
-# [submodule "bundle/pastie"]
-# 	path = bundle/pastie
 # 	url = https://github.com/tpope/vim-pastie.git
-# [submodule "bundle/gist"]
-# 	path = bundle/gist
 # 	url = https://github.com/mattn/gist-vim.git
-# [submodule "bundle/vim-latext"]
-# 	path = bundle/vim-latext
 # 	url = https://github.com/vim-scripts/LaTeX-Suite-aka-Vim-LaTeX.git
 # [dbext]
