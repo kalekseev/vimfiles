@@ -1,4 +1,5 @@
 require 'rake'
+require 'fileutils'
 
 MODULES = {
   :'vim-pathogen'         => 'https://github.com/tpope/vim-pathogen.git',
@@ -19,15 +20,21 @@ MODULES = {
 
 desc 'install modules'
 task :install do
-  vimpath = File.dirname(__FILE__)
-  MODULES.each do |name,url|
-    module_path = File.join(vimpath,'bundle',name.to_s)
+  bpath = File.join(File.dirname(__FILE__), 'bundle')
+  installed_modules = Dir.entries(bpath) - [".",".."]
+  MODULES.each do |name, url|
+    module_path = File.join(bpath, name.to_s)
     if File.exists?(module_path)
       puts name
       system("cd #{module_path} && git pull origin")
     else
       system("git clone #{url} #{module_path}")
     end
+    installed_modules -= [name.to_s]
+  end
+  installed_modules.each do |dir| 
+    FileUtils.rm_rf(File.join(bpath, dir.to_s))
+    puts "rm -rf #{dir}"
   end
 end
 
