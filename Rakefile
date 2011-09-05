@@ -18,6 +18,7 @@ MODULES = {
   :'vim-commentary'       => 'https://github.com/tpope/vim-commentary.git',
   :vimwiki                => 'https://github.com/vim-scripts/vimwiki.git',
   :'bufexplorer.zip'	  => 'https://github.com/vim-scripts/bufexplorer.zip.git',
+  :'vim-repeat'           => 'https://github.com/tpope/vim-repeat.git'
 }
 
 desc 'install modules'
