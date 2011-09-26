@@ -389,8 +389,8 @@ nmap <S-Tab> gT
 "let twitvim_api_root      = "https://api.twitter.com/1"
 
 "let g:SuperTabDefaultCompletionType = 'context'
-let g:vimwiki_list = [{'path': '~/.stuff/vimwiki/',
-                       \ 'path_html': '~/.stuff/vimwiki_html/'}]
+let g:vimwiki_list = [{'path': '~/Dropbox/.stuff/vimwiki/',
+                       \ 'path_html': '~/Dropbox/.stuff/vimwiki_html/'}]
 
 
 noremap <F5> <ESC>:w<CR>:execute "!python %"<CR><CR>
