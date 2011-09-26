@@ -23,7 +23,13 @@ MODULES = {
 
 desc 'install modules'
 task :install do
-  bpath = File.join(File.dirname(__FILE__), 'bundle')
+  dir = File.dirname(__FILE__)
+  unless File.symlink?(File.join(dir, '../.vimrc'))
+    puts "create symlink:  .vimrc -> .vim/vimrc"
+    system("cd && ln -s .vim/vimrc .vimrc")
+  end
+
+  bpath = File.join(dir, 'bundle')
   installed_modules = Dir.entries(bpath) - [".",".."]
   MODULES.each do |name, url|
     module_path = File.join(bpath, name.to_s)
