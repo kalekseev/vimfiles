@@ -35,6 +35,7 @@ set visualbell t_vb=
 "russian keymap
 set keymap=russian-jcukenwin 
 set iminsert=0
+set imsearch=0
 
 "try to make possible to navigate within lines of wrapped lines
 ""nmap <Down> gj
