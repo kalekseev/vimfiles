@@ -36,6 +36,7 @@ set visualbell t_vb=
 set keymap=russian-jcukenwin 
 set iminsert=0
 set imsearch=0
+set fileencodings=ucs-bom,utf-8,default,cp1251
 
 "try to make possible to navigate within lines of wrapped lines
 ""nmap <Down> gj
@@ -43,50 +44,10 @@ set imsearch=0
 ""set fo=l
 
 "statusline setup
-"set statusline=%f       "tail of the filename
-
-"Git
-"set statusline+=[%{GitBranch()}]
-
-
-"Display a warning if file encoding isnt utf-8
-"set statusline+=%#warningmsg#
-"set statusline+=%{(&fenc!='utf-8'&&&fenc!='')?'['.&fenc.']':''}
-"set statusline+=%*
-
-"set statusline+=%h      "help file flag
-"set statusline+=%y      "filetype
-"set statusline+=%r      "read only flag
-"set statusline+=%m      "modified flag
-
-"display a warning if &et is wrong, or we have mixed-indenting
-"set statusline+=%#error#
-"set statusline+=%{StatuslineTabWarning()}
-"set statusline+=%*
-"
-"set statusline+=%{StatuslineTrailingSpaceWarning()}
-"
-"set statusline+=%{StatuslineLongLineWarning()}
-"
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-
-"display a warning if &paste is set
-"set statusline+=%#error#
-"set statusline+=%{&paste?'[paste]':''}
-"set statusline+=%*
-
-"set statusline+=%=      "left/right separator
 "fugitive branch name in statusline
 
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P 
 
-"set statusline+=%{StatuslineCurrentHighlight()}\ \ "current highlight
-
-"set statusline+=%c,     "cursor column
-"set statusline+=%l/%L   "cursor line/total lines
-"set statusline+=\ %P    "percent through file
 set laststatus=2
 
 "turn off needless toolbar on gvim/mvim
@@ -286,7 +247,7 @@ silent! nmap <silent> <Leader>p :NERDTreeToggle<CR>
 nnoremap <silent> <C-f> :NERDTreeFind<CR>
 
 "make <c-l> clear the highlight as well as redraw
-nnoremap <C-L> :nohls<CR><C-L>
+nnoremap <C-L> :nohls<CR>
 inoremap <C-L> <C-O>:nohls<CR>
 
 "map to bufexplorer
@@ -385,8 +346,8 @@ nmap <S-Tab> gT
 
 ""let ScreenShot = {'Icon':0, 'Credits':0, 'force_background':'#FFFFFF'}
 "let twitvim_enable_python = 1
-"let twitvim_browser_cmd   = '/usr/bin/firefox-4.0'
-"let twitvim_api_root      = "https://api.twitter.com/1"
+"let twitvim_browser_cmd   = '/usr/bin/firefox-4.0' let twitvim_api_root
+"= "https://api.twitter.com/1"
 
 "let g:SuperTabDefaultCompletionType = 'context'
 let g:vimwiki_list = [{'path': '~/Dropbox/.stuff/vimwiki/',
@@ -394,4 +355,4 @@ let g:vimwiki_list = [{'path': '~/Dropbox/.stuff/vimwiki/',
 let g:vimwiki_browsers = ['firefox', 'chromium-browser']
 
 
-noremap <F5> <ESC>:w<CR>:execute "!python %"<CR><CR>
+noremap <F5> <ESC>:w<CR>:execute "!python %"<CR>
