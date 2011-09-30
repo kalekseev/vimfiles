@@ -355,4 +355,14 @@ let g:vimwiki_list = [{'path': '~/Dropbox/.stuff/vimwiki/',
 let g:vimwiki_browsers = ['firefox', 'chromium-browser']
 
 
-noremap <F5> <ESC>:w<CR>:execute "!python %"<CR>
+au BufRead,BufNewFile *  call SetFt()
+function! SetFt()
+  if &ft == 'xml'
+    noremap <F5> <ESC>:w<CR>:execute "!xmllint --valid --noout %"<CR>
+  elseif &ft == 'python'
+    noremap <F5> <ESC>:w<CR>:execute "!python %"<CR>
+  elseif &ft == 'ruby'
+    noremap <F5> <ESC>:w<CR>:execute "!ruby %"<CR>
+  endif
+endfunction
+" if &ft == 'xml' | noremap <F5> <ESC>:w<CR>:execute "!xmllint --valid --noout %"<CR>| endif
