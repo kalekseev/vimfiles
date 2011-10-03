@@ -1,10 +1,9 @@
-for add docs for new plugin call `pathogen#helptags()`
-`apt-get install exuberant-ctags ncurses-term`
+INSTALL
+`apt-get install exuberant-ctags ncurses-term
+cd ~/.vim && rake install`
 
 TODO
 snippets
-compile python in vim sample ':vnoremap <f5> :!python<CR>
-http://vim.wikia.com/wiki/Execute_Python_from_within_current_file
 
 Command-T install
 apt-get install ruby1.8-dev

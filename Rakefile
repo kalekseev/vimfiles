@@ -14,7 +14,7 @@ MODULES = {
   :SQLUtilities           => 'https://github.com/vim-scripts/SQLUtilities.git',
   :'Command-T'            => 'https://github.com/wincent/Command-T.git',
   :'vim-colors-solarized' => 'https://github.com/altercation/vim-colors-solarized.git',
-  :'vim-gnupg'            => 'https://gitorious.org/vim-gnupg/vim-gnupg.git',
+  :'vim-gnupg'            => 'https://git.gitorious.org/vim-gnupg/vim-gnupg.git',
   :'vim-commentary'       => 'https://github.com/tpope/vim-commentary.git',
   :vimwiki                => 'https://github.com/vim-scripts/vimwiki.git',
   :'bufexplorer.zip'	  => 'https://github.com/vim-scripts/bufexplorer.zip.git',
@@ -30,6 +30,7 @@ task :install do
   end
 
   bpath = File.join(dir, 'bundle')
+  Dir.mkdir(bpath) unless Dir.exists?(bpath)
   installed_modules = Dir.entries(bpath) - [".",".."]
   MODULES.each do |name, url|
     module_path = File.join(bpath, name.to_s)

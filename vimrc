@@ -192,7 +192,7 @@ nmap <S-Tab> gT
 
 "let g:SuperTabDefaultCompletionType = 'context'
 let g:vimwiki_list = [{'path': '~/Dropbox/.stuff/vimwiki/',
-                       \ 'path_html': '~/Dropbox/.stuff/vimwiki_html/'}]
+                       \ 'path_html': '~/tmp/vimwiki_html/'}]
 let g:vimwiki_browsers = ['firefox', 'chromium-browser']
 
 au BufRead,BufNewFile *  call SetRunCommand()
