@@ -195,6 +195,11 @@ let g:vimwiki_list = [{'path': '~/Dropbox/.stuff/vimwiki/',
                        \ 'path_html': '~/tmp/vimwiki_html/'}]
 let g:vimwiki_browsers = ['firefox', 'chromium-browser']
 
+"Octave syntax
+augroup filetypedetect
+au! BufRead,BufNewFile *.m,*.oct set filetype=octave
+augroup END
+
 au BufRead,BufNewFile *  call SetRunCommand()
 function! SetRunCommand()
   if &ft == 'xml'

@@ -18,7 +18,8 @@ MODULES = {
   :'vim-commentary'       => 'https://github.com/tpope/vim-commentary.git',
   :vimwiki                => 'https://github.com/vim-scripts/vimwiki.git',
   :'bufexplorer.zip'	  => 'https://github.com/vim-scripts/bufexplorer.zip.git',
-  :'vim-repeat'           => 'https://github.com/tpope/vim-repeat.git'
+  :'vim-repeat'           => 'https://github.com/tpope/vim-repeat.git',
+  :octave                 => 'https://github.com/vim-scripts/octave.vim--.git',
 }
 
 desc 'install modules'
@@ -48,14 +49,4 @@ task :install do
   end
 end
 
-# 	url = https://github.com/tpope/vim-haml.git
-# 	url = https://github.com/tpope/vim-markdown.git
-# 	url = https://github.com/vim-scripts/taglist.vim.git
-# 	url = https://github.com/vim-scripts/matchit.zip.git
-# 	url = https://github.com/vim-scripts/pythoncomplete.git
-# 	url = https://github.com/vim-scripts/python.vim--Vasiliev.git
-# 	url = https://github.com/vim-scripts/TwitVim.git
-# 	url = https://github.com/tpope/vim-pastie.git
-# 	url = https://github.com/mattn/gist-vim.git
-# 	url = https://github.com/vim-scripts/LaTeX-Suite-aka-Vim-LaTeX.git
-# [dbext]
+task :default => 'install'
