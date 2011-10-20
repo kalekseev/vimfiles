@@ -20,6 +20,7 @@ MODULES = {
   :'bufexplorer.zip'	  => 'https://github.com/vim-scripts/bufexplorer.zip.git',
   :'vim-repeat'           => 'https://github.com/tpope/vim-repeat.git',
   :octave                 => 'https://github.com/vim-scripts/octave.vim--.git',
+  :'ack.vim'              => 'https://github.com/mileszs/ack.vim.git',
 }
 
 desc 'install modules'

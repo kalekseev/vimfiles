@@ -195,6 +195,9 @@ let g:vimwiki_list = [{'path': '~/Dropbox/.stuff/vimwiki/',
                        \ 'path_html': '~/tmp/vimwiki_html/'}]
 let g:vimwiki_browsers = ['firefox', 'chromium-browser']
 
+"ack.vim
+let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+
 "Octave syntax
 augroup filetypedetect
 au! BufRead,BufNewFile *.m,*.oct set filetype=octave
