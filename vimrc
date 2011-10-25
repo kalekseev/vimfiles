@@ -203,6 +203,9 @@ augroup filetypedetect
 au! BufRead,BufNewFile *.m,*.oct set filetype=octave
 augroup END
 
+"vim-commentary add octave support
+autocmd FileType octave set commentstring=%\ %s
+
 au BufRead,BufNewFile *  call SetRunCommand()
 function! SetRunCommand()
   if &ft == 'xml'
