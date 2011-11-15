@@ -97,6 +97,10 @@ set ttymouse=xterm2
 "hide buffers when not displayed
 set hidden
 
+"backup directory
+set backupdir=~/.vim/backup,.
+set directory=~/.vim/backup,.
+
 "Command-T configuration
 "let g:CommandTMaxHeight=10
 "let g:CommandTMatchWindowAtTop=1
