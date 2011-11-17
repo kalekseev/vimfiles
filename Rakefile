@@ -23,6 +23,7 @@ MODULES = {
   :'ack.vim'              => 'https://github.com/mileszs/ack.vim.git',
   :'vim-sinatra-ruby'     => 'https://github.com/hallison/vim-ruby-sinatra.git',
   :'html5.vim'            => 'https://github.com/othree/html5.vim.git',
+  :'dbext.vim'            => 'https://github.com/Rambominator/dbext.vim.git',
 }
 
 desc 'install modules'
