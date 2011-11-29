@@ -140,8 +140,7 @@ silent! nmap <silent> <Leader>p :NERDTreeToggle<CR>
 nnoremap <silent> <C-f> :NERDTreeFind<CR>
 
 "make <c-n> clear the highlight as well as redraw
-nnoremap <C-N> :nohls<CR>
-inoremap <C-N> <C-O>:nohls<CR>
+nnoremap <leader>m :nohls<CR>
 
 "map to bufexplorer
 nnoremap <leader>b :BufExplorer<cr>
@@ -154,11 +153,6 @@ noremap Q gq
 
 "make Y consistent with C and D
 nnoremap Y y$
-
-"bindings for ragtag
-inoremap <M-o>       <Esc>o
-inoremap <C-j>       <Down>
-let g:ragtag_global_maps = 1
 
 "mark syntax errors with :signs
 let g:syntastic_enable_signs=1
@@ -194,6 +188,11 @@ nmap <C-s> :w<CR>
 nmap <Tab> gt
 nmap <S-Tab> gT
 
+"toggle paste
+nnoremap <F2> :set invpaste paste?<CR>
+set pastetoggle=<F2>
+set showmode
+
 "let g:SuperTabDefaultCompletionType = 'context'
 let g:vimwiki_list = [{'path': '~/Dropbox/.stuff/vimwiki/',
                        \ 'path_html': '~/tmp/vimwiki_html/'}]
@@ -201,6 +200,10 @@ let g:vimwiki_browsers = ['firefox', 'chromium-browser']
 
 "ack.vim
 let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+
+"tagbar
+let g:tagbar_autoclose = 1
+nnoremap <silent> <F9> :TagbarToggle<CR>
 
 "Octave syntax
 augroup filetypedetect

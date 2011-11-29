@@ -24,6 +24,7 @@ MODULES = {
   :'vim-sinatra-ruby'     => 'https://github.com/hallison/vim-ruby-sinatra.git',
   :'html5.vim'            => 'https://github.com/othree/html5.vim.git',
   :'dbext.vim'            => 'https://github.com/Rambominator/dbext.vim.git',
+  :tagbar                 => 'https://github.com/majutsushi/tagbar.git',
 }
 
 desc 'install modules'
