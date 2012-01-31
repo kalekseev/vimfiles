@@ -157,6 +157,10 @@ nnoremap Y y$
 "mark syntax errors with :signs
 let g:syntastic_enable_signs=1
 
+"don't load pi_paren
+let loaded_matchparen=1
+nnoremap <leader>rp :RainbowParenthesesToggle<CR>
+
 "key mapping for vimgrep result navigation
 map <A-o> :copen<CR>
 map <A-q> :cclose<CR>
@@ -212,6 +216,7 @@ augroup END
 
 "vim-commentary add octave support
 autocmd FileType octave set commentstring=%\ %s
+autocmd FileType ruby-sinatra set commentstring=#\ %s
 
 au BufRead,BufNewFile *  call SetRunCommand()
 function! SetRunCommand()
