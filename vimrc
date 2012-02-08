@@ -43,6 +43,12 @@ set fileencodings=ucs-bom,utf-8,default,cp1251
 ""nmap <Up> gk
 ""set fo=l
 
+" disable arrow keys
+noremap <Up> <nop>
+noremap <Down> <nop>
+noremap <Left> <nop>
+noremap <Right> <nop>
+
 "statusline setup
 "fugitive branch name in statusline
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P 
