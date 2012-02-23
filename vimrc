@@ -33,9 +33,10 @@ set linespace=4
 set visualbell t_vb=
 
 "russian keymap
-set keymap=russian-jcukenwin 
-set iminsert=0
-set imsearch=0
+" set keymap=russian-jcukenwin 
+" set iminsert=0
+" set imsearch=0
+set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
 set fileencodings=ucs-bom,utf-8,default,cp1251
 
 "try to make possible to navigate within lines of wrapped lines
