@@ -26,6 +26,8 @@ MODULES = {
   :'dbext.vim'            => 'https://github.com/Rambominator/dbext.vim.git',
   :tagbar                 => 'https://github.com/majutsushi/tagbar.git',
   :'rainbow-parentheses'  => 'https://github.com/kien/rainbow_parentheses.vim.git',
+  :'gist-vim'             => 'https://github.com/mattn/gist-vim.git',
+  :'webapi-vim'           => 'https://github.com/mattn/webapi-vim.git',
 }
 
 desc 'install modules'
