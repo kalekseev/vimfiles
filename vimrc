@@ -231,6 +231,7 @@ function! SetRunCommand()
     noremap <F5> <ESC>:w<CR>:execute "!xmllint --valid --noout %"<CR>
   elseif &ft == 'python'
     noremap <F5> <ESC>:w<CR>:execute "!python %"<CR>
+    noremap <F6> <ESC>:w<CR>:execute "!pep8 %"<CR>
   elseif &ft == 'ruby'
     noremap <F5> <ESC>:w<CR>:execute "!ruby %"<CR>
   endif
