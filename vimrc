@@ -224,6 +224,10 @@ augroup END
 "vim-commentary add octave support
 autocmd FileType octave set commentstring=%\ %s
 autocmd FileType ruby-sinatra set commentstring=#\ %s
+if !exists("autocommands_loaded")
+  let autocommands_loaded = 1
+  autocmd BufRead,BufNewFile,FileReadPost *.py source ~/.vim/python
+endif
 
 au BufRead,BufNewFile *  call SetRunCommand()
 function! SetRunCommand()

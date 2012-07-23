@@ -13,13 +13,15 @@ MODULES = {
   :'vim-commentary'       => 'https://github.com/tpope/vim-commentary.git',
   :'ack.vim'              => 'https://github.com/mileszs/ack.vim.git',
   :'octave'               => 'https://github.com/vim-scripts/octave.vim--.git',
-  :'python-mode'          => 'https://github.com/klen/python-mode.git',
+  :'supertab'             => 'https://github.com/ervandew/supertab.git',
+  :'pyflakes'             => 'https://github.com/mitechie/pyflakes-pathogen.git',
+  :'gundo'                => 'https://github.com/sjl/gundo.vim.git',
+  :'autoclose'            => 'https://github.com/andrewle/vim-autoclose.git',
 }
 
   # :'syntastic'            => 'https://github.com/scrooloose/syntastic.git',
   # :'rainbow-parentheses'  => 'https://github.com/kien/rainbow_parentheses.vim.git',
   # :'Align'                => 'https://github.com/vim-scripts/Align.git',
-  # :'supertab'             => 'https://github.com/ervandew/supertab.git',
   # :'vim-ruby'             => 'https://github.com/vim-ruby/vim-ruby.git',
   # :'vim-colors-solarized' => 'https://github.com/altercation/vim-colors-solarized.git',
   # :'vim-gnupg'            => 'https://git.gitorious.org/vim-gnupg/vim-gnupg.git',
