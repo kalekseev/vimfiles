@@ -17,6 +17,7 @@ MODULES = {
   :'pyflakes'             => 'https://github.com/mitechie/pyflakes-pathogen.git',
   :'gundo'                => 'https://github.com/sjl/gundo.vim.git',
   :'autoclose'            => 'https://github.com/andrewle/vim-autoclose.git',
+  :'pydoc'                => 'https://github.com/vim-scripts/pydoc.vim.git',
 }
 
   # :'syntastic'            => 'https://github.com/scrooloose/syntastic.git',
