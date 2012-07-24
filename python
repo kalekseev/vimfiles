@@ -113,3 +113,4 @@ def RemoveBreakpoints():
 
 vim.command( "map <s-f7> :py RemoveBreakpoints()<cr>")
 EOF
+" vim:syntax=vim
