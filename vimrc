@@ -242,5 +242,7 @@ function! SetRunCommand()
     noremap <F6> <ESC>:w<CR>:execute "!pep8 %"<CR>
   elseif &ft == 'ruby'
     noremap <F5> <ESC>:w<CR>:execute "!ruby %"<CR>
+  elseif &ft == 'r'
+    noremap <F5> <ESC>:w<CR>:execute "!Rscript %"<CR>
   endif
 endfunction
