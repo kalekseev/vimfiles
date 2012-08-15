@@ -26,7 +26,7 @@ autocmd filetype python source ~/.vim/bundle/pydoc/plugin/pydoc.vim
 set formatoptions=cq textwidth=72 foldignore= wildignore+=*.py[co]
 
 " Highlight end of line whitespace.
-highlight WhitespaceEOL ctermbg=red guibg=red
+highlight WhitespaceEOL ctermbg=Black guibg=red
 match WhitespaceEOL /\s\+$/
 
 " The next two highlight matches break the previous one, I don't know why.
@@ -64,7 +64,7 @@ import vim
 def EvaluateCurrentRange():
     eval(compile('\n'.join(vim.current.range),'','exec'),globals())
 EOL
-map <C-h> :py EvaluateCurrentRange()
+map <C-e> :py EvaluateCurrentRange()
 
 " Use F7/Shift-F7 to add/remove a breakpoint (pdb.set_trace)
 " Totally cool.
@@ -91,4 +91,5 @@ fun! BreakpointToggle(lnum) "{{{
 endfunction
 
 nnoremap <silent> <buffer> <f7> :call BreakpointToggle(line('.'))<CR>
+highlight SpellBad term=underline gui=undercurl guisp=Orange ctermbg=Black
 " vim:syntax=vim
