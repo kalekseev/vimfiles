@@ -45,10 +45,10 @@ set fileencodings=ucs-bom,utf-8,default,cp1251
 ""set fo=l
 
 " disable arrow keys
-noremap <Up> <nop>
-noremap <Down> <nop>
-noremap <Left> <nop>
-noremap <Right> <nop>
+noremap <Up> <C-W>+
+noremap <Down> <C-W>-
+noremap <Left> <C-W><
+noremap <Right> <C-W>>
 inoremap <Esc>A <up>
 inoremap <Esc>B <down>
 inoremap <Esc>C <right>
