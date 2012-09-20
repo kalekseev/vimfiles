@@ -18,6 +18,7 @@ MODULES = {
   :'gundo'                => 'https://github.com/sjl/gundo.vim.git',
   :'autoclose'            => 'https://github.com/andrewle/vim-autoclose.git',
   :'pydoc'                => 'https://github.com/vim-scripts/pydoc.vim.git',
+  :'calendar'             => 'https://github.com/mattn/calendar-vim.git',
 }
 
   # :'syntastic'            => 'https://github.com/scrooloose/syntastic.git',
