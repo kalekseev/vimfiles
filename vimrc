@@ -2,12 +2,10 @@
 filetype off
 
 source ~/.vim/bundle/vim-pathogen/autoload/pathogen.vim
-"load pathogen managed plugins
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
 "Use Vim settings, rather then Vi settings (much better!).
-"This must be first, because it changes other options as a side effect.
 set nocompatible
 
 "allow backspacing over everything in insert mode
@@ -33,39 +31,26 @@ set linespace=4
 set visualbell t_vb=
 
 "russian keymap
-" set keymap=russian-jcukenwin 
-" set iminsert=0
-" set imsearch=0
 set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
 set fileencodings=ucs-bom,utf-8,default,cp1251
-
-"try to make possible to navigate within lines of wrapped lines
-""nmap <Down> gj
-""nmap <Up> gk
-""set fo=l
 
 " disable arrow keys
 noremap <Up> <C-W>+
 noremap <Down> <C-W>-
 noremap <Left> <C-W><
 noremap <Right> <C-W>>
-inoremap <Esc>A <up>
-inoremap <Esc>B <down>
-inoremap <Esc>C <right>
-inoremap <Esc>D <left>
 
 "statusline setup
 "fugitive branch name in statusline
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P 
-
 set laststatus=2
+
+"auto-clean fugitive buffers
+autocmd BufReadPost fugitive://* set bufhidden=delete
 
 "turn off needless toolbar on gvim/mvim
 set guioptions-=T
 set guioptions-=m
-
-"auto-clean fugitive buffers
-autocmd BufReadPost fugitive://* set bufhidden=delete
 
 "indent settings
 set shiftwidth=2
@@ -81,11 +66,6 @@ set nofoldenable        "dont fold by default
 set wildmode=list:longest   "make cmdline tab completion similar to bash
 set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
 set wildignore=*.o,*.obj,*~,.git,*.pyc "stuff to ignore when tab completing
-
-"display tabs and trailing spaces
-"set list
-"set listchars=tab:\ \ ,extends:>,precedes:<
-" disabling list because it interferes with soft wrap
 
 set formatoptions-=o "dont continue comments when pushing o/O
 
@@ -128,7 +108,7 @@ if has("gui_running")
     set columns=84
 
     "set guifont=Inconsolata\ 14
-    set guifont=Consolas\ 14
+    set guifont=Consolas\ 12
     set colorcolumn=80
 else
     "dont load csapprox if there is no gui support - silences an annoying warning
@@ -137,7 +117,11 @@ else
     "set molokai colorscheme when running vim in gnome terminal
     if $COLORTERM == 'gnome-terminal'
         set term=gnome-256color
-        colorscheme molokai
+        set background=dark
+        colorscheme solarized
+        set guifont=Consolas\ 12
+        set colorcolumn=80
+        "colorscheme molokai
     else
         colorscheme default
     endif
@@ -166,11 +150,7 @@ noremap Q gq
 nnoremap Y y$
 
 "mark syntax errors with :signs
-let g:syntastic_enable_signs=1
-
-"don't load pi_paren
-let loaded_matchparen=1
-nnoremap <leader>rp :RainbowParenthesesToggle<CR>
+"let g:syntastic_enable_signs=1
 
 "key mapping for vimgrep result navigation
 map <A-o> :copen<CR>
@@ -220,26 +200,22 @@ let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 let g:tagbar_autoclose = 1
 nnoremap <silent> <F9> :TagbarToggle<CR>
 
+"Calendar.vim start week with monday
+let g:calendar_monday = 1
+
 "Octave syntax
 augroup filetypedetect
 au! BufRead,BufNewFile *.m,*.oct set filetype=octave
 augroup END
 
-"vim-commentary add octave support
-autocmd FileType octave set commentstring=%\ %s
-autocmd FileType ruby-sinatra set commentstring=#\ %s
-if !exists("autocommands_loaded")
-  let autocommands_loaded = 1
-  autocmd BufRead,BufNewFile,FileReadPost *.py source ~/.vim/python
-endif
-
-au BufRead,BufNewFile *  call SetRunCommand()
+au BufRead,BufNewFile *.xml,*.py,*.rb,*.R call SetRunCommand()
 function! SetRunCommand()
   if &ft == 'xml'
     noremap <F5> <ESC>:w<CR>:execute "!xmllint --valid --noout %"<CR>
   elseif &ft == 'python'
     noremap <F5> <ESC>:w<CR>:execute "!python %"<CR>
     noremap <F6> <ESC>:w<CR>:execute "!pep8 %"<CR>
+    noremap <F8> <ESC>:w<CR>:execute "!python3 %"<CR>
   elseif &ft == 'ruby'
     noremap <F5> <ESC>:w<CR>:execute "!ruby %"<CR>
   elseif &ft == 'r'

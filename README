@@ -1,12 +1,6 @@
 INSTALL
-`apt-get install exuberant-ctags ncurses-term
+`sudo apt-get install exuberant-ctags ncurses-term
 cd ~/.vim && rake install`
 
 TODO
 snippets
-
-Command-T install
-apt-get install ruby1.8-dev
-cd /.vim/bundle/Command-T/ruby/command-t
-ruby extconf.rb
-make

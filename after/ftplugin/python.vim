@@ -11,12 +11,9 @@ set tw=78 ts=4 sw=4 sta et sts=4 ai
 " More syntax highlighting.
 let python_highlight_all = 1
 
-" Smart indenting
-set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-
 " Auto completion via ctrl-space (instead of the nasty ctrl-x ctrl-o)
-set omnifunc=pythoncomplete#Complete
-inoremap <Nul> <C-x><C-o>
+"set omnifunc=pythoncomplete#Complete
+"inoremap <Nul> <C-x><C-o>
 
 " Get this plugin from http://www.vim.org/scripts/script.php?script_id=1112
 " Pressing "K" takes you to the documentation for the word under the cursor.
@@ -29,14 +26,6 @@ set formatoptions=cq textwidth=72 foldignore= wildignore+=*.py[co]
 highlight WhitespaceEOL ctermbg=Black guibg=red
 match WhitespaceEOL /\s\+$/
 
-" The next two highlight matches break the previous one, I don't know why.
-" Show long lines.
-"highlight LongLine guibg=red ctermbg=red
-"match LongLine /\%>79v.\+/
-" Highlight bzr merge markers.
-"highlight MergeMarker guibg=red ctermbg=red
-"match MergeMarker /^[<=>\|]\{7\}\( [A-Z]\+\)?$/
-
 " `gf` jumps to the filename under the cursor.  Point at an import statement
 " and jump to it!
 python << EOF
@@ -48,14 +37,9 @@ for p in sys.path:
         vim.command(r"set path+=%s" % (p.replace(" ", r"\ ")))
 EOF
 
-" Generate tags with: ctags -R -f ~/.vim/tags/python24.ctags /usr/lib/python2.4/
+" Generate tags with: ctags -R -f ~/.vim/tags/python27.ctags /usr/lib/python2.7/
 " ctrl-[ to go to the tag under the cursor, ctrl-T to go back.
-set tags+=$HOME/.vim/tags/python24.ctags
-
-" Use :make to see syntax errors. (:cn and :cp to move around, :dist to see
-" all errors)
-set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
-set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
+set tags+=$HOME/.vim/tags/python27.ctags
 
 " Execute a selection of code (very cool!)
 " Use VISUAL to select a range and then hit ctrl-h to execute it.
@@ -91,5 +75,5 @@ fun! BreakpointToggle(lnum) "{{{
 endfunction
 
 nnoremap <silent> <buffer> <f7> :call BreakpointToggle(line('.'))<CR>
-highlight SpellBad term=underline gui=undercurl guisp=Orange ctermbg=Black
+highlight SpellBad term=underline ctermfg=LightMagenta
 " vim:syntax=vim
