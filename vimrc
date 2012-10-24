@@ -91,6 +91,7 @@ set hidden
 "backup directory
 set backupdir=~/.vim/backup,.
 set directory=~/.vim/backup,.
+set viminfo+=n~/.vim/.viminfo
 
 "Command-T configuration
 "let g:CommandTMaxHeight=10

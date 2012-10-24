@@ -75,5 +75,6 @@ fun! BreakpointToggle(lnum) "{{{
 endfunction
 
 nnoremap <silent> <buffer> <f7> :call BreakpointToggle(line('.'))<CR>
-highlight SpellBad term=underline ctermfg=LightMagenta
+highlight SpellBad term=underline
+"ctermfg=Gray
 " vim:syntax=vim
