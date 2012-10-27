@@ -19,6 +19,7 @@ MODULES = {
   :'pydoc'                => 'https://github.com/vim-scripts/pydoc.vim.git',
   :'pyflakes'             => 'https://github.com/mitechie/pyflakes-pathogen.git',
   :'ctrlp'                => 'https://github.com/kien/ctrlp.vim.git',
+  :'tslim'                => 'https://github.com/xaviershay/tslime.vim.git',
 }
 
 #  :'Command-T'            => 'https://github.com/wincent/Command-T.git',
