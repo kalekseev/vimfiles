@@ -223,3 +223,4 @@ function! SetRunCommand()
     noremap <F5> <ESC>:w<CR>:execute "!Rscript %"<CR>
   endif
 endfunction
+let g:syntastic_enable_signs=1

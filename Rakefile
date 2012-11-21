@@ -17,15 +17,14 @@ MODULES = {
   :'calendar'             => 'https://github.com/mattn/calendar-vim.git',
   :'solirized'            => 'https://github.com/altercation/vim-colors-solarized.git',
   :'pydoc'                => 'https://github.com/vim-scripts/pydoc.vim.git',
-  :'pyflakes'             => 'https://github.com/kevinw/pyflakes-vim.git',
   :'ctrlp'                => 'https://github.com/kien/ctrlp.vim.git',
   :'tslim'                => 'https://github.com/xaviershay/tslime.vim.git',
+  :'syntastic'            => 'https://github.com/scrooloose/syntastic.git',
 }
 
 #  :'Command-T'            => 'https://github.com/wincent/Command-T.git',
 #  :'vim-commentary'       => 'https://github.com/tpope/vim-commentary.git',
 #  :'autoclose'            => 'https://github.com/andrewle/vim-autoclose.git',
-  # :'syntastic'            => 'https://github.com/scrooloose/syntastic.git',
   # :'rainbow-parentheses'  => 'https://github.com/kien/rainbow_parentheses.vim.git',
   # :'Align'                => 'https://github.com/vim-scripts/Align.git',
   # :'vim-ruby'             => 'https://github.com/vim-ruby/vim-ruby.git',
@@ -59,9 +58,9 @@ task :install do
     end
     installed_modules -= [name.to_s]
   end
-  installed_modules.each do |dir| 
-    FileUtils.rm_rf(File.join(bpath, dir.to_s))
-    puts "rm -rf #{dir}"
+  installed_modules.each do |dirb|
+    FileUtils.rm_rf(File.join(bpath, dirb.to_s))
+    puts "rm -rf #{dirb}"
   end
 end
 
