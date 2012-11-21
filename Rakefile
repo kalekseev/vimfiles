@@ -17,7 +17,7 @@ MODULES = {
   :'calendar'             => 'https://github.com/mattn/calendar-vim.git',
   :'solirized'            => 'https://github.com/altercation/vim-colors-solarized.git',
   :'pydoc'                => 'https://github.com/vim-scripts/pydoc.vim.git',
-  :'pyflakes'             => 'https://github.com/mitechie/pyflakes-pathogen.git',
+  :'pyflakes'             => 'https://github.com/kevinw/pyflakes-vim.git',
   :'ctrlp'                => 'https://github.com/kien/ctrlp.vim.git',
   :'tslim'                => 'https://github.com/xaviershay/tslime.vim.git',
 }

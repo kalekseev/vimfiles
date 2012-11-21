@@ -50,31 +50,17 @@ def EvaluateCurrentRange():
 EOL
 map <C-e> :py EvaluateCurrentRange()
 
-" Use F7/Shift-F7 to add/remove a breakpoint (pdb.set_trace)
-" Totally cool.
 
-python << EOF
-from imp import find_module
-try:
-    find_module('ipdb')
-    vim.command('let g:pymode_breakpoint_cmd = "import ipdb; ipdb.set_trace() ### XXX BREAKPOINT"')
-except ImportError:
-    vim.command('let g:pymode_breakpoint_cmd = "import pdb; pdb.set_trace() ### XXX BREAKPOINT"')
-EOF
-
-fun! BreakpointToggle(lnum) "{{{
+fun! BreakpointToggle(lnum, cmd)
     let line = getline(a:lnum)
-    if strridx(line, g:pymode_breakpoint_cmd) != -1
-        normal dd
-    else
-        let plnum = prevnonblank(a:lnum)
-        call append(line('.')-1, repeat(' ', indent(plnum)).g:pymode_breakpoint_cmd)
-        normal k
-    endif
+    let plnum = prevnonblank(a:lnum)
+    call append(line('.')-1, repeat(' ', indent(plnum)).a:cmd)
+    normal k
     if &modifiable && &modified | write | endif
 endfunction
 
-nnoremap <silent> <buffer> <f7> :call BreakpointToggle(line('.'))<CR>
+nnoremap <silent> <buffer> <F7> :call BreakpointToggle(line('.'), "import ipdb; ipdb.set_trace() ### XXX BREAKPOINT")<CR>
+nnoremap <silent> <buffer> <F12> :call BreakpointToggle(line('.'), "import pdb; pdb.set_trace() ### XXX BREAKPOINT")<CR>
 highlight SpellBad term=underline
 "ctermfg=Gray
 " vim:syntax=vim
