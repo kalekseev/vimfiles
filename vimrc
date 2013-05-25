@@ -224,3 +224,11 @@ function! SetRunCommand()
   endif
 endfunction
 let g:syntastic_enable_signs=1
+
+function! BreakpointToggle(lnum, cmd)
+    let line = getline(a:lnum)
+    let plnum = prevnonblank(a:lnum)
+    call append(line('.')-1, repeat(' ', indent(plnum)).a:cmd)
+    normal k
+    if &modifiable && &modified | write | endif
+endfunction
