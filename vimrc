@@ -2,7 +2,7 @@
 filetype off
 
 source ~/.vim/bundle/vim-pathogen/autoload/pathogen.vim
-call pathogen#runtime_append_all_bundles()
+call pathogen#incubate()
 call pathogen#helptags()
 
 "Use Vim settings, rather then Vi settings (much better!).
@@ -215,7 +215,6 @@ function! SetRunCommand()
     noremap <F5> <ESC>:w<CR>:execute "!xmllint --valid --noout %"<CR>
   elseif &ft == 'python'
     noremap <F5> <ESC>:w<CR>:execute "!python %"<CR>
-    noremap <F6> <ESC>:w<CR>:execute "!pep8 %"<CR>
     noremap <F8> <ESC>:w<CR>:execute "!python3 %"<CR>
   elseif &ft == 'ruby'
     noremap <F5> <ESC>:w<CR>:execute "!ruby %"<CR>
