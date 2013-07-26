@@ -189,11 +189,6 @@ nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
 set showmode
 
-"let g:SuperTabDefaultCompletionType = 'context'
-let g:vimwiki_list = [{'path': '~/Dropbox/.stuff/vimwiki/',
-                       \ 'path_html': '~/tmp/vimwiki_html/'}]
-let g:vimwiki_browsers = ['firefox', 'chromium-browser']
-
 "ack.vim
 let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 
@@ -201,13 +196,35 @@ let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 let g:tagbar_autoclose = 1
 nnoremap <silent> <F9> :TagbarToggle<CR>
 
+"airline
+let g:airline_theme="solarized"
+let g:airline_fugitive=1
+let g:airline_syntastic=1
+let g:airline_detect_paste=1
+
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '◀'
+let g:airline_linecolumn_prefix = '¶ '
+let g:airline_fugitive_prefix = '⎇  '
+let g:airline_paste_symbol = 'ρ'
+
+if has("persistent_undo")
+    set undodir=~/.vim/undo,.
+    set undofile
+endif
+
 "Calendar.vim start week with monday
-let g:calendar_monday = 1
+"let g:calendar_monday = 1
+
+"let g:SuperTabDefaultCompletionType = 'context'
+"let g:vimwiki_list = [{'path': '~/Dropbox/.stuff/vimwiki/',
+                       "\ 'path_html': '~/tmp/vimwiki_html/'}]
+"let g:vimwiki_browsers = ['firefox', 'chromium-browser']
 
 "Octave syntax
-augroup filetypedetect
-au! BufRead,BufNewFile *.m,*.oct set filetype=octave
-augroup END
+"augroup filetypedetect
+"au! BufRead,BufNewFile *.m,*.oct set filetype=octave
+"augroup END
 
 au BufRead,BufNewFile *.xml,*.py,*.rb,*.R call SetRunCommand()
 function! SetRunCommand()
