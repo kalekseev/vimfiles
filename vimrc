@@ -42,7 +42,7 @@ noremap <Right> <C-W>>
 
 "statusline setup
 "fugitive branch name in statusline
-set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P 
+"set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 set laststatus=2
 
 "auto-clean fugitive buffers
@@ -93,10 +93,6 @@ set backupdir=~/.vim/backup,.
 set directory=~/.vim/backup,.
 set viminfo+=n~/.vim/.viminfo
 
-"Command-T configuration
-"let g:CommandTMaxHeight=10
-"let g:CommandTMatchWindowAtTop=1
-
 if has("gui_running")
     "tell the term has 256 colors
     set t_Co=256
@@ -115,21 +111,15 @@ else
     "dont load csapprox if there is no gui support - silences an annoying warning
     let g:CSApprox_loaded = 1
 
-    "set molokai colorscheme when running vim in gnome terminal
     if $COLORTERM == 'gnome-terminal'
         set term=gnome-256color
         set background=dark
         colorscheme solarized
-        set guifont=Consolas\ 12
         set colorcolumn=80
-        "colorscheme molokai
     else
         colorscheme default
     endif
 endif
-
-"highlight ColorColumn ctermbg=gray guibg=#252627
-"highlight ColorColumn ctermbg=NONE guibg=#252627
 
 silent! nmap <silent> <Leader>p :NERDTreeToggle<CR>
 ""nnoremap <silent> <C-f> :call FindInNERDTree()<CR>
@@ -149,9 +139,6 @@ noremap Q gq
 
 "make Y consistent with C and D
 nnoremap Y y$
-
-"mark syntax errors with :signs
-"let g:syntastic_enable_signs=1
 
 "key mapping for vimgrep result navigation
 map <A-o> :copen<CR>
