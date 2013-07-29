@@ -227,6 +227,9 @@ function! SetRunCommand()
   endif
 endfunction
 let g:syntastic_enable_signs=1
+let g:syntastic_quiet_warnings=1
+let g:syntastic_python_checkers = ['pyflakes']
+
 
 function! BreakpointToggle(lnum, cmd)
     let line = getline(a:lnum)
