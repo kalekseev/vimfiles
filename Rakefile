@@ -19,6 +19,7 @@ MODULES = {
   :'vim-flake8'       	  => 'https://github.com/nvie/vim-flake8.git',
   :'vim-airline'          => 'https://github.com/bling/vim-airline',
   :'undotree'             => 'https://github.com/mbbill/undotree.git',
+  :'jedi-vim'             => 'https://github.com/davidhalter/jedi-vim.git',
 }
 
 #  :'gundo'                => 'https://github.com/sjl/gundo.vim.git',
