@@ -12,7 +12,6 @@ MODULES = {
   :'ack.vim'              => 'https://github.com/mileszs/ack.vim.git',
   :'supertab'             => 'https://github.com/ervandew/supertab.git',
   :'solirized'            => 'https://github.com/altercation/vim-colors-solarized.git',
-  :'pydoc'                => 'https://github.com/vim-scripts/pydoc.vim.git',
   :'ctrlp'                => 'https://github.com/kien/ctrlp.vim.git',
   :'tslim'                => 'https://github.com/xaviershay/tslime.vim.git',
   :'syntastic'            => 'https://github.com/scrooloose/syntastic.git',

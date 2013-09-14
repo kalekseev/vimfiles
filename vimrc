@@ -1,9 +1,8 @@
 "necessary on some Linux distros for pathogen to properly load bundles
 filetype off
 
-source ~/.vim/bundle/vim-pathogen/autoload/pathogen.vim
-call pathogen#incubate()
-call pathogen#helptags()
+runtime bundle/vim-pathogen/autoload/pathogen.vim
+call pathogen#infect()
 
 "Use Vim settings, rather then Vi settings (much better!).
 set nocompatible
@@ -130,9 +129,6 @@ nnoremap <leader>m :nohls<CR>
 
 "map to bufexplorer
 nnoremap <leader>b :BufExplorer<cr>
-
-"map to CommandT TextMate style finder
-nnoremap <leader>t :CommandT<CR>
 
 "map Q to something useful
 noremap Q gq

@@ -11,14 +11,6 @@ set tw=78 ts=4 sw=4 sta et sts=4 ai
 " More syntax highlighting.
 let python_highlight_all = 1
 
-" Auto completion via ctrl-space (instead of the nasty ctrl-x ctrl-o)
-"set omnifunc=pythoncomplete#Complete
-"inoremap <Nul> <C-x><C-o>
-
-" Get this plugin from http://www.vim.org/scripts/script.php?script_id=1112
-" Pressing "K" takes you to the documentation for the word under the cursor.
-autocmd filetype python source ~/.vim/bundle/pydoc/plugin/pydoc.vim
-
 " Wrap at 72 chars for comments.
 set formatoptions=cq textwidth=72 foldignore= wildignore+=*.py[co]
 
