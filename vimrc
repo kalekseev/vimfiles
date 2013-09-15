@@ -196,13 +196,11 @@ if has("persistent_undo")
     set undofile
 endif
 
-"Calendar.vim start week with monday
-"let g:calendar_monday = 1
+set completeopt=menuone,longest,preview
 
-"let g:SuperTabDefaultCompletionType = 'context'
-"let g:vimwiki_list = [{'path': '~/Dropbox/.stuff/vimwiki/',
-                       "\ 'path_html': '~/tmp/vimwiki_html/'}]
-"let g:vimwiki_browsers = ['firefox', 'chromium-browser']
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+let g:SuperTabLongestEnhanced = 1
 
 "Octave syntax
 "augroup filetypedetect
