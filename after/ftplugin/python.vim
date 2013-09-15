@@ -18,17 +18,6 @@ set formatoptions=cq textwidth=72 foldignore= wildignore+=*.py[co]
 highlight WhitespaceEOL ctermbg=Black guibg=red
 match WhitespaceEOL /\s\+$/
 
-" `gf` jumps to the filename under the cursor.  Point at an import statement
-" and jump to it!
-python << EOF
-import os
-import sys
-import vim
-for p in sys.path:
-    if os.path.isdir(p):
-        vim.command(r"set path+=%s" % (p.replace(" ", r"\ ")))
-EOF
-
 " Generate tags with: ctags -R -f ~/.vim/tags/python27.ctags /usr/lib/python2.7/
 " ctrl-[ to go to the tag under the cursor, ctrl-T to go back.
 set tags+=$HOME/.vim/tags/python27.ctags
@@ -46,15 +35,5 @@ map <C-e> :py EvaluateCurrentRange()
 nnoremap <silent> <buffer> <F7> :call BreakpointToggle(line('.'), "import ipdb; ipdb.set_trace() ### XXX BREAKPOINT")<CR>
 nnoremap <silent> <buffer> <F6> :call Flake8()<CR>
 nnoremap <silent> <buffer> <F12> :call BreakpointToggle(line('.'), "import pdb; pdb.set_trace() ### XXX BREAKPOINT")<CR>
+
 highlight SpellBad term=underline
-"ctermfg=Gray
-" vim:syntax=vim
-
-" Indent Python in the Google way.
-
-setlocal indentexpr=GetGooglePythonIndent(v:lnum)
-
-let s:maxoff = 50 " maximum number of lines to look backwards.
-
-let pyindent_nested_paren="&sw*2"
-let pyindent_open_paren="&sw*2"

@@ -15,13 +15,14 @@ MODULES = {
   :'ctrlp'                => 'https://github.com/kien/ctrlp.vim.git',
   :'tslim'                => 'https://github.com/xaviershay/tslime.vim.git',
   :'syntastic'            => 'https://github.com/scrooloose/syntastic.git',
-  :'vim-flake8'       	  => 'https://github.com/nvie/vim-flake8.git',
   :'vim-airline'          => 'https://github.com/bling/vim-airline',
   :'undotree'             => 'https://github.com/mbbill/undotree.git',
   :'jedi-vim'             => 'https://github.com/davidhalter/jedi-vim.git',
   :'vim-repeat'           => 'https://github.com/tpope/vim-repeat.git',
+  :'vim-python-combined'  => 'https://github.com/mitsuhiko/vim-python-combined.git',
 }
 
+#  :'vim-flake8'       	  => 'https://github.com/nvie/vim-flake8.git',
 #  :'gundo'                => 'https://github.com/sjl/gundo.vim.git',
 #  :'vimwiki'              => 'https://github.com/vim-scripts/vimwiki.git',
 #  :'octave'               => 'https://github.com/vim-scripts/octave.vim--.git',
