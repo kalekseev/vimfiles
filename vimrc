@@ -199,7 +199,6 @@ endif
 set completeopt=menuone,longest,preview
 
 let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 let g:SuperTabLongestEnhanced = 1
 
 "Octave syntax
@@ -220,10 +219,11 @@ function! SetRunCommand()
     noremap <F5> <ESC>:w<CR>:execute "!Rscript %"<CR>
   endif
 endfunction
+
 let g:syntastic_enable_signs=1
 let g:syntastic_quiet_warnings=1
 let g:syntastic_python_checkers = ['pyflakes']
-
+nnoremap <leader>w :let g:syntastic_quiet_warnings = !g:syntastic_quiet_warnings<CR>:w<CR>
 
 function! BreakpointToggle(lnum, cmd)
     let line = getline(a:lnum)
