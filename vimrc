@@ -1,11 +1,30 @@
 "necessary on some Linux distros for pathogen to properly load bundles
 filetype off
 
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-call pathogen#infect()
-
 "Use Vim settings, rather then Vi settings (much better!).
 set nocompatible
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-surround'
+Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'scrooloose/syntastic'
+Bundle 'majutsushi/tagbar'
+Bundle 'vim-scripts/bufexplorer.zip'
+Bundle 'mileszs/ack.vim'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'kien/ctrlp.vim'
+Bundle 'xaviershay/tslime.vim'
+Bundle 'bling/vim-airline'
+Bundle 'mbbill/undotree'
+Bundle 'tpope/vim-repeat'
+Bundle 'mitsuhiko/vim-python-combined',
+Bundle 'Valloric/YouCompleteMe'
+
 
 "allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -195,16 +214,6 @@ if has("persistent_undo")
     set undodir=~/.vim/undo,.
     set undofile
 endif
-
-set completeopt=menuone,longest,preview
-
-let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabLongestEnhanced = 1
-
-"Octave syntax
-"augroup filetypedetect
-"au! BufRead,BufNewFile *.m,*.oct set filetype=octave
-"augroup END
 
 au BufRead,BufNewFile *.xml,*.py,*.rb,*.R call SetRunCommand()
 function! SetRunCommand()
