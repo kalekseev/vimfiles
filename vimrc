@@ -230,9 +230,8 @@ function! SetRunCommand()
 endfunction
 
 let g:syntastic_enable_signs=1
-let g:syntastic_quiet_warnings=1
+let g:syntastic_quiet_messages = {'level': 'warnings'}
 let g:syntastic_python_checkers = ['pyflakes']
-nnoremap <leader>w :let g:syntastic_quiet_warnings = !g:syntastic_quiet_warnings<CR>:w<CR>
 nnoremap <leader>t :%s/\s\+$<CR>
 
 function! BreakpointToggle(lnum, cmd)
