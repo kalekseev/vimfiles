@@ -191,6 +191,8 @@ nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
 set showmode
 
+"write with sudo
+cmap w!! %!sudo tee > /dev/null %
 "ack.vim
 let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 
@@ -214,6 +216,9 @@ if has("persistent_undo")
     set undodir=~/.vim/undo,.
     set undofile
 endif
+
+"cuda
+au BufRead,BufNewFile *.cuh set ft=cuda
 
 au BufRead,BufNewFile *.xml,*.py,*.rb,*.R call SetRunCommand()
 function! SetRunCommand()
