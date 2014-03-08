@@ -6,18 +6,17 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-repeat'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/syntastic'
 Bundle 'majutsushi/tagbar'
-Bundle 'vim-scripts/bufexplorer.zip'
 Bundle 'mileszs/ack.vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'kien/ctrlp.vim'
 Bundle 'xaviershay/tslime.vim'
 Bundle 'bling/vim-airline'
 Bundle 'mbbill/undotree'
-Bundle 'tpope/vim-repeat'
 Bundle 'mitsuhiko/vim-python-combined',
 Bundle 'Valloric/YouCompleteMe'
 
@@ -117,7 +116,7 @@ nnoremap <silent> <C-f> :NERDTreeFind<CR>
 nnoremap <leader>m :nohls<CR>
 
 "map to bufexplorer
-nnoremap <leader>b :BufExplorer<cr>
+nnoremap <leader>b :CtrlPBuffer<cr>
 
 "map Q to something useful
 noremap Q gq
