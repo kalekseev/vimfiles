@@ -1,9 +1,5 @@
-"necessary on some Linux distros for pathogen to properly load bundles
 filetype off
-
-"Use Vim settings, rather then Vi settings (much better!).
 set nocompatible
-
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
@@ -25,46 +21,26 @@ Bundle 'tpope/vim-repeat'
 Bundle 'mitsuhiko/vim-python-combined',
 Bundle 'Valloric/YouCompleteMe'
 
+filetype plugin indent on
+"-----end of vundle setup-----
 
-"allow backspacing over everything in insert mode
-set backspace=indent,eol,start
-
-"store lots of :cmdline history
-set history=1000
-
-set showcmd     "show incomplete cmds down the bottom
-set showmode    "show current mode down the bottom
-
-set incsearch   "find the next match as we type the search
-set hlsearch    "hilight searches by default
-
-set number      "add line numbers
+syntax on                       "turn on syntax highlighting
+set backspace=indent,eol,start  "allow backspacing over everything in INS mode
+set history=1000                "store lots of :cmdline history
+set showcmd                     "show incomplete cmds down the bottom
+set showmode                    "show current mode down the bottom
+set incsearch                   "find the next match as we type the search
+set hlsearch                    "hilight searches by default
+set number                      "add line numbers
 set showbreak=...
 set wrap linebreak nolist
-
-"add some line space for easy reading
-set linespace=4
-
-"disable visual bell
-set visualbell t_vb=
+set linespace=4                 "add some line space for easy reading
+set visualbell t_vb=            "disable visual bell
+set laststatus=2                "always show statusline
+set hidden                      "hide buffers when not displayed
 
 "russian keymap
 set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
-set fileencodings=ucs-bom,utf-8,default,cp1251
-
-" disable arrow keys
-noremap <Up> <C-W>+
-noremap <Down> <C-W>-
-noremap <Left> <C-W><
-noremap <Right> <C-W>>
-
-"statusline setup
-"fugitive branch name in statusline
-"set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
-set laststatus=2
-
-"auto-clean fugitive buffers
-autocmd BufReadPost fugitive://* set bufhidden=delete
 
 "turn off needless toolbar on gvim/mvim
 set guioptions-=T
@@ -92,55 +68,49 @@ set scrolloff=3
 set sidescrolloff=7
 set sidescroll=1
 
-"load ftplugins and indent files
-filetype plugin on
-filetype indent on
-
-"turn on syntax highlighting
-syntax on
-
 "some stuff to get the mouse going in term
 set mouse=a
 set ttymouse=xterm2
-
-"hide buffers when not displayed
-set hidden
 
 "backup directory
 set backupdir=~/.vim/backup,.
 set directory=~/.vim/backup,.
 set viminfo+=n~/.vim/.viminfo
 
+"theme
+colorscheme solarized
+set background=dark
+set colorcolumn=80
+
 if has("gui_running")
-    "tell the term has 256 colors
-    set t_Co=256
-
-    set background=dark
-    colorscheme solarized
-
     set guitablabel=%M%t
     set lines=30
     set columns=84
-
     "set guifont=Inconsolata\ 14
     set guifont=Consolas\ 12
-    set colorcolumn=80
 else
+    "tell the term has 256 colors
+    set t_Co=256
     "dont load csapprox if there is no gui support - silences an annoying warning
     let g:CSApprox_loaded = 1
-
     if $COLORTERM == 'gnome-terminal'
         set term=gnome-256color
-        set background=dark
-        colorscheme solarized
-        set colorcolumn=80
     else
         colorscheme default
     endif
 endif
 
+"toggle paste
+set pastetoggle=<F2>
+nnoremap <F2> :set invpaste paste?<CR>
+
+" disable arrow keys
+noremap <Up> <C-W>+
+noremap <Down> <C-W>-
+noremap <Left> <C-W><
+noremap <Right> <C-W>>
+
 silent! nmap <silent> <Leader>p :NERDTreeToggle<CR>
-""nnoremap <silent> <C-f> :call FindInNERDTree()<CR>
 nnoremap <silent> <C-f> :NERDTreeFind<CR>
 
 "make <c-n> clear the highlight as well as redraw
@@ -161,17 +131,10 @@ map <A-q> :cclose<CR>
 map <A-j> :cnext<CR>
 map <A-k> :cprevious<CR>
 
-"jump to last cursor position when opening a file
-"dont do it when writing a commit log entry
-autocmd BufReadPost * call SetCursorPosition()
-function! SetCursorPosition()
-    if &filetype !~ 'commit\c'
-        if line("'\"") > 0 && line("'\"") <= line("$")
-            exe "normal! g`\""
-            normal! zz
-        endif
-    end
-endfunction
+if has("persistent_undo")
+    set undodir=~/.vim/undo,.
+    set undofile
+endif
 
 "key mapping for window navigation
 map <C-h> <C-w>h
@@ -182,19 +145,14 @@ map <C-l> <C-w>l
 "key mapping for saving file
 nmap <C-s> :w<CR>
 
-"key mapping for tab navigation
-nmap <Tab> gt
-nmap <S-Tab> gT
-
-"toggle paste
-nnoremap <F2> :set invpaste paste?<CR>
-set pastetoggle=<F2>
-set showmode
+"remove trailing whitespace
+nnoremap <leader>t :%s/\s\+$<CR>
 
 command! -bang -nargs=+ Sgrep execute 'silent Ggrep<bang> <args>' | copen
 
 "write with sudo
 cmap w!! %!sudo tee > /dev/null %
+
 "ack.vim
 let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 
@@ -202,24 +160,41 @@ let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 let g:tagbar_autoclose = 1
 nnoremap <silent> <F9> :TagbarToggle<CR>
 
-"airline
+"statusline
 let g:airline_theme = "solarized"
 let g:airline_detect_paste = 1
 let g:airline_left_sep = '▶'
 let g:airline_right_sep = '◀'
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'Þ'
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#syntastic#enabled = 1
 
-if has("persistent_undo")
-    set undodir=~/.vim/undo,.
-    set undofile
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
 endif
+
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'Þ'
+
+"synastic
+let g:syntastic_enable_signs=1
+let g:syntastic_quiet_messages = {'level': 'warnings'}
+let g:syntastic_python_checkers = ['pyflakes']
+
+"auto-clean fugitive buffers
+autocmd BufReadPost fugitive://* set bufhidden=delete
+
+"jump to last cursor position when opening a file
+"don't do it when writing a commit log entry
+autocmd BufReadPost * call SetCursorPosition()
+function! SetCursorPosition()
+    if &filetype !~ 'commit\c'
+        if line("'\"") > 0 && line("'\"") <= line("$")
+            exe "normal! g`\""
+            normal! zz
+        endif
+    end
+endfunction
 
 "cuda
 au BufRead,BufNewFile *.cuh set ft=cuda
@@ -237,11 +212,6 @@ function! SetRunCommand()
     noremap <F5> <ESC>:w<CR>:execute "!Rscript %"<CR>
   endif
 endfunction
-
-let g:syntastic_enable_signs=1
-let g:syntastic_quiet_messages = {'level': 'warnings'}
-let g:syntastic_python_checkers = ['pyflakes']
-nnoremap <leader>t :%s/\s\+$<CR>
 
 function! BreakpointToggle(lnum, cmd)
     let line = getline(a:lnum)
