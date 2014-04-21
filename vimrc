@@ -88,14 +88,11 @@ if has("gui_running")
     "set guifont=Inconsolata\ 14
     set guifont=Consolas\ 12
 else
-    "tell the term has 256 colors
-    set t_Co=256
+    set t_Co=16
     "dont load csapprox if there is no gui support - silences an annoying warning
     let g:CSApprox_loaded = 1
     if $COLORTERM == 'gnome-terminal'
         set term=gnome-256color
-    else
-        colorscheme default
     endif
 endif
 
