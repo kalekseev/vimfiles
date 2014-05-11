@@ -19,6 +19,7 @@ Bundle 'bling/vim-airline'
 Bundle 'mbbill/undotree'
 Bundle 'mitsuhiko/vim-python-combined',
 Bundle 'Valloric/YouCompleteMe'
+Bundle 'derekwyatt/vim-scala'
 
 filetype plugin indent on
 "-----end of vundle setup-----
@@ -30,7 +31,8 @@ set showcmd                     "show incomplete cmds down the bottom
 set showmode                    "show current mode down the bottom
 set incsearch                   "find the next match as we type the search
 set hlsearch                    "hilight searches by default
-set number                      "add line numbers
+"set number                      "add line numbers
+set relativenumber
 set showbreak=...
 set wrap linebreak nolist
 set linespace=4                 "add some line space for easy reading
@@ -113,7 +115,7 @@ nnoremap <silent> <C-f> :NERDTreeFind<CR>
 nnoremap <leader>m :nohls<CR>
 
 "map to bufexplorer
-nnoremap <leader>b :CtrlPBuffer<cr>
+nnoremap ,b :CtrlPBuffer<cr>
 
 "map Q to something useful
 noremap Q gq
