@@ -179,6 +179,14 @@ let g:syntastic_enable_signs=1
 let g:syntastic_quiet_messages = {'level': 'warnings'}
 let g:syntastic_python_checkers = ['pyflakes']
 
+"ctrlp
+set wildignore+=*.aux,*.log,*.class
+
+let g:ctrlp_custom_ignore = {
+        \ 'dir': '\v[\/]\.(git|hg|svn)$',
+        \ 'file': '\v\.(exe|so|dll|class|aux|log|jar)$',
+      \ }
+
 "auto-clean fugitive buffers
 autocmd BufReadPost fugitive://* set bufhidden=delete
 
