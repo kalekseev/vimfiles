@@ -152,7 +152,7 @@ command! -bang -nargs=+ Sgrep execute 'silent Ggrep<bang> <args>' | copen
 cmap w!! %!sudo tee > /dev/null %
 
 "ack.vim
-let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+let g:ackprg="ack-grep -H --nocolor --nogroup --column --ignore-file=is:tags"
 
 "tagbar
 let g:tagbar_autoclose = 1
@@ -183,7 +183,7 @@ let g:syntastic_python_checkers = ['pyflakes']
 set wildignore+=*.aux,*.log,*.class
 
 let g:ctrlp_custom_ignore = {
-        \ 'dir': '\v[\/]\.(git|hg|svn)$',
+        \ 'dir': '\v[\/](\.git|\.hg|\.svn|target)$',
         \ 'file': '\v\.(exe|so|dll|class|aux|log|jar)$',
       \ }
 
