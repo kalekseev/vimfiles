@@ -1,6 +1,0 @@
-INSTALL
-`sudo apt-get install exuberant-ctags ncurses-term
-cd ~/.vim && rake install`
-
-TODO
-snippets
