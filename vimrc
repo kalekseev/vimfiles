@@ -148,6 +148,9 @@ nnoremap <leader>t :%s/\s\+$<CR>
 
 command! -bang -nargs=+ Sgrep execute 'silent Ggrep<bang> <args>' | copen
 
+"map to bufexplorer
+nnoremap ,a :Ack! <C-w><cr>
+
 "write with sudo
 cmap w!! %!sudo tee > /dev/null %
 
