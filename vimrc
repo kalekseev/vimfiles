@@ -11,7 +11,7 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/syntastic'
 Bundle 'majutsushi/tagbar'
-Bundle 'mileszs/ack.vim'
+Bundle 'rking/ag.vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'kien/ctrlp.vim'
 Bundle 'xaviershay/tslime.vim'
@@ -20,6 +20,8 @@ Bundle 'mbbill/undotree'
 Bundle 'mitsuhiko/vim-python-combined',
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'derekwyatt/vim-scala'
+Bundle 'sjl/splice.vim'
+Bundle 'ludovicchabant/vim-lawrencium'
 
 filetype plugin indent on
 "-----end of vundle setup-----
@@ -149,7 +151,7 @@ nnoremap <leader>t :%s/\s\+$<CR>
 command! -bang -nargs=+ Sgrep execute 'silent Ggrep<bang> <args>' | copen
 
 "map to bufexplorer
-nnoremap ,a :Ack! <C-w><cr>
+nnoremap ,a :Ag! <C-w><cr>
 
 "write with sudo
 cmap w!! %!sudo tee > /dev/null %
