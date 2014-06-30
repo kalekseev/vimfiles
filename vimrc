@@ -20,8 +20,11 @@ Bundle 'mbbill/undotree'
 Bundle 'mitsuhiko/vim-python-combined',
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'derekwyatt/vim-scala'
-Bundle 'sjl/splice.vim'
 Bundle 'ludovicchabant/vim-lawrencium'
+Bundle 'pangloss/vim-javascript'
+Bundle 'terryma/vim-multiple-cursors'
+Bundle 'Raimondi/delimitMate'
+
 
 filetype plugin indent on
 "-----end of vundle setup-----
@@ -34,7 +37,6 @@ set showmode                    "show current mode down the bottom
 set incsearch                   "find the next match as we type the search
 set hlsearch                    "hilight searches by default
 set number                      "add line numbers
-set relativenumber
 set showbreak=...
 set wrap linebreak nolist
 set linespace=4                 "add some line space for easy reading
@@ -89,8 +91,7 @@ if has("gui_running")
     set guitablabel=%M%t
     set lines=30
     set columns=84
-    "set guifont=Inconsolata\ 14
-    set guifont=Consolas\ 12
+    set guifont=Monospace\ 12
 else
     set t_Co=16
     "dont load csapprox if there is no gui support - silences an annoying warning
@@ -194,6 +195,14 @@ let g:ctrlp_custom_ignore = {
 
 "auto-clean fugitive buffers
 autocmd BufReadPost fugitive://* set bufhidden=delete
+
+"vim-javascript
+"
+let javascript_enable_domhtmlcss = 1
+let g:javascript_conceal = 1
+
+"delimitMate
+let delimitMate_expand_cr = 1
 
 "jump to last cursor position when opening a file
 "don't do it when writing a commit log entry
