@@ -18,12 +18,14 @@ Bundle 'xaviershay/tslime.vim'
 Bundle 'bling/vim-airline'
 Bundle 'mbbill/undotree'
 Bundle 'mitsuhiko/vim-python-combined',
-Bundle 'Valloric/YouCompleteMe'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'ludovicchabant/vim-lawrencium'
 Bundle 'pangloss/vim-javascript'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'Raimondi/delimitMate'
+Bundle 'Shougo/neocomplete'
+Bundle 'Shougo/neosnippet.vim'
+Bundle 'Shougo/neosnippet-snippets'
 
 
 filetype plugin indent on
@@ -203,6 +205,21 @@ let g:javascript_conceal = 1
 
 "delimitMate
 let delimitMate_expand_cr = 1
+
+"neosnippet
+" Enable snipMate compatibility feature.
+let g:neosnippet#enable_snipmate_compatibility = 1
+
+"neocomplete
+let g:neocomplete#enable_at_startup = 1
+
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>""
+
 
 "jump to last cursor position when opening a file
 "don't do it when writing a commit log entry
