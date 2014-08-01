@@ -191,7 +191,7 @@ let g:syntastic_python_checkers = ['pyflakes']
 set wildignore+=*.aux,*.log,*.class
 
 let g:ctrlp_custom_ignore = {
-        \ 'dir': '\v[\/](\.git|\.hg|\.svn|target)$',
+        \ 'dir': '\v[\/](\.git|\.hg|\.svn|target|node_modules|bower_components|tmp)$',
         \ 'file': '\v\.(exe|so|dll|class|aux|log|jar)$',
       \ }
 
