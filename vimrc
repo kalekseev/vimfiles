@@ -1,35 +1,54 @@
-filetype off
-set nocompatible
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+if has('vim_starting')
+    set nocompatible
+    set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+call neobundle#begin(expand('~/.vim/bundle/'))
+NeoBundleFetch 'Shougo/neobundle.vim'
 
-Bundle 'gmarik/vundle'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-repeat'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'scrooloose/syntastic'
-Bundle 'majutsushi/tagbar'
-Bundle 'rking/ag.vim'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'kien/ctrlp.vim'
-Bundle 'xaviershay/tslime.vim'
-Bundle 'bling/vim-airline'
-Bundle 'mbbill/undotree'
-Bundle 'mitsuhiko/vim-python-combined',
-Bundle 'derekwyatt/vim-scala'
-Bundle 'ludovicchabant/vim-lawrencium'
-Bundle 'pangloss/vim-javascript'
-Bundle 'terryma/vim-multiple-cursors'
-Bundle 'Raimondi/delimitMate'
-Bundle 'Shougo/neocomplete'
-Bundle 'Shougo/neosnippet.vim'
-Bundle 'Shougo/neosnippet-snippets'
+NeoBundle 'Shougo/vimproc', {
+    \ 'build': {
+        \ 'unix': 'make -f make_unix.mak',
+        \ 'mac': 'make -f make_mac.mak',
+    \ },
+\ }
 
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-repeat'
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'scrooloose/nerdcommenter'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'Shougo/neocomplete'
+NeoBundle 'Shougo/neosnippet.vim'
+NeoBundle 'Shougo/neosnippet-snippets'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'majutsushi/tagbar'
+NeoBundle 'rking/ag.vim'
+NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'xaviershay/tslime.vim'
+NeoBundle 'bling/vim-airline'
+NeoBundle 'mbbill/undotree'
+NeoBundle 'mitsuhiko/vim-python-combined',
+NeoBundle 'derekwyatt/vim-scala'
+NeoBundle 'ludovicchabant/vim-lawrencium'
+NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'kris89/vim-multiple-cursors'
+NeoBundle 'Raimondi/delimitMate'
+NeoBundle 'wting/rust.vim'
+NeoBundle 'Yggdroot/indentLine'
+
+"HTML
+NeoBundle 'amirh/HTML-AutoCloseTag'
+NeoBundle 'hail2u/vim-css3-syntax'
+NeoBundle 'gorodinskiy/vim-coloresque'
+
+call neobundle#end()
 
 filetype plugin indent on
-"-----end of vundle setup-----
+
+NeoBundleCheck
+
+"-----end of plugins setup-----
 
 syntax on                       "turn on syntax highlighting
 set backspace=indent,eol,start  "allow backspacing over everything in INS mode
@@ -120,7 +139,7 @@ nnoremap <silent> <C-f> :NERDTreeFind<CR>
 nnoremap <leader>m :nohls<CR>
 
 "map to bufexplorer
-nnoremap ,b :CtrlPBuffer<cr>
+"nnoremap ,b :CtrlPBuffer<cr>
 
 "map Q to something useful
 noremap Q gq
@@ -147,6 +166,8 @@ map <C-l> <C-w>l
 
 "key mapping for saving file
 nmap <C-s> :w<CR>
+
+let mapleader=','
 
 "remove trailing whitespace
 nnoremap <leader>t :%s/\s\+$<CR>
@@ -183,17 +204,13 @@ let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.paste = 'Þ'
 
 "synastic
-let g:syntastic_enable_signs=1
-let g:syntastic_quiet_messages = {'level': 'warnings'}
+let g:syntastic_enable_signs = 1
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '⚠'
+let g:syntastic_style_error_symbol = '✗'
+let g:syntastic_style_warning_symbol = '⚠'
+let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_python_checkers = ['pyflakes']
-
-"ctrlp
-set wildignore+=*.aux,*.log,*.class
-
-let g:ctrlp_custom_ignore = {
-        \ 'dir': '\v[\/](\.git|\.hg|\.svn|target|node_modules|bower_components|tmp)$',
-        \ 'file': '\v\.(exe|so|dll|class|aux|log|jar)$',
-      \ }
 
 "auto-clean fugitive buffers
 autocmd BufReadPost fugitive://* set bufhidden=delete
@@ -201,7 +218,7 @@ autocmd BufReadPost fugitive://* set bufhidden=delete
 "vim-javascript
 "
 let javascript_enable_domhtmlcss = 1
-let g:javascript_conceal = 1
+let g:javascript_conceal = 0
 
 "delimitMate
 let delimitMate_expand_cr = 1
@@ -212,6 +229,7 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 
 "neocomplete
 let g:neocomplete#enable_at_startup = 1
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)"
@@ -220,6 +238,16 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)"
 \: "\<TAB>""
 
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#sorter_default#use(['sorter_rank'])
+call unite#custom#source('file_rec/async','sorters','sorter_rank')
+
+let g:unite_source_history_yank_enable = 1
+nnoremap <silent> <C-p> :Unite -start-insert -buffer-name=files -winheight=10 file_rec/async<cr>
+nnoremap ,b :Unite -quick-match buffer<cr>
+nnoremap <silent> <C-h> :Unite history/yank<cr>
+
+let g:indentLine_char = '┊'
 
 "jump to last cursor position when opening a file
 "don't do it when writing a commit log entry
