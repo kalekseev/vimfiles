@@ -28,7 +28,7 @@ NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'xaviershay/tslime.vim'
 NeoBundle 'bling/vim-airline'
 NeoBundle 'mbbill/undotree'
-NeoBundle 'mitsuhiko/vim-python-combined',
+NeoBundle 'mitsuhiko/vim-python-combined'
 NeoBundle 'derekwyatt/vim-scala'
 NeoBundle 'ludovicchabant/vim-lawrencium'
 NeoBundle 'pangloss/vim-javascript'
@@ -36,6 +36,7 @@ NeoBundle 'kris89/vim-multiple-cursors'
 NeoBundle 'Raimondi/delimitMate'
 NeoBundle 'wting/rust.vim'
 NeoBundle 'Yggdroot/indentLine'
+NeoBundle 'elzr/vim-json'
 
 "HTML
 NeoBundle 'amirh/HTML-AutoCloseTag'
@@ -48,7 +49,8 @@ filetype plugin indent on
 
 NeoBundleCheck
 
-"-----end of plugins setup-----
+
+"VIM SETUP
 
 syntax on                       "turn on syntax highlighting
 set backspace=indent,eol,start  "allow backspacing over everything in INS mode
@@ -64,6 +66,7 @@ set linespace=4                 "add some line space for easy reading
 set visualbell t_vb=            "disable visual bell
 set laststatus=2                "always show statusline
 set hidden                      "hide buffers when not displayed
+let mapleader=','
 
 "russian keymap
 set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
@@ -103,6 +106,12 @@ set backupdir=~/.vim/backup,.
 set directory=~/.vim/backup,.
 set viminfo+=n~/.vim/.viminfo
 
+if has("persistent_undo")
+    set undodir=~/.vim/undo,.
+    set undofile
+endif
+
+
 "theme
 colorscheme solarized
 set background=dark
@@ -122,6 +131,9 @@ else
     endif
 endif
 
+
+"KEYS MAPPING
+
 "toggle paste
 set pastetoggle=<F2>
 nnoremap <F2> :set invpaste paste?<CR>
@@ -132,14 +144,8 @@ noremap <Down> <C-W>-
 noremap <Left> <C-W><
 noremap <Right> <C-W>>
 
-silent! nmap <silent> <Leader>p :NERDTreeToggle<CR>
-nnoremap <silent> <C-f> :NERDTreeFind<CR>
-
 "make <c-n> clear the highlight as well as redraw
 nnoremap <leader>m :nohls<CR>
-
-"map to bufexplorer
-"nnoremap ,b :CtrlPBuffer<cr>
 
 "map Q to something useful
 noremap Q gq
@@ -153,11 +159,6 @@ map <A-q> :cclose<CR>
 map <A-j> :cnext<CR>
 map <A-k> :cprevious<CR>
 
-if has("persistent_undo")
-    set undodir=~/.vim/undo,.
-    set undofile
-endif
-
 "key mapping for window navigation
 map <C-h> <C-w>h
 map <C-j> <C-w>j
@@ -167,18 +168,23 @@ map <C-l> <C-w>l
 "key mapping for saving file
 nmap <C-s> :w<CR>
 
-let mapleader=','
+"write with sudo
+cmap w!! %!sudo tee > /dev/null %
 
 "remove trailing whitespace
 nnoremap <leader>t :%s/\s\+$<CR>
 
 command! -bang -nargs=+ Sgrep execute 'silent Ggrep<bang> <args>' | copen
 
-"map to bufexplorer
-nnoremap ,a :Ag! <C-w><cr>
 
-"write with sudo
-cmap w!! %!sudo tee > /dev/null %
+"PLUGINS CONFIGURATION
+
+"silver searcher
+nnoremap <leader>a :Ag! <C-w><cr>
+
+"NERDTree
+silent! nmap <silent> <Leader>p :NERDTreeToggle<CR>
+nnoremap <silent> <C-f> :NERDTreeFind<CR>
 
 "ack.vim
 let g:ackprg="ack-grep -H --nocolor --nogroup --column --ignore-file=is:tags"
@@ -216,15 +222,13 @@ let g:syntastic_python_checkers = ['pyflakes']
 autocmd BufReadPost fugitive://* set bufhidden=delete
 
 "vim-javascript
-"
 let javascript_enable_domhtmlcss = 1
-let g:javascript_conceal = 0
+let g:javascript_conceal = 1
 
 "delimitMate
 let delimitMate_expand_cr = 1
 
 "neosnippet
-" Enable snipMate compatibility feature.
 let g:neosnippet#enable_snipmate_compatibility = 1
 
 "neocomplete
@@ -238,6 +242,7 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)"
 \: "\<TAB>""
 
+"unite
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
 call unite#custom#source('file_rec/async','sorters','sorter_rank')
@@ -247,7 +252,12 @@ nnoremap <silent> <C-p> :Unite -start-insert -buffer-name=files -winheight=10 fi
 nnoremap ,b :Unite -quick-match buffer<cr>
 nnoremap <silent> <C-h> :Unite history/yank<cr>
 
+"indentLine
 let g:indentLine_char = '┊'
+let g:indentLine_noConcealCursor=""
+
+
+"EXTRA FUNCTIONALITY
 
 "jump to last cursor position when opening a file
 "don't do it when writing a commit log entry
