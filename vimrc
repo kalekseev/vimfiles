@@ -37,6 +37,8 @@ NeoBundle 'Raimondi/delimitMate'
 NeoBundle 'wting/rust.vim'
 NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'elzr/vim-json'
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'Lokaltog/vim-easymotion'
 
 "HTML
 NeoBundle 'amirh/HTML-AutoCloseTag'
@@ -242,19 +244,31 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)"
 \: "\<TAB>""
 
+"ctrlp
+set wildignore+=*.aux,*.log,*.class
+
+let g:ctrlp_custom_ignore = {
+\    'dir': '\v[\/](\.git|\.hg|\.svn|target)$',
+\    'file': '\v\.(exe|so|dll|class|aux|log|jar)$',
+\ }
+
 "unite
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
-call unite#custom#source('file_rec/async','sorters','sorter_rank')
+"call unite#custom#source('file_rec/async','sorters','sorter_rank')
 
 let g:unite_source_history_yank_enable = 1
-nnoremap <silent> <C-p> :Unite -start-insert -buffer-name=files -winheight=10 file_rec/async<cr>
+"nnoremap <silent> <C-p> :Unite -start-insert -buffer-name=files -winheight=10 file_rec/async<cr>
 nnoremap ,b :Unite -quick-match buffer<cr>
 nnoremap <silent> <C-h> :Unite history/yank<cr>
 
 "indentLine
 let g:indentLine_char = '┊'
 let g:indentLine_noConcealCursor=""
+let g:indentLine_faster = 1
+
+"easymotion
+map <leader>f <Plug>(easymotion-f)
 
 
 "EXTRA FUNCTIONALITY
