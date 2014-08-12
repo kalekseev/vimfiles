@@ -59,8 +59,6 @@ set backspace=indent,eol,start  "allow backspacing over everything in INS mode
 set history=1000                "store lots of :cmdline history
 set showcmd                     "show incomplete cmds down the bottom
 set showmode                    "show current mode down the bottom
-set incsearch                   "find the next match as we type the search
-set hlsearch                    "hilight searches by default
 set number                      "add line numbers
 set showbreak=...
 set wrap linebreak nolist
@@ -112,6 +110,28 @@ if has("persistent_undo")
     set undodir=~/.vim/undo,.
     set undofile
 endif
+
+" split to right
+set splitright
+
+" reload when files modified outside of vim
+set autoread
+
+" fast terminal connection
+set ttyfast
+
+" yank use system clipboard
+set clipboard=unnamed
+
+" ignore case only if contains upper case
+set ignorecase
+set smartcase
+
+" incremental search
+set incsearch
+
+" match highlight
+set hlsearch
 
 
 "theme
@@ -262,13 +282,21 @@ let g:unite_source_history_yank_enable = 1
 nnoremap ,b :Unite -quick-match buffer<cr>
 nnoremap <silent> <C-h> :Unite history/yank<cr>
 
-"indentLine
-let g:indentLine_char = '┊'
-let g:indentLine_noConcealCursor=""
-let g:indentLine_faster = 1
-
 "easymotion
-map <leader>f <Plug>(easymotion-f)
+if neobundle#tap('vim-easymotion')
+    let g:EasyMotion_leader_key = '<Space>'
+
+    call neobundle#untap()
+endif
+
+"indentLine
+if neobundle#tap('indentLine')
+    let g:indentLine_char = '┊'
+    let g:indentLine_noConcealCursor=""
+    let g:indentLine_faster = 1
+
+    call neobundle#untap()
+endif
 
 
 "EXTRA FUNCTIONALITY
