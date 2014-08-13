@@ -21,31 +21,30 @@ NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'Shougo/neocomplete'
-NeoBundleLazy 'Shougo/neosnippet', { 'depends': ['Shougo/neocomplete'] }
 NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'majutsushi/tagbar'
-NeoBundle 'rking/ag.vim'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'xaviershay/tslime.vim'
 NeoBundle 'bling/vim-airline'
 NeoBundle 'mbbill/undotree'
 NeoBundle 'mitsuhiko/vim-python-combined'
-NeoBundle 'derekwyatt/vim-scala'
 NeoBundle 'ludovicchabant/vim-lawrencium'
 NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'kris89/vim-multiple-cursors'
 NeoBundle 'Raimondi/delimitMate'
 NeoBundle 'wting/rust.vim'
 NeoBundle 'Yggdroot/indentLine'
-NeoBundle 'elzr/vim-json'
 NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'elzr/vim-json'
 
 " HTML
 NeoBundle 'amirh/HTML-AutoCloseTag'
 NeoBundle 'hail2u/vim-css3-syntax'
 NeoBundle 'gorodinskiy/vim-coloresque'
+
+NeoBundleLazy 'Shougo/neosnippet', { 'depends': ['Shougo/neocomplete'] }
+NeoBundleLazy 'rking/ag.vim'
 
 call neobundle#end()
 
@@ -247,9 +246,11 @@ cmap w!! %!sudo tee > /dev/null %
 " remove trailing whitespace
 nnoremap <leader>t :%s/\s\+$<CR>
 
-command! -bang -nargs=+ Sgrep execute 'silent Ggrep<bang> <args>' | copen
-
-
+" indent
+nnoremap < <<
+nnoremap > >>
+xnoremap < <gV
+xnoremap > >gV
 
 
 "* * * * * * * * * * * * * * * * * PLUGINS * * * * * * * * * * * * * * * * * *
@@ -259,6 +260,12 @@ command! -bang -nargs=+ Sgrep execute 'silent Ggrep<bang> <args>' | copen
 " silver searcher
 "==============================================================================
 if neobundle#tap('ag.vim')
+    call neobundle#config({
+    \    'autoload': {
+    \       'commands': ['Ag', 'AgAdd', 'AgFromSearch']
+    \    }
+    \ })
+
     nnoremap <leader>a :Ag! <C-w><cr>
 
     call neobundle#untap()
@@ -328,6 +335,8 @@ endif
 if neobundle#tap('vim-fugitive')
     " auto-clean fugitive buffer
     autocmd BufReadPost fugitive://* set bufhidden=delete
+    command! -bang -nargs=+ Sgrep execute 'silent Ggrep<bang> <args>' | copen
+
 
     call neobundle#untap()
 endif
@@ -376,6 +385,7 @@ if neobundle#tap('neosnippet')
     endfunction
     call neobundle#untap()
 endif
+
 
 " neocomplete
 "==============================================================================
