@@ -28,23 +28,24 @@ NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'xaviershay/tslime.vim'
 NeoBundle 'bling/vim-airline'
 NeoBundle 'mbbill/undotree'
-NeoBundle 'mitsuhiko/vim-python-combined'
 NeoBundle 'ludovicchabant/vim-lawrencium'
-NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'Raimondi/delimitMate'
-NeoBundle 'wting/rust.vim'
 NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'bkad/CamelCaseMotion'
 NeoBundle 'elzr/vim-json'
-
-" HTML
-NeoBundle 'amirh/HTML-AutoCloseTag'
+NeoBundle 'wting/rust.vim'
+NeoBundle 'derekwyatt/vim-scala'
+NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'hail2u/vim-css3-syntax'
 NeoBundle 'gorodinskiy/vim-coloresque'
+NeoBundle 'mhinz/vim-signify'
 
 NeoBundleLazy 'Shougo/neosnippet', { 'depends': ['Shougo/neocomplete'] }
 NeoBundleLazy 'rking/ag.vim'
+NeoBundleLazy 'mitsuhiko/vim-python-combined'
+NeoBundleLazy 'amirh/HTML-AutoCloseTag'
 
 call neobundle#end()
 
@@ -102,7 +103,7 @@ set laststatus=2
 set hidden
 
 " remap leader
-let mapleader=','
+let mapleader = "\<Space>"
 
 " russian keymap
 set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
@@ -256,6 +257,28 @@ xnoremap > >gV
 "* * * * * * * * * * * * * * * * * PLUGINS * * * * * * * * * * * * * * * * * *
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
+"signify
+"==============================================================================
+if neobundle#tap('vim-signify')
+    let g:signify_vcs_list = [ 'git', 'hg' ]
+    let g:signify_sign_change = '~'
+    let g:signify_disable_by_default = 1
+
+    call neobundle#untap()
+endif
+
+" CamelCaseMotion
+"==============================================================================
+if neobundle#tap('CamelCaseMotion')
+    nmap <silent> W <Plug>CamelCaseMotion_w
+    xmap <silent> W <Plug>CamelCaseMotion_w
+    omap <silent> W <Plug>CamelCaseMotion_w
+    nmap <silent> B <Plug>CamelCaseMotion_b
+    xmap <silent> B <Plug>CamelCaseMotion_b
+    omap <silent> B <Plug>CamelCaseMotion_b
+
+    call neobundle#untap()
+endif
 
 " silver searcher
 "==============================================================================
@@ -267,6 +290,32 @@ if neobundle#tap('ag.vim')
     \ })
 
     nnoremap <leader>a :Ag! <C-w><cr>
+
+    call neobundle#untap()
+endif
+
+
+" vim-python-combined
+"==============================================================================
+if neobundle#tap('vim-python-combined')
+    call neobundle#config({
+    \    'autoload': {
+    \       'filetypes': 'python'
+    \    }
+    \ })
+
+    call neobundle#untap()
+endif
+
+
+" HTML-AutoCloseTag
+"==============================================================================
+if neobundle#tap('HTML-AutoCloseTag')
+    call neobundle#config({
+    \    'autoload': {
+    \       'filetypes': 'html'
+    \    }
+    \ })
 
     call neobundle#untap()
 endif
@@ -427,7 +476,7 @@ endif
 " easymotion
 "==============================================================================
 if neobundle#tap('vim-easymotion')
-    let g:EasyMotion_leader_key = '<Space>'
+    let g:EasyMotion_leader_key = ','
 
     call neobundle#untap()
 endif
