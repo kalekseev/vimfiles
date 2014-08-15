@@ -41,8 +41,11 @@ NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'hail2u/vim-css3-syntax'
 NeoBundle 'gorodinskiy/vim-coloresque'
 NeoBundle 'mhinz/vim-signify'
+NeoBundle 'thinca/vim-qfreplace'
+NeoBundle 'SirVer/ultisnips'
+NeoBundle 'honza/vim-snippets'
 
-NeoBundleLazy 'Shougo/neosnippet', { 'depends': ['Shougo/neocomplete'] }
+"NeoBundleLazy 'Shougo/neosnippet', { 'depends': ['Shougo/neocomplete'] }
 NeoBundleLazy 'rking/ag.vim'
 NeoBundleLazy 'mitsuhiko/vim-python-combined'
 NeoBundleLazy 'amirh/HTML-AutoCloseTag'
@@ -87,8 +90,8 @@ set wrap
 " don't break words
 set linebreak
 
-" hide listchars
-set nolist
+" listchars
+set list listchars=tab:»·,trail:·
 
 " add some line space for easy reading
 set linespace=4
@@ -115,8 +118,10 @@ set guioptions-=m
 " indent settings
 set shiftwidth=4
 set softtabstop=4
+set shiftround
 set expandtab
 set autoindent
+set smartindent
 
 " fold based on indent
 set foldmethod=indent
@@ -146,9 +151,13 @@ set sidescroll=1
 set mouse=a
 set ttymouse=xterm2
 
-" backup directory
-set backupdir=~/.vim/backup,.
-set directory=~/.vim/backup,.
+" backup
+set nobackup
+set nowritebackup
+set noswapfile
+set backupdir-=.
+set autowrite
+
 set viminfo+=n~/.vim/.viminfo
 
 " store undo
@@ -159,6 +168,7 @@ endif
 
 " split to right
 set splitright
+set splitbelow
 
 " reload when files modified outside of vim
 set autoread
@@ -201,6 +211,9 @@ else
     endif
 endif
 
+" html indent
+let g:html_indent_inctags = "html,body,head,tbody,li,p"
+
 
 
 
@@ -210,6 +223,9 @@ endif
 
 " toggle paste
 nnoremap <F2> :set invpaste paste?<CR>
+
+" switch between two files
+map <Leader><Leader> <C-^>
 
 " disable arrow keys
 noremap <Up> <C-W>+
@@ -222,6 +238,8 @@ nnoremap <leader>m :nohls<CR>
 
 " map Q to something useful
 noremap Q gq
+
+command Q q
 
 " make Y consistent with C and D
 nnoremap Y y$
@@ -368,6 +386,7 @@ endif
 "==============================================================================
 if neobundle#tap('syntastic')
     let g:syntastic_enable_signs = 1
+    let g:syntastic_check_on_open = 1
     let g:syntastic_error_symbol = '✗'
     let g:syntastic_warning_symbol = '⚠'
     let g:syntastic_style_error_symbol = '✗'
@@ -412,28 +431,28 @@ endif
 
 " neosnippet
 "==============================================================================
-if neobundle#tap('neosnippet')
-    call neobundle#config({
-    \    'autoload': {
-    \        'commands': ['NeoSnippetEdit', 'NeoSnippetSource'],
-    \        'filetypes': 'snippet',
-    \        'insert': 1,
-    \        'unite_sources': ['snippet', 'neosnippet/user', 'neosnippet/runtime'],
-    \    }
-    \ })
+"if neobundle#tap('neosnippet')
+    "call neobundle#config({
+    "\    'autoload': {
+    "\        'commands': ['NeoSnippetEdit', 'NeoSnippetSource'],
+    "\        'filetypes': 'snippet',
+    "\        'insert': 1,
+    "\        'unite_sources': ['snippet', 'neosnippet/user', 'neosnippet/runtime'],
+    "\    }
+    "\ })
 
-    function! neobundle#tapped.hooks.on_source(bundle)
-        let g:neosnippet#enable_snipmate_compatibility = 1
+    "function! neobundle#tapped.hooks.on_source(bundle)
+        "let g:neosnippet#enable_snipmate_compatibility = 1
 
-        imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-                    \ "\<Plug>(neosnippet_expand_or_jump)"
-                    \: pumvisible() ? "\<C-n>" : "\<TAB>"
-        smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-                    \ "\<Plug>(neosnippet_expand_or_jump)"
-                    \: "\<TAB>""
-    endfunction
-    call neobundle#untap()
-endif
+        "imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+                    "\ "\<Plug>(neosnippet_expand_or_jump)"
+                    "\: pumvisible() ? "\<C-n>" : "\<TAB>"
+        "smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+                    "\ "\<Plug>(neosnippet_expand_or_jump)"
+                    "\: "\<TAB>""
+    "endfunction
+    "call neobundle#untap()
+"endif
 
 
 " neocomplete
