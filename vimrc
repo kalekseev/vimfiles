@@ -235,27 +235,27 @@ augroup END
 
 
 " toggle paste
-nnoremap <F2> :set invpaste paste?<CR>
+nmap <F2> :set invpaste paste?<CR>
 
 " switch between two files
 map <Leader><Leader> <C-^>
 
 " disable arrow keys
-noremap <Up> <C-W>+
-noremap <Down> <C-W>-
-noremap <Left> <C-W><
-noremap <Right> <C-W>>
+map <Up> <C-W>+
+map <Down> <C-W>-
+map <Left> <C-W><
+map <Right> <C-W>>
 
 " make <c-m> clear the highlight as well as redraw
-nnoremap <leader>m :nohls<CR>
+nmap <leader>m :nohls<CR>
 
 " map Q to something useful
-noremap Q gq
+map Q gq
 
 command Q q
 
 " make Y consistent with C and D
-nnoremap Y y$
+nmap Y y$
 
 " key mapping for vimgrep result navigation
 map <A-o> :copen<CR>
@@ -276,21 +276,21 @@ nmap <C-s> :w<CR>
 cmap w!! %!sudo tee > /dev/null %
 
 " remove trailing whitespace
-nnoremap <leader>t :%s/\s\+$<CR>
+nmap <leader>t :%s/\s\+$<CR>
 
 " indent
-nnoremap < <<
-nnoremap > >>
-xnoremap < <gV
-xnoremap > >gV
+nmap < <<
+nmap > >>
+xmap < <gV
+xmap > >gV
 
 " use sane regexes
-nnoremap / /\v
-vnoremap / /\v
+nmap / /\v
+vmap / /\v
 
 " keep seach matches in the middle of the window
-nnoremap n nzzzv
-nnoremap N Nzzzv
+nmap n nzzzv
+nmap N Nzzzv
 
 "* * * * * * * * * * * * * * * * * PLUGINS * * * * * * * * * * * * * * * * * *
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -327,7 +327,7 @@ if neobundle#tap('ag.vim')
     \    }
     \ })
 
-    nnoremap <leader>a :Ag! <C-w><cr>
+    nmap <leader>a :Ag! <C-w><cr>
 
     call neobundle#untap()
 endif
@@ -363,7 +363,7 @@ endif
 "==============================================================================
 if neobundle#tap('nerdtree')
     silent! nmap <silent> <leader>p :NERDTreeToggle<CR>
-    nnoremap <silent> <C-f> :NERDTreeFind<CR>
+    nmap <silent> <C-f> :NERDTreeFind<CR>
 
     call neobundle#untap()
 endif
@@ -374,7 +374,7 @@ endif
 if neobundle#tap('tagbar')
     let g:tagbar_autoclose = 1
 
-    nnoremap <silent> <F9> :TagbarToggle<CR>
+    nmap <silent> <F9> :TagbarToggle<CR>
 
     call neobundle#untap()
 endif
@@ -491,10 +491,10 @@ if neobundle#tap('neocomplete')
     let g:neocomplete#min_keyword_length = 3
 
 
-    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+    imap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
     " <CR>: close popup and save indent.
-    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+    imap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
     function! s:my_cr_function()
         return neocomplete#close_popup() . "\<CR>"
         " For no inserting <CR> key.
@@ -524,8 +524,8 @@ if neobundle#tap('unite.vim')
     call unite#filters#matcher_default#use(['matcher_fuzzy'])
     call unite#filters#sorter_default#use(['sorter_rank'])
 
-    nnoremap <leader>b :Unite -quick-match buffer<cr>
-    nnoremap <silent> <C-h> :Unite history/yank<cr>
+    nmap <leader>b :Unite -quick-match buffer<cr>
+    nmap <silent> <C-h> :Unite history/yank<cr>
 
     call neobundle#untap()
 endif
@@ -575,14 +575,14 @@ au BufRead,BufNewFile *.cuh set ft=cuda
 au BufRead,BufNewFile *.xml,*.py,*.rb,*.R call SetRunCommand()
 function! SetRunCommand()
   if &ft == 'xml'
-    noremap <F5> <ESC>:w<CR>:execute "!xmllint --valid --noout %"<CR>
+    map <F5> <ESC>:w<CR>:execute "!xmllint --valid --noout %"<CR>
   elseif &ft == 'python'
-    noremap <F5> <ESC>:w<CR>:execute "!python %"<CR>
-    noremap <F8> <ESC>:w<CR>:execute "!python3 %"<CR>
+    map <F5> <ESC>:w<CR>:execute "!python %"<CR>
+    map <F8> <ESC>:w<CR>:execute "!python3 %"<CR>
   elseif &ft == 'ruby'
-    noremap <F5> <ESC>:w<CR>:execute "!ruby %"<CR>
+    map <F5> <ESC>:w<CR>:execute "!ruby %"<CR>
   elseif &ft == 'r'
-    noremap <F5> <ESC>:w<CR>:execute "!Rscript %"<CR>
+    map <F5> <ESC>:w<CR>:execute "!Rscript %"<CR>
   endif
 endfunction
 
