@@ -252,7 +252,9 @@ nmap <leader>m :nohls<CR>
 " map Q to something useful
 map Q gq
 
-command Q q
+command! -bang Q q<bang>
+command! -bang QA q<bang>
+command! -bang Qa q<bang>
 
 " make Y consistent with C and D
 nmap Y y$
@@ -291,6 +293,8 @@ vmap / /\v
 " keep seach matches in the middle of the window
 nmap n nzzzv
 nmap N Nzzzv
+
+nmap * *<C-O>
 
 "* * * * * * * * * * * * * * * * * PLUGINS * * * * * * * * * * * * * * * * * *
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
