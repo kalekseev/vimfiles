@@ -37,7 +37,6 @@ NeoBundle 'bkad/CamelCaseMotion'
 NeoBundle 'elzr/vim-json'
 NeoBundle 'wting/rust.vim'
 NeoBundle 'derekwyatt/vim-scala'
-NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'hail2u/vim-css3-syntax'
 NeoBundle 'gorodinskiy/vim-coloresque'
 NeoBundle 'mhinz/vim-signify'
@@ -45,10 +44,12 @@ NeoBundle 'thinca/vim-qfreplace'
 NeoBundle 'honza/vim-snippets'
 NeoBundle 'AndrewRadev/splitjoin.vim'
 
+NeoBundleLazy 'vim-scripts/matchit.zip'
 NeoBundleLazy 'Shougo/neosnippet', { 'depends': ['Shougo/neocomplete'] }
 NeoBundleLazy 'rking/ag.vim'
 NeoBundleLazy 'mitsuhiko/vim-python-combined'
 NeoBundleLazy 'amirh/HTML-AutoCloseTag'
+NeoBundleLazy 'pangloss/vim-javascript'
 
 call neobundle#end()
 
@@ -192,11 +193,6 @@ set hlsearch
 " toggle paste
 set pastetoggle=<F2>
 
-" theme
-colorscheme solarized
-set background=dark
-set colorcolumn=80
-
 if has("gui_running")
     set guitablabel=%M%t
     set lines=30
@@ -210,6 +206,15 @@ else
         set term=gnome-256color
     endif
 endif
+
+" theme
+colorscheme solarized
+set background=dark
+set colorcolumn=80
+
+" set dropdown to match solarized light
+highlight Pmenu ctermfg=254 ctermbg=241
+highlight PmenuSel ctermfg=254 ctermbg=136 cterm=bold
 
 " html indent
 let g:html_indent_inctags = "html,body,head,tbody,li,p"
@@ -296,6 +301,8 @@ nmap N Nzzzv
 
 nmap * *<C-O>
 
+nmap <Leader>V V`]
+
 "* * * * * * * * * * * * * * * * * PLUGINS * * * * * * * * * * * * * * * * * *
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
@@ -322,6 +329,7 @@ if neobundle#tap('CamelCaseMotion')
     call neobundle#untap()
 endif
 
+
 " silver searcher
 "==============================================================================
 if neobundle#tap('ag.vim')
@@ -332,6 +340,19 @@ if neobundle#tap('ag.vim')
     \ })
 
     nmap <leader>a :Ag! <C-w><cr>
+
+    call neobundle#untap()
+endif
+
+
+" vim-javascript
+"==============================================================================
+if neobundle#tap('vim-javascript')
+    call neobundle#config({
+    \    'autoload': {
+    \       'filetypes': 'javascript'
+    \    }
+    \ })
 
     call neobundle#untap()
 endif
@@ -448,6 +469,19 @@ endif
 "==============================================================================
 if neobundle#tap('delimitMate')
     let delimitMate_expand_cr = 1
+
+    call neobundle#untap()
+endif
+
+
+" matchit.zip
+"==============================================================================
+if neobundle#tap('matchit.zip')
+    call neobundle#config({
+    \    'autoload': {
+    \        'filetypes': ['html', 'xml']
+    \    }
+    \ })
 
     call neobundle#untap()
 endif
