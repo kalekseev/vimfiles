@@ -21,8 +21,8 @@ NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'Shougo/neocomplete'
-NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'xaviershay/tslime.vim'
@@ -42,10 +42,10 @@ NeoBundle 'hail2u/vim-css3-syntax'
 NeoBundle 'gorodinskiy/vim-coloresque'
 NeoBundle 'mhinz/vim-signify'
 NeoBundle 'thinca/vim-qfreplace'
-NeoBundle 'SirVer/ultisnips'
 NeoBundle 'honza/vim-snippets'
+NeoBundle 'AndrewRadev/splitjoin.vim'
 
-"NeoBundleLazy 'Shougo/neosnippet', { 'depends': ['Shougo/neocomplete'] }
+NeoBundleLazy 'Shougo/neosnippet', { 'depends': ['Shougo/neocomplete'] }
 NeoBundleLazy 'rking/ag.vim'
 NeoBundleLazy 'mitsuhiko/vim-python-combined'
 NeoBundleLazy 'amirh/HTML-AutoCloseTag'
@@ -82,7 +82,7 @@ set showmode
 set number
 
 " start wrapped lines with the string
-set showbreak=...
+set showbreak=↪..
 
 " wrap lines
 set wrap
@@ -91,7 +91,7 @@ set wrap
 set linebreak
 
 " listchars
-set list listchars=tab:»·,trail:·
+set list listchars=tab:»·
 
 " add some line space for easy reading
 set linespace=4
@@ -201,7 +201,7 @@ if has("gui_running")
     set guitablabel=%M%t
     set lines=30
     set columns=84
-    set guifont=Monospace\ 12
+    set guifont=Monospace\ 11
 else
     set t_Co=16
     " dont load csapprox if there is no gui support - silences an annoying warning
@@ -214,8 +214,21 @@ endif
 " html indent
 let g:html_indent_inctags = "html,body,head,tbody,li,p"
 
+" save of focus lost
+au FocusLost * :silent! wall
 
+set cursorline
+augroup cline
+    au!
+    au WinLeave,InsertEnter * set nocursorline
+    au WinEnter,InsertLeave * set cursorline
+augroup END
 
+augroup trailing
+    au!
+    au InsertEnter * :set listchars-=trail:·
+    au InsertLeave * :set listchars+=trail:·
+augroup END
 
 "* * * * * * * * * * * * * * * * * MAPPING * * * * * * * * * * * * * * * * * *
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -271,6 +284,13 @@ nnoremap > >>
 xnoremap < <gV
 xnoremap > >gV
 
+" use sane regexes
+nnoremap / /\v
+vnoremap / /\v
+
+" keep seach matches in the middle of the window
+nnoremap n nzzzv
+nnoremap N Nzzzv
 
 "* * * * * * * * * * * * * * * * * PLUGINS * * * * * * * * * * * * * * * * * *
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -431,36 +451,55 @@ endif
 
 " neosnippet
 "==============================================================================
-"if neobundle#tap('neosnippet')
-    "call neobundle#config({
-    "\    'autoload': {
-    "\        'commands': ['NeoSnippetEdit', 'NeoSnippetSource'],
-    "\        'filetypes': 'snippet',
-    "\        'insert': 1,
-    "\        'unite_sources': ['snippet', 'neosnippet/user', 'neosnippet/runtime'],
-    "\    }
-    "\ })
+if neobundle#tap('neosnippet')
+    call neobundle#config({
+    \    'autoload': {
+    \        'commands': ['NeoSnippetEdit', 'NeoSnippetSource'],
+    \        'filetypes': 'snippet',
+    \        'insert': 1,
+    \        'unite_sources': ['snippet', 'neosnippet/user', 'neosnippet/runtime'],
+    \    }
+    \ })
 
-    "function! neobundle#tapped.hooks.on_source(bundle)
-        "let g:neosnippet#enable_snipmate_compatibility = 1
+    function! neobundle#tapped.hooks.on_source(bundle)
+        let g:neosnippet#enable_snipmate_compatibility = 1
+        let g:neosnippet#snippets_directory = '~/.vim/snippets'
 
-        "imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-                    "\ "\<Plug>(neosnippet_expand_or_jump)"
-                    "\: pumvisible() ? "\<C-n>" : "\<TAB>"
-        "smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-                    "\ "\<Plug>(neosnippet_expand_or_jump)"
-                    "\: "\<TAB>""
-    "endfunction
-    "call neobundle#untap()
-"endif
+        imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+                    \ "\<Plug>(neosnippet_expand_or_jump)"
+                    \: pumvisible() ? "\<C-n>" : "\<TAB>"
+        smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+                    \ "\<Plug>(neosnippet_expand_or_jump)"
+                    \: "\<TAB>""
+    endfunction
+    call neobundle#untap()
+endif
 
 
 " neocomplete
 "==============================================================================
 if neobundle#tap('neocomplete')
     let g:neocomplete#enable_at_startup = 1
+    " use smartcase
+    let g:neocomplete#enable_smart_case = 1
+    let g:neocomplete#enable_camel_case = 1
+    " minimum syntax keyword length
+    let g:neocomplete#sources#syntax#min_keyword_length = 3
+    " Set auto completion length.
+    let g:neocomplete#auto_completion_start_length = 2
+    " Set minimum keyword length.
+    let g:neocomplete#min_keyword_length = 3
+
 
     inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+    " <CR>: close popup and save indent.
+    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+    function! s:my_cr_function()
+        return neocomplete#close_popup() . "\<CR>"
+        " For no inserting <CR> key.
+        "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+    endfunction
 
     call neobundle#untap()
 endif
