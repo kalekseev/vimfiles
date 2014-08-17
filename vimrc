@@ -301,7 +301,7 @@ nmap N Nzzzv
 
 nmap * *<C-O>
 
-nmap <Leader>V V`]
+nmap <Leader>v V`]
 
 "* * * * * * * * * * * * * * * * * PLUGINS * * * * * * * * * * * * * * * * * *
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
