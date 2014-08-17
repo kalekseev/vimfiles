@@ -43,6 +43,8 @@ NeoBundle 'mhinz/vim-signify'
 NeoBundle 'thinca/vim-qfreplace'
 NeoBundle 'honza/vim-snippets'
 NeoBundle 'AndrewRadev/splitjoin.vim'
+NeoBundle 'gregsexton/MatchTag'
+NeoBundle 'matze/vim-move'
 
 NeoBundleLazy 'vim-scripts/matchit.zip'
 NeoBundleLazy 'Shougo/neosnippet', { 'depends': ['Shougo/neocomplete'] }
@@ -216,19 +218,23 @@ set colorcolumn=80
 highlight Pmenu ctermfg=254 ctermbg=241
 highlight PmenuSel ctermfg=254 ctermbg=136 cterm=bold
 
+" better MatchParen color for solarized
+hi MatchParen cterm=bold ctermbg=Black ctermfg=DarkMagenta
+
 " html indent
 let g:html_indent_inctags = "html,body,head,tbody,li,p"
 
 " save of focus lost
 au FocusLost * :silent! wall
 
-set cursorline
-augroup cline
-    au!
-    au WinLeave,InsertEnter * set nocursorline
-    au WinEnter,InsertLeave * set cursorline
-augroup END
+"set cursorline
+"augroup cline
+    "au!
+    "au WinLeave,InsertEnter * set nocursorline
+    "au WinEnter,InsertLeave * set cursorline
+"augroup END
 
+" don't show trailing spaces in insert mode
 augroup trailing
     au!
     au InsertEnter * :set listchars-=trail:·
@@ -264,17 +270,11 @@ command! -bang Qa q<bang>
 " make Y consistent with C and D
 nmap Y y$
 
-" key mapping for vimgrep result navigation
-map <A-o> :copen<CR>
-map <A-q> :cclose<CR>
-map <A-j> :cnext<CR>
-map <A-k> :cprevious<CR>
-
 " key mapping for window navigation
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
 
 " key mapping for saving file
 nmap <C-s> :w<CR>
@@ -315,6 +315,25 @@ if neobundle#tap('vim-signify')
 
     call neobundle#untap()
 endif
+
+
+"vim-move
+"==============================================================================
+if neobundle#tap('vim-move')
+    " urxvt doesn't send meta key with meta8=true or vim doesn't understand
+    " it as a meta key, so <A-key> mapping doesn't work,
+    " with meta8=false it sends <Esc><key> on <alt>+<key>
+    " but it not usable mapping because it will trigger always when you press
+    " esc key (can be 'fixed' with :set ttimeoutlen=0)
+    " http://vim.wikia.com/wiki/Get_Alt_key_to_work_in_terminal#Comments
+    " https://groups.google.com/forum/#!topic/vim_use/tFaV3nXM87A
+    let g:move_map_keys = 0
+    vmap <C-j> <Plug>MoveBlockDown
+    vmap <C-k> <Plug>MoveBlockUp
+
+    call neobundle#untap()
+endif
+
 
 " CamelCaseMotion
 "==============================================================================
