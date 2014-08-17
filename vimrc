@@ -44,7 +44,6 @@ NeoBundle 'thinca/vim-qfreplace'
 NeoBundle 'honza/vim-snippets'
 NeoBundle 'AndrewRadev/splitjoin.vim'
 NeoBundle 'gregsexton/MatchTag'
-NeoBundle 'matze/vim-move'
 
 NeoBundleLazy 'vim-scripts/matchit.zip'
 NeoBundleLazy 'Shougo/neosnippet', { 'depends': ['Shougo/neocomplete'] }
@@ -303,6 +302,19 @@ nmap * *<C-O>
 
 nmap <Leader>v V`]
 
+"nnoremap <C-j> :m+<CR>==
+"nnoremap <C-k> :m-2<CR>==
+"nnoremap <C-h> <<
+"nnoremap <C-l> >>
+"inoremap <C-j> <Esc>:m+<CR>==gi
+"inoremap <C-k> <Esc>:m-2<CR>==gi
+"inoremap <C-h> <Esc><<`]a
+"inoremap <C-l> <Esc>>>`]a
+vnoremap <C-j> :m'>+<CR>gv=gv
+vnoremap <C-k> :m-2<CR>gv=gv
+vnoremap <C-h> <gv
+vnoremap <C-l> >gv
+
 "* * * * * * * * * * * * * * * * * PLUGINS * * * * * * * * * * * * * * * * * *
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
@@ -312,24 +324,6 @@ if neobundle#tap('vim-signify')
     let g:signify_vcs_list = [ 'git', 'hg' ]
     let g:signify_sign_change = '~'
     let g:signify_disable_by_default = 1
-
-    call neobundle#untap()
-endif
-
-
-"vim-move
-"==============================================================================
-if neobundle#tap('vim-move')
-    " urxvt doesn't send meta key with meta8=true or vim doesn't understand
-    " it as a meta key, so <A-key> mapping doesn't work,
-    " with meta8=false it sends <Esc><key> on <alt>+<key>
-    " but it not usable mapping because it will trigger always when you press
-    " esc key (can be 'fixed' with :set ttimeoutlen=0)
-    " http://vim.wikia.com/wiki/Get_Alt_key_to_work_in_terminal#Comments
-    " https://groups.google.com/forum/#!topic/vim_use/tFaV3nXM87A
-    let g:move_map_keys = 0
-    vmap <C-j> <Plug>MoveBlockDown
-    vmap <C-k> <Plug>MoveBlockUp
 
     call neobundle#untap()
 endif
@@ -521,6 +515,7 @@ if neobundle#tap('neosnippet')
     function! neobundle#tapped.hooks.on_source(bundle)
         let g:neosnippet#enable_snipmate_compatibility = 1
         let g:neosnippet#snippets_directory = '~/.vim/snippets'
+        xmap <Leader>s     <Plug>(neosnippet_expand_target)
 
         imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
                     \ "\<Plug>(neosnippet_expand_or_jump)"

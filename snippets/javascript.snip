@@ -1,9 +1,35 @@
 snippet f
 options word
-    function(${1}) { ${0:TARGET} }
+    function(${1}) { ${0:TARGET}; }
 
 snippet vf
 options word
-  var ${1} = function $1(${2:#:argument}) {
-    ${0:TARGET}
-  };
+    var ${1} = function $1(${2:#:argument}) {
+         ${0:TARGET}
+    };
+
+snippet $sf
+options word
+    $scope.${1} = function(${2:#:argument}) {
+        ${0:TARGET}
+    }
+
+snippet cl
+options word
+    console.log(${1:'${2\}'});
+
+snippet debugger
+options word
+    debugger;
+
+snippet ngc
+options word
+    controller('${1}', ['$scope'${2}, function($scope${3}) {
+        ${0:TARGET}
+    }])
+
+snippet ngf
+options word
+    factory('${1}', [${2}function(${3}) {
+        ${0:TARGET}
+    }])
