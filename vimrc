@@ -298,8 +298,10 @@ vmap / /\v
 nmap n nzzzv
 nmap N Nzzzv
 
+" don't jump on search
 nmap * *<C-O>
 
+" reselect pasted text
 nmap <Leader>v V`]
 
 "nnoremap <C-j> :m+<CR>==
@@ -314,6 +316,9 @@ vnoremap <C-j> :m'>+<CR>gv=gv
 vnoremap <C-k> :m-2<CR>gv=gv
 vnoremap <C-h> <gv
 vnoremap <C-l> >gv
+
+map ; :
+
 
 "* * * * * * * * * * * * * * * * * PLUGINS * * * * * * * * * * * * * * * * * *
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
