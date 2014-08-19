@@ -32,7 +32,6 @@ NeoBundle 'ludovicchabant/vim-lawrencium'
 NeoBundle 'Raimondi/delimitMate'
 NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'bkad/CamelCaseMotion'
 NeoBundle 'elzr/vim-json'
 NeoBundle 'wting/rust.vim'
@@ -44,6 +43,7 @@ NeoBundle 'thinca/vim-qfreplace'
 NeoBundle 'honza/vim-snippets'
 NeoBundle 'AndrewRadev/splitjoin.vim'
 NeoBundle 'gregsexton/MatchTag'
+NeoBundle 'justinmk/vim-sneak'
 
 NeoBundleLazy 'vim-scripts/matchit.zip'
 NeoBundleLazy 'Shougo/neosnippet', { 'depends': ['Shougo/neocomplete'] }
@@ -300,6 +300,7 @@ vmap / /\v
 " reselect pasted text
 nmap <Leader>v V`]
 
+nmap <Leader>r cgn
 "nnoremap <C-j> :m+<CR>==
 "nnoremap <C-k> :m-2<CR>==
 "nnoremap <C-h> <<
@@ -637,10 +638,11 @@ if neobundle#tap('unite.vim')
 endif
 
 
-" easymotion
-"==============================================================================
-if neobundle#tap('vim-easymotion')
-    let g:EasyMotion_leader_key = ','
+" sneak
+" =============================================================================
+if neobundle#tap('vim-sneak')
+    let g:sneak#s_next = 1
+    let g:sneak#streak = 1
 
     call neobundle#untap()
 endif
