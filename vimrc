@@ -220,7 +220,7 @@ highlight Pmenu ctermfg=254 ctermbg=241
 highlight PmenuSel ctermfg=254 ctermbg=136 cterm=bold
 
 " better MatchParen color for solarized
-hi MatchParen cterm=bold ctermbg=Black ctermfg=DarkMagenta
+hi MatchParen cterm=bold ctermbg=none ctermfg=DarkMagenta
 
 " html indent
 let g:html_indent_inctags = "html,body,head,tbody,li,p"
