@@ -23,26 +23,16 @@ NeoBundle 'scrooloose/syntastic'
 NeoBundle 'Shougo/neocomplete'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'majutsushi/tagbar'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'xaviershay/tslime.vim'
 NeoBundle 'bling/vim-airline'
-NeoBundle 'mbbill/undotree'
 NeoBundle 'ludovicchabant/vim-lawrencium'
 NeoBundle 'Raimondi/delimitMate'
 NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'bkad/CamelCaseMotion'
-NeoBundle 'elzr/vim-json'
-NeoBundle 'wting/rust.vim'
-NeoBundle 'derekwyatt/vim-scala'
-NeoBundle 'hail2u/vim-css3-syntax'
-NeoBundle 'gorodinskiy/vim-coloresque'
 NeoBundle 'mhinz/vim-signify'
-NeoBundle 'thinca/vim-qfreplace'
-NeoBundle 'honza/vim-snippets'
 NeoBundle 'AndrewRadev/splitjoin.vim'
-NeoBundle 'gregsexton/MatchTag'
 NeoBundle 'justinmk/vim-sneak'
 
 NeoBundleLazy 'vim-scripts/matchit.zip'
@@ -50,7 +40,16 @@ NeoBundleLazy 'Shougo/neosnippet', { 'depends': ['Shougo/neocomplete'] }
 NeoBundleLazy 'rking/ag.vim'
 NeoBundleLazy 'mitsuhiko/vim-python-combined'
 NeoBundleLazy 'amirh/HTML-AutoCloseTag'
-NeoBundleLazy 'pangloss/vim-javascript'
+NeoBundleLazy 'pangloss/vim-javascript', { 'build': { 'unix': 'cp ftdetect/* ~/.vim/ftdetect/' } }
+NeoBundleLazy 'elzr/vim-json', { 'build': { 'unix': 'cp ftdetect/* ~/.vim/ftdetect/' } }
+NeoBundleLazy 'wting/rust.vim', { 'build': { 'unix': 'cp ftdetect/* ~/.vim/ftdetect/' } }
+NeoBundleLazy 'derekwyatt/vim-scala', { 'build': { 'unix': 'cp ftdetect/* ~/.vim/ftdetect/' } }
+NeoBundleLazy 'hail2u/vim-css3-syntax'
+NeoBundleLazy 'thinca/vim-qfreplace'
+NeoBundleLazy 'gregsexton/MatchTag'
+NeoBundleLazy 'gorodinskiy/vim-coloresque'
+NeoBundleLazy 'mbbill/undotree'
+NeoBundleLazy 'majutsushi/tagbar'
 
 call neobundle#end()
 
@@ -418,7 +417,66 @@ endif
 if neobundle#tap('vim-javascript')
     call neobundle#config({
     \    'autoload': {
-    \       'filetypes': 'javascript'
+    \       'filetypes': 'javascript',
+    \       'filename_patterns': '\.js$'
+    \    }
+    \ })
+
+    let javascript_enable_domhtmlcss = 1
+    let g:javascript_conceal = 1
+
+    call neobundle#untap()
+endif
+
+
+" vim-scala
+"==============================================================================
+if neobundle#tap('vim-scala')
+    call neobundle#config({
+    \    'autoload': {
+    \       'filetypes': 'scala',
+    \       'filename_patterns': '\.scala$'
+    \    }
+    \ })
+
+    call neobundle#untap()
+endif
+
+
+" vim-css3-syntax
+"==============================================================================
+if neobundle#tap('vim-css3-syntax')
+    call neobundle#config({
+    \    'autoload': {
+    \       'filetypes': ['css', 'scss', 'html']
+    \    }
+    \ })
+
+    call neobundle#untap()
+endif
+
+
+" vim-json
+"==============================================================================
+if neobundle#tap('vim-json')
+    call neobundle#config({
+    \    'autoload': {
+    \       'filetypes': 'json',
+    \       'filename_patterns': '\.json$'
+    \    }
+    \ })
+
+    call neobundle#untap()
+endif
+
+
+" rust.vim
+"==============================================================================
+if neobundle#tap('rust.vim')
+    call neobundle#config({
+    \    'autoload': {
+    \       'filetypes': 'rust',
+    \       'filename_patterns': '\.rs$'
     \    }
     \ })
 
@@ -465,6 +523,12 @@ endif
 " tagbar
 "==============================================================================
 if neobundle#tap('tagbar')
+    call neobundle#config({
+    \    'autoload': {
+    \        'commands': ['TagbarToggle']
+    \    }
+    \ })
+
     let g:tagbar_autoclose = 1
 
     nmap <silent> <F9> :TagbarToggle<CR>
@@ -523,20 +587,62 @@ if neobundle#tap('vim-fugitive')
 endif
 
 
-" vim-javascript
+" delimitMate
 "==============================================================================
-if neobundle#tap('vim-javascript')
-    let javascript_enable_domhtmlcss = 1
-    let g:javascript_conceal = 1
+if neobundle#tap('delimitMate')
+    let delimitMate_expand_cr = 1
 
     call neobundle#untap()
 endif
 
 
-" delimitMate
+" MatchTag
 "==============================================================================
-if neobundle#tap('delimitMate')
-    let delimitMate_expand_cr = 1
+if neobundle#tap('MatchTag')
+    call neobundle#config({
+    \    'autoload': {
+    \        'filetypes': ['html', 'xml']
+    \    }
+    \ })
+
+    call neobundle#untap()
+endif
+
+
+" vim-coloresque
+"==============================================================================
+if neobundle#tap('vim-coloresque')
+    call neobundle#config({
+    \    'autoload': {
+    \        'filetypes': ['html', 'css', 'scss', 'sass', 'vim', 'less']
+    \    }
+    \ })
+
+    call neobundle#untap()
+endif
+
+
+" undotree
+"==============================================================================
+if neobundle#tap('undotree')
+    call neobundle#config({
+    \    'autoload': {
+    \        'commands': ['UndotreeToggle']
+    \    }
+    \ })
+
+    call neobundle#untap()
+endif
+
+
+" vim-qfreplace
+"==============================================================================
+if neobundle#tap('vim-qfreplace')
+    call neobundle#config({
+    \    'autoload': {
+    \        'commands': ['Qfreplace']
+    \    }
+    \ })
 
     call neobundle#untap()
 endif
