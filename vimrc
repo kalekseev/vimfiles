@@ -590,7 +590,9 @@ endif
 " delimitMate
 "==============================================================================
 if neobundle#tap('delimitMate')
+    "<CR> remaped for neocoplete, don't forget add delimitMateCr
     let delimitMate_expand_cr = 1
+    let delimitMate_expand_space = 1
 
     call neobundle#untap()
 endif
@@ -705,17 +707,11 @@ if neobundle#tap('neocomplete')
 
 
     imap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-    " <CR>: close popup and save indent.
-    imap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-    function! s:my_cr_function()
-        return neocomplete#close_popup() . "\<CR>"
-        " For no inserting <CR> key.
-        "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-    endfunction
+    imap <expr> <CR> pumvisible() ? neocomplete#close_popup() . "\<CR>" : '<Plug>delimitMateCR'
 
     call neobundle#untap()
 endif
+
 
 " ctrlp
 "==============================================================================
