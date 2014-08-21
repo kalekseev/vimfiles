@@ -34,6 +34,7 @@ NeoBundle 'bkad/CamelCaseMotion'
 NeoBundle 'mhinz/vim-signify'
 NeoBundle 'AndrewRadev/splitjoin.vim'
 NeoBundle 'justinmk/vim-sneak'
+NeoBundle 'thinca/vim-visualstar'
 
 NeoBundleLazy 'vim-scripts/matchit.zip'
 NeoBundleLazy 'Shougo/neosnippet', { 'depends': ['Shougo/neocomplete'] }
@@ -46,6 +47,7 @@ NeoBundleLazy 'wting/rust.vim', { 'build': { 'unix': 'cp ftdetect/* ~/.vim/ftdet
 NeoBundleLazy 'derekwyatt/vim-scala', { 'build': { 'unix': 'cp ftdetect/* ~/.vim/ftdetect/' } }
 NeoBundleLazy 'hail2u/vim-css3-syntax'
 NeoBundleLazy 'thinca/vim-qfreplace'
+NeoBundleLazy 'thinca/vim-quickrun'
 NeoBundleLazy 'gregsexton/MatchTag'
 NeoBundleLazy 'gorodinskiy/vim-coloresque'
 NeoBundleLazy 'mbbill/undotree'
@@ -215,6 +217,9 @@ colorscheme solarized
 set background=dark
 set colorcolumn=80
 
+" encoding
+set termencoding=utf-8
+
 " set dropdown to match solarized light
 highlight Pmenu ctermfg=254 ctermbg=241
 highlight PmenuSel ctermfg=254 ctermbg=136 cterm=bold
@@ -314,19 +319,6 @@ vnoremap <C-h> <gv
 vnoremap <C-l> >gv
 
 map ; :
-
-" Search for selected text, forwards or backwards.
-vnoremap <silent> * :<C-U>
-  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
-  \gvy/<C-R><C-R>=substitute(
-  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
-  \gV:call setreg('"', old_reg, old_regtype)<CR>
-vnoremap <silent> # :<C-U>
-  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
-  \gvy?<C-R><C-R>=substitute(
-  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
-  \gV:call setreg('"', old_reg, old_regtype)<CR>
-
 
 " https://bitbucket.org/sjl/dotfiles/src/tip/vim/vimrc
 function! HiInterestingWord(n) " {{{
@@ -650,6 +642,25 @@ if neobundle#tap('vim-qfreplace')
 endif
 
 
+" vim-qfreplace
+"==============================================================================
+if neobundle#tap('vim-quickrun')
+    call neobundle#config({
+    \    'autoload': {
+    \        'commands': ['QuickRun'],
+    \        'mappings' : '<Plug>(quickrun)',
+    \    }
+    \ })
+
+    let g:quickrun_no_default_key_mappings = 1
+
+    nmap <F5> <Plug>(quickrun)
+    vmap <F5> <Plug>(quickrun)
+
+    call neobundle#untap()
+endif
+
+
 " matchit.zip
 "==============================================================================
 if neobundle#tap('matchit.zip')
@@ -781,20 +792,6 @@ endfunction
 
 " cuda
 au BufRead,BufNewFile *.cuh set ft=cuda
-
-au BufRead,BufNewFile *.xml,*.py,*.rb,*.R call SetRunCommand()
-function! SetRunCommand()
-  if &ft == 'xml'
-    map <F5> <ESC>:w<CR>:execute "!xmllint --valid --noout %"<CR>
-  elseif &ft == 'python'
-    map <F5> <ESC>:w<CR>:execute "!python %"<CR>
-    map <F8> <ESC>:w<CR>:execute "!python3 %"<CR>
-  elseif &ft == 'ruby'
-    map <F5> <ESC>:w<CR>:execute "!ruby %"<CR>
-  elseif &ft == 'r'
-    map <F5> <ESC>:w<CR>:execute "!Rscript %"<CR>
-  endif
-endfunction
 
 function! BreakpointToggle(lnum, cmd)
     let line = getline(a:lnum)
