@@ -23,6 +23,7 @@ NeoBundle 'scrooloose/syntastic'
 NeoBundle 'Shougo/neocomplete'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neosnippet-snippets'
+NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'xaviershay/tslime.vim'
 NeoBundle 'bling/vim-airline'
@@ -32,12 +33,12 @@ NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'bkad/CamelCaseMotion'
 NeoBundle 'mhinz/vim-signify'
-NeoBundle 'AndrewRadev/splitjoin.vim'
+NeoBundle 'kalekseev/splitjoin.vim', 'scala'
 NeoBundle 'justinmk/vim-sneak'
 NeoBundle 'thinca/vim-visualstar'
 
 NeoBundleLazy 'vim-scripts/matchit.zip'
-NeoBundleLazy 'Shougo/neosnippet', { 'depends': ['Shougo/neocomplete'] }
+NeoBundleLazy 'Shougo/neosnippet'
 NeoBundleLazy 'rking/ag.vim'
 NeoBundleLazy 'mitsuhiko/vim-python-combined'
 NeoBundleLazy 'amirh/HTML-AutoCloseTag'
@@ -48,10 +49,17 @@ NeoBundleLazy 'derekwyatt/vim-scala', { 'build': { 'unix': 'cp ftdetect/* ~/.vim
 NeoBundleLazy 'hail2u/vim-css3-syntax'
 NeoBundleLazy 'thinca/vim-qfreplace'
 NeoBundleLazy 'thinca/vim-quickrun'
+NeoBundleLazy 'thinca/vim-unite-history'
 NeoBundleLazy 'gregsexton/MatchTag'
 NeoBundleLazy 'gorodinskiy/vim-coloresque'
 NeoBundleLazy 'mbbill/undotree'
 NeoBundleLazy 'majutsushi/tagbar'
+NeoBundleLazy 'kana/vim-niceblock'
+NeoBundleLazy 'tsukkee/unite-help'
+NeoBundleLazy 'add20/vim-conque', {
+\ 'commands' : 'ConqueTerm'
+\ }
+
 
 call neobundle#end()
 
@@ -512,6 +520,22 @@ if neobundle#tap('nerdtree')
 endif
 
 
+" vim-niceblock
+"==============================================================================
+if neobundle#tap('vim-niceblock')
+    call neobundle#config({
+    \    'autoload': {
+    \       'mappings': '<Plug>'
+    \    }
+    \ })
+    xmap I <Plug>(niceblock-I)
+    xmap A <Plug>(niceblock-A)
+
+    call neobundle#untap()
+endif
+
+
+
 " tagbar
 "==============================================================================
 if neobundle#tap('tagbar')
@@ -680,6 +704,7 @@ if neobundle#tap('neosnippet')
     call neobundle#config({
     \    'autoload': {
     \        'commands': ['NeoSnippetEdit', 'NeoSnippetSource'],
+    \        'depends' : ['Shougo/neosnippet-snippets', 'Shougo/neocomplete'],
     \        'filetypes': 'snippet',
     \        'insert': 1,
     \        'unite_sources': ['snippet', 'neosnippet/user', 'neosnippet/runtime'],
@@ -744,8 +769,8 @@ if neobundle#tap('unite.vim')
     call unite#filters#matcher_default#use(['matcher_fuzzy'])
     call unite#filters#sorter_default#use(['sorter_rank'])
 
-    nmap <leader>b :Unite -quick-match buffer<cr>
-    nmap <silent> <C-h> :Unite history/yank<cr>
+    nmap <Leader>b :Unite -start-insert buffer<cr>
+    nmap <Leader>h :Unite history/yank<cr>
 
     call neobundle#untap()
 endif
