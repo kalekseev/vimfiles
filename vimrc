@@ -56,9 +56,8 @@ NeoBundleLazy 'mbbill/undotree'
 NeoBundleLazy 'majutsushi/tagbar'
 NeoBundleLazy 'kana/vim-niceblock'
 NeoBundleLazy 'tsukkee/unite-help'
-NeoBundleLazy 'add20/vim-conque', {
-\ 'commands' : 'ConqueTerm'
-\ }
+NeoBundleLazy 'add20/vim-conque'
+NeoBundleLazy 'kana/vim-smartchr'
 
 
 call neobundle#end()
@@ -797,6 +796,39 @@ if neobundle#tap('indentLine')
 endif
 
 
+" vim-smartchr
+"==============================================================================
+if neobundle#tap('vim-smartchr')
+    call neobundle#config({
+    \    'autoload': {
+    \        'insert': 1
+    \    }
+    \ })
+
+    imap <expr> , smartchr#one_of(', ', ',')
+    augroup MyAutoCmd
+        autocmd FileType scala
+            \ inoremap <buffer> <expr> - smartchr#loop('-', ' -> ', ' <- ')
+            \| inoremap <buffer> <expr> = smartchr#loop(' = ', '=', ' => ')
+            \| inoremap <buffer> <expr> : smartchr#loop(': ', ':', ' :: ')
+            \| inoremap <buffer> <expr> . smartchr#loop('.', ' => ')
+    augroup END
+
+    call neobundle#untap()
+endif
+
+
+" vim-conque
+" =============================================================================
+if neobundle#tap('vim-conque')
+    call neobundle#config({
+    \    'autoload': {
+    \        'commands' : 'ConqueTerm'
+    \    }
+    \ })
+
+    call neobundle#untap()
+endif
 
 
 "* * * * * * * * * * * * * * * * * EXTRA * * * * * * * * * * * * * * * * * * *
