@@ -124,6 +124,11 @@ set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNO
 " turn off needless toolbar on gvim/mvim
 set guioptions-=T
 set guioptions-=m
+" off scrollbar
+set guioptions-=rL
+" no guitablabel
+set guioptions-=e
+
 
 " indent settings
 set shiftwidth=4
@@ -209,10 +214,7 @@ set lazyredraw
 set pastetoggle=<F2>
 
 if has("gui_running")
-    set guitablabel=%M%t
-    set lines=30
-    set columns=84
-    set guifont=Monospace\ 11
+    set guifont=Consolas\ 12
 else
     set t_Co=16
     " dont load csapprox if there is no gui support - silences an annoying warning
