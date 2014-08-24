@@ -202,6 +202,9 @@ set hlsearch
 " search from the top at the end
 set wrapscan
 
+" don't redraw while macro execution
+set lazyredraw
+
 " toggle paste
 set pastetoggle=<F2>
 
@@ -237,6 +240,11 @@ hi MatchParen cterm=bold ctermbg=none ctermfg=DarkMagenta
 " html indent
 let g:html_indent_inctags = "html,body,head,tbody,li,p"
 
+" reset my autocmd group
+augroup MyAutoCmd
+    autocmd!
+augroup END
+
 " save of focus lost
 au FocusLost * :silent! wall
 
@@ -257,6 +265,12 @@ augroup END
 "* * * * * * * * * * * * * * * * * MAPPING * * * * * * * * * * * * * * * * * *
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
+
+" edit vimrc
+nnoremap <Leader>ev :<C-u>edit $MYVIMRC<CR>
+
+" replace selected text
+vnoremap r "_dP
 
 " toggle paste
 nmap <F2> :set invpaste paste?<CR>
@@ -594,7 +608,7 @@ endif
 "==============================================================================
 if neobundle#tap('vim-fugitive')
     " auto-clean fugitive buffer
-    autocmd BufReadPost fugitive://* set bufhidden=delete
+    autocmd MyAutoCmd BufReadPost fugitive://* set bufhidden=delete
     command! -bang -nargs=+ Sgrep execute 'silent Ggrep<bang> <args>' | copen
 
 
@@ -835,9 +849,14 @@ endif
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 
+" Reload .vimrc automatically.
+autocmd MyAutoCmd BufWritePost .vimrc,vimrc
+    \ NeoBundleClearCache | source $MYVIMRC | redraw
+
+
 " jump to last cursor position when opening a file
 " don't do it when writing a commit log entry
-autocmd BufReadPost * call SetCursorPosition()
+autocmd MyAutoCmd BufReadPost * call SetCursorPosition()
 function! SetCursorPosition()
     if &filetype !~ 'commit\c'
         if line("'\"") > 0 && line("'\"") <= line("$")
@@ -848,7 +867,7 @@ function! SetCursorPosition()
 endfunction
 
 " cuda
-au BufRead,BufNewFile *.cuh set ft=cuda
+autocmd MyAutoCmd BufRead,BufNewFile *.cuh set ft=cuda
 
 function! BreakpointToggle(lnum, cmd)
     let line = getline(a:lnum)
