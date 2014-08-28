@@ -757,7 +757,7 @@ if neobundle#tap('neocomplete')
     let g:neocomplete#min_keyword_length = 3
 
 
-    imap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+    "imap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
     imap <expr> <CR> pumvisible() ? neocomplete#close_popup() . "\<CR>" : '<Plug>delimitMateCR'
 
     call neobundle#untap()
@@ -825,7 +825,6 @@ if neobundle#tap('vim-smartchr')
     augroup MyAutoCmd
         autocmd FileType scala
             \ inoremap <buffer> <expr> - smartchr#loop('-', ' -> ', ' <- ')
-            \| inoremap <buffer> <expr> = smartchr#loop(' = ', '=', ' => ')
             \| inoremap <buffer> <expr> : smartchr#loop(': ', ':', ' :: ')
             \| inoremap <buffer> <expr> . smartchr#loop('.', ' => ')
     augroup END
