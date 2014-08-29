@@ -24,11 +24,6 @@ NeoBundle 'Shougo/neocomplete'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'Shougo/neomru.vim'
-NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'nanotech/jellybeans.vim'
-NeoBundle 'tomasr/molokai'
-NeoBundle 'chriskempson/vim-tomorrow-theme'
-NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'xaviershay/tslime.vim'
 NeoBundle 'bling/vim-airline'
 NeoBundle 'ludovicchabant/vim-lawrencium'
@@ -40,6 +35,8 @@ NeoBundle 'mhinz/vim-signify'
 NeoBundle 'kalekseev/splitjoin.vim', 'scala'
 NeoBundle 'justinmk/vim-sneak'
 NeoBundle 'thinca/vim-visualstar'
+NeoBundle 'mhinz/vim-startify'
+NeoBundle 'chriskempson/base16-vim'
 
 NeoBundleLazy 'vim-scripts/matchit.zip'
 NeoBundleLazy 'Shougo/neosnippet'
@@ -54,12 +51,13 @@ NeoBundleLazy 'hail2u/vim-css3-syntax'
 NeoBundleLazy 'thinca/vim-qfreplace'
 NeoBundleLazy 'thinca/vim-quickrun'
 NeoBundleLazy 'thinca/vim-unite-history'
+NeoBundleLazy 'tsukkee/unite-help'
+NeoBundleLazy 'ujihisa/unite-colorscheme'
 NeoBundleLazy 'gregsexton/MatchTag'
 NeoBundleLazy 'gorodinskiy/vim-coloresque'
 NeoBundleLazy 'mbbill/undotree'
 NeoBundleLazy 'majutsushi/tagbar'
 NeoBundleLazy 'kana/vim-niceblock'
-NeoBundleLazy 'tsukkee/unite-help'
 NeoBundleLazy 'add20/vim-conque'
 NeoBundleLazy 'kana/vim-smartchr'
 
@@ -221,27 +219,15 @@ if has("gui_running")
     set guifont=Consolas\ 12
 else
     set t_Co=16
-    " dont load csapprox if there is no gui support - silences an annoying warning
-    let g:CSApprox_loaded = 1
-    if $COLORTERM == 'gnome-terminal'
-        set term=gnome-256color
-    endif
 endif
-
 " theme
-colorscheme solarized
+let base16colorspace=256
+colorscheme base16-default
 set background=dark
 set colorcolumn=80
 
 " encoding
 set termencoding=utf-8
-
-" set dropdown to match solarized light
-highlight Pmenu ctermfg=254 ctermbg=241
-highlight PmenuSel ctermfg=254 ctermbg=136 cterm=bold
-
-" better MatchParen color for solarized
-hi MatchParen cterm=bold ctermbg=none ctermfg=DarkMagenta
 
 " html indent
 let g:html_indent_inctags = "html,body,head,tbody,li,p"
@@ -401,6 +387,15 @@ if neobundle#tap('vim-signify')
     call neobundle#untap()
 endif
 
+
+"startify
+"==============================================================================
+if neobundle#tap('vim-startify')
+    let g:startify_session_dir = '~/.vim/sessions'
+    let g:startify_list_order = ['sessions', 'files', 'dir', 'bookmarks']
+
+    call neobundle#untap()
+endif
 
 " CamelCaseMotion
 "==============================================================================
@@ -575,7 +570,7 @@ endif
 " airline
 "==============================================================================
 if neobundle#tap('vim-airline')
-    let g:airline_theme = "solarized"
+    let g:airline_theme = "base16"
     let g:airline_detect_paste = 1
     let g:airline_left_sep = '▶'
     let g:airline_right_sep = '◀'
@@ -586,7 +581,7 @@ if neobundle#tap('vim-airline')
         let g:airline_symbols = {}
     endif
 
-    let g:airline_symbols.linenr = '¶'
+    let g:airline_symbols.linenr = '␤'
     let g:airline_symbols.branch = '⎇'
     let g:airline_symbols.paste = 'Þ'
 
@@ -808,9 +803,15 @@ endif
 " indentline
 "==============================================================================
 if neobundle#tap('indentLine')
+    call neobundle#config({
+    \    'autoload': {
+    \        'insert': 1
+    \    }
+    \ })
     let g:indentLine_char = '┊'
     let g:indentLine_noConcealCursor=""
     let g:indentLine_faster = 1
+    let g:indentLine_color_term = 8
 
     call neobundle#untap()
 endif
