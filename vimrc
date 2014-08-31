@@ -60,8 +60,9 @@ NeoBundleLazy 'gorodinskiy/vim-coloresque'
 NeoBundleLazy 'mbbill/undotree'
 NeoBundleLazy 'majutsushi/tagbar'
 NeoBundleLazy 'kana/vim-niceblock'
-NeoBundleLazy 'add20/vim-conque'
 NeoBundleLazy 'kana/vim-smartchr'
+NeoBundleLazy 'add20/vim-conque'
+NeoBundleLazy 'terryma/vim-expand-region'
 
 
 call neobundle#end()
@@ -268,9 +269,6 @@ augroup END
 " edit vimrc
 nnoremap <Leader>ev :<C-u>edit $MYVIMRC<CR>
 
-" replace selected text
-vnoremap r "_dP
-
 " toggle paste
 nmap <F2> :set invpaste paste?<CR>
 
@@ -325,6 +323,10 @@ vmap / /\v
 nmap <Leader>v V`]
 
 nmap <Leader>r cgn
+
+" replace selected text
+vnoremap <Leader>p "_dP
+
 "nnoremap <C-j> :m+<CR>==
 "nnoremap <C-k> :m-2<CR>==
 "nnoremap <C-h> <<
@@ -399,6 +401,21 @@ endif
 if neobundle#tap('vim-startify')
     let g:startify_session_dir = '~/.vim/sessions'
     let g:startify_list_order = ['sessions', 'files', 'dir', 'bookmarks']
+
+    call neobundle#untap()
+endif
+
+
+" vim-expand-region
+"==============================================================================
+if neobundle#tap('vim-expand-region')
+    call neobundle#config({
+    \    'autoload': {
+    \       'mappings': '<Plug>(expand_region_expand)'
+    \    }
+    \ })
+
+    vmap v <Plug>(expand_region_expand)
 
     call neobundle#untap()
 endif
