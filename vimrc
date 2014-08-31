@@ -40,6 +40,7 @@ NeoBundle 'chriskempson/base16-vim'
 
 NeoBundleLazy 'vim-scripts/matchit.zip'
 NeoBundleLazy 'Shougo/neosnippet'
+NeoBundleLazy 'Shougo/echodoc'
 NeoBundleLazy 'rking/ag.vim'
 NeoBundleLazy 'mitsuhiko/vim-python-combined'
 NeoBundleLazy 'amirh/HTML-AutoCloseTag'
@@ -215,6 +216,11 @@ set lazyredraw
 " toggle paste
 set pastetoggle=<F2>
 
+" for echodoc
+set cmdheight=2
+set completeopt+=menuone
+set completeopt-=preview
+
 if has("gui_running")
     set guifont=Consolas\ 12
 else
@@ -331,7 +337,6 @@ vnoremap <C-k> :m-2<CR>gv=gv
 vnoremap <C-h> <gv
 vnoremap <C-l> >gv
 
-map ; :
 
 " https://bitbucket.org/sjl/dotfiles/src/tip/vim/vimrc
 function! HiInterestingWord(n) " {{{
@@ -707,6 +712,21 @@ if neobundle#tap('matchit.zip')
     \        'filetypes': ['html', 'xml']
     \    }
     \ })
+
+    call neobundle#untap()
+endif
+
+
+" echodoc
+"==============================================================================
+if neobundle#tap('echodoc')
+    call neobundle#config({
+    \    'autoload': {
+    \        'insert': 1
+    \    }
+    \ })
+
+    let g:echodoc_enable_at_startup = 1
 
     call neobundle#untap()
 endif
