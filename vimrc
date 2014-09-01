@@ -230,8 +230,14 @@ else
 endif
 " theme
 let base16colorspace=256
-colorscheme base16-default
-set background=dark
+
+if filereadable(expand("~/.vimrc.local"))
+    source $HOME/.vimrc.local
+else
+    colorscheme base16-default
+    set background=dark
+end
+
 set colorcolumn=80
 
 " encoding
