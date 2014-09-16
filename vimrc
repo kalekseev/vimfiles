@@ -38,6 +38,7 @@ NeoBundle 'justinmk/vim-sneak'
 NeoBundle 'thinca/vim-visualstar'
 NeoBundle 'mhinz/vim-startify'
 NeoBundle 'chriskempson/base16-vim'
+NeoBundle 'embear/vim-localvimrc'
 
 NeoBundleLazy 'vim-scripts/matchit.zip'
 NeoBundleLazy 'Shougo/neosnippet'
@@ -390,6 +391,14 @@ hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=DarkYello
 
 "* * * * * * * * * * * * * * * * * PLUGINS * * * * * * * * * * * * * * * * * *
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+"localvimrc
+if neobundle#tap('vim-localvimrc')
+    let g:localvimrc_persistent = 1
+
+    call neobundle#untap()
+endif
+
 
 "signify
 "==============================================================================
