@@ -234,8 +234,8 @@ let base16colorspace=256
 if filereadable(expand("~/.vimrc.local"))
     source $HOME/.vimrc.local
 else
-    colorscheme base16-default
-    set background=dark
+    colorscheme base16-tomorrow
+    set background=light
 end
 
 set colorcolumn=80
@@ -407,6 +407,7 @@ endif
 if neobundle#tap('vim-startify')
     let g:startify_session_dir = '~/.vim/sessions'
     let g:startify_list_order = ['sessions', 'files', 'dir', 'bookmarks']
+    let g:startify_change_to_vcs_root = 1
 
     call neobundle#untap()
 endif
