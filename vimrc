@@ -62,6 +62,7 @@ NeoBundleLazy 'mbbill/undotree'
 NeoBundleLazy 'majutsushi/tagbar'
 NeoBundleLazy 'kana/vim-niceblock'
 NeoBundleLazy 'kana/vim-smartinput'
+NeoBundleLazy 'kana/vim-smartchr'
 NeoBundleLazy 'add20/vim-conque'
 NeoBundleLazy 'terryma/vim-expand-region'
 
@@ -871,6 +872,21 @@ if neobundle#tap('indentLine')
 endif
 
 
+" vim-smartchr
+"==============================================================================
+if neobundle#tap('vim-smartchr')
+    call neobundle#config({
+    \    'autoload': {
+    \        'insert': 1,
+    \        'function_prefix:': 'smartchr',
+    \        'on_source': ['vim-smartinput']
+    \    }
+    \ })
+
+    call neobundle#untap()
+endif
+
+
 " vim-smartinput
 "==============================================================================
 if neobundle#tap('vim-smartinput')
@@ -898,6 +914,20 @@ if neobundle#tap('vim-smartinput')
         \   'input': ': ',
         \   'mode': 'i',
         \   'filetype': ['json', 'javascript', 'vim']
+        \})
+
+        call smartinput#map_to_trigger('i', '.', '.', '.')
+        call smartinput#define_rule({
+        \   'at': '\w\.\?\%#',
+        \   'char': '.',
+        \   'input':  "<C-r>=smartchr#loop('.', ' => ')<CR>",
+        \   'filetype': ['scala']
+        \})
+        call smartinput#define_rule({
+        \   'at': '\w\s\.\?\%#',
+        \   'char': '.',
+        \   'input':  "<C-r>=smartchr#loop('.', '=> ')<CR>",
+        \   'filetype': ['scala']
         \})
 
     endfunction
