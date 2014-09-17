@@ -61,7 +61,7 @@ NeoBundleLazy 'gorodinskiy/vim-coloresque'
 NeoBundleLazy 'mbbill/undotree'
 NeoBundleLazy 'majutsushi/tagbar'
 NeoBundleLazy 'kana/vim-niceblock'
-NeoBundleLazy 'kana/vim-smartchr'
+NeoBundleLazy 'kana/vim-smartinput'
 NeoBundleLazy 'add20/vim-conque'
 NeoBundleLazy 'terryma/vim-expand-region'
 
@@ -871,22 +871,36 @@ if neobundle#tap('indentLine')
 endif
 
 
-" vim-smartchr
+" vim-smartinput
 "==============================================================================
-if neobundle#tap('vim-smartchr')
+if neobundle#tap('vim-smartinput')
     call neobundle#config({
     \    'autoload': {
     \        'insert': 1
     \    }
     \ })
 
-    imap <expr> , smartchr#one_of(', ', ',')
-    augroup MyAutoCmd
-        autocmd FileType scala
-            \ inoremap <buffer> <expr> - smartchr#loop('-', ' -> ', ' <- ')
-            \| inoremap <buffer> <expr> : smartchr#loop(': ', ':', ' :: ')
-            \| inoremap <buffer> <expr> . smartchr#loop('.', ' => ')
-    augroup END
+    function! neobundle#tapped.hooks.on_source(bundle)
+        call smartinput#clear_rules()
+
+        call smartinput#map_to_trigger('i', ',', ',', ',')
+        call smartinput#define_rule({
+        \   'at': '\(([^)]*\|\[[^\]]*\|{[^}]*\)\%#',
+        \   'char': ',',
+        \   'input': ', ',
+        \   'mode': 'i'
+        \})
+
+        call smartinput#map_to_trigger('i', ':', ':', ':')
+        call smartinput#define_rule({
+        \   'at': '\%#',
+        \   'char': ':',
+        \   'input': ': ',
+        \   'mode': 'i',
+        \   'filetype': ['json', 'javascript', 'vim']
+        \})
+
+    endfunction
 
     call neobundle#untap()
 endif
