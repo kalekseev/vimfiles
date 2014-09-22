@@ -1,35 +1,92 @@
 snippet f
 options word
-    function(${1}) { ${0:TARGET}; }
+  function(${1}) {${0:TARGET}}
 
-snippet vf
+snippet r
 options word
-    var ${1} = function $1(${2:#:argument}) {
-         ${0:TARGET}
-    };
+  return ${0:TARGET};
+
+snippet     if
+options     head
+  if (${1:#:condition}) {
+    ${0:TARGET}
+  }
+
+snippet     el
+options     word
+  else {
+    ${0:TARGET}
+  }
+
+snippet     ei
+options     word
+  else if (${1:#:condition}) {
+    ${0:TARGET}
+  }
+
+snippet cl
+options head
+  console.log(${1:'${2\}'});
+
+snippet cw
+options head
+  console.warn(${1:'${2\}'});
+
+snippet ce
+options head
+  console.error(${1:'${2\}'});
+
+snippet d
+abbr debugger
+options head
+  debugger;
+
+snippet     .proto
+abbr        .prototype.methodName = (...)
+options     word
+  .prototype.${1:#:methodName} = function(${2:#:arguments}) {
+    ${0:TARGET}
+  };
+
+snippet     .map
+abbr        .map(...)
+options     word
+  .map(function(${1:#:arguments}) {${0:TARGET}});
+
+snippet     .filter
+abbr        .filter(...)
+options     word
+  .filter(function(${1:#:arguments}) {${0:TARGET}});
+
+snippet     .forEach
+abbr        .forEach(...)
+options     word
+  .forEach(function(${1:#:arguments}) {${0:TARGET}});
+
+snippet     .reduce
+abbr        .reduce(...)
+options     word
+  .reduce(function(${1:#:previous}, ${2:#:current}) {
+    ${0:TARGET}
+  }${3:#:, initial});
 
 snippet $sf
 options word
-    $scope.${1} = function(${2:#:argument}) {
-        ${0:TARGET}
-    }
-
-snippet cl
-options word
-    console.log(${1:'${2\}'});
-
-snippet debugger
-options word
-    debugger;
+  $scope.${1} = function(${2:#:argument}) {
+    ${0:TARGET}
+  }
 
 snippet ngc
 options word
-    controller('${1}', ['$scope'${2}, function($scope${3}) {
-        ${0:TARGET}
-    }])
+  controller('${1}', ['$scope'${2}, function($scope${3}) {
+    ${0:TARGET}
+  }])
 
 snippet ngf
 options word
-    factory('${1}', [${2}function(${3}) {
-        ${0:TARGET}
-    }])
+  factory('${1}', [${2}function(${3}) {
+    ${0:TARGET}
+  }])
+
+# source of some snippets https://github.com/extrabacon/atom-turbo-javascript
+# vim: ts=2 sw=2 et
