@@ -348,6 +348,8 @@ vnoremap <C-k> :m-2<CR>gv=gv
 vnoremap <C-h> <gv
 vnoremap <C-l> >gv
 
+" allow the . to execute once for each line of a visual selection
+vnoremap . :normal .<CR>
 
 " https://bitbucket.org/sjl/dotfiles/src/tip/vim/vimrc
 function! HiInterestingWord(n) " {{{
