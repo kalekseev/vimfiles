@@ -40,6 +40,8 @@ NeoBundle 'mhinz/vim-startify'
 NeoBundle 'chriskempson/base16-vim'
 NeoBundle 'embear/vim-localvimrc'
 NeoBundle 'marijnh/tern_for_vim', { 'build': { 'unix': 'npm install' } }
+NeoBundle 'eagletmt/ghcmod-vim'
+NeoBundle 'eagletmt/neco-ghc'
 
 NeoBundleLazy 'vim-scripts/matchit.zip'
 NeoBundleLazy 'Shougo/neosnippet'
@@ -222,7 +224,7 @@ set lazyredraw
 set pastetoggle=<F2>
 
 " for echodoc
-set cmdheight=2
+set noshowmode
 set completeopt+=menuone
 set completeopt-=preview
 
