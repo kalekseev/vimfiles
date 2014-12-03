@@ -228,6 +228,8 @@ set noshowmode
 set completeopt+=menuone
 set completeopt-=preview
 
+let g:netrw_liststyle=3
+
 if has("gui_running")
     set guifont=Consolas\ 12
 else
