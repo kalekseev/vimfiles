@@ -2,3 +2,4 @@ bundle/
 sessions/
 undo/
 .netrwhist
+.viminfo

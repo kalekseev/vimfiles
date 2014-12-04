@@ -39,7 +39,6 @@ NeoBundle 'thinca/vim-visualstar'
 NeoBundle 'mhinz/vim-startify'
 NeoBundle 'chriskempson/base16-vim'
 NeoBundle 'embear/vim-localvimrc'
-NeoBundle 'marijnh/tern_for_vim', { 'build': { 'unix': 'npm install' } }
 NeoBundle 'eagletmt/ghcmod-vim'
 NeoBundle 'eagletmt/neco-ghc'
 
@@ -66,7 +65,6 @@ NeoBundleLazy 'majutsushi/tagbar'
 NeoBundleLazy 'kana/vim-niceblock'
 NeoBundleLazy 'kana/vim-smartinput'
 NeoBundleLazy 'kana/vim-smartchr'
-NeoBundleLazy 'add20/vim-conque'
 NeoBundleLazy 'terryma/vim-expand-region'
 
 
@@ -236,7 +234,10 @@ else
     set t_Co=16
 endif
 " theme
-let base16colorspace=256
+if has('mac')
+elseif has('unix')
+    let base16colorspace=256
+endif
 
 if filereadable(expand("~/.vimrc.local"))
     source $HOME/.vimrc.local
@@ -394,8 +395,6 @@ hi def InterestingWord3 guifg=#000000 ctermfg=16 guibg=#8cffba ctermbg=DarkBlue
 hi def InterestingWord4 guifg=#000000 ctermfg=16 guibg=#b88853 ctermbg=Cyan
 hi def InterestingWord5 guifg=#000000 ctermfg=16 guibg=#ff9eb8 ctermbg=Green
 hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=DarkYellow
-
-autocmd FileType javascript setlocal omnifunc=tern#Complete
 
 
 "* * * * * * * * * * * * * * * * * PLUGINS * * * * * * * * * * * * * * * * * *
@@ -817,12 +816,6 @@ if neobundle#tap('neocomplete')
     let g:neocomplete#auto_completion_start_length = 2
     " Set minimum keyword length.
     let g:neocomplete#min_keyword_length = 3
-
-    if !exists('g:neocomplete#force_omni_input_patterns')
-        let g:neocomplete#force_omni_input_patterns = {}
-    endif
-    let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t]\.\w*'
-
 
     "imap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
     imap <expr> <CR> pumvisible() ? neocomplete#close_popup() . "\<CR>" : '<Plug>delimitMateCR'
