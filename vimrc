@@ -25,7 +25,6 @@ NeoBundle 'Shougo/neocomplete'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'Shougo/neomru.vim'
-NeoBundle 'xaviershay/tslime.vim'
 NeoBundle 'bling/vim-airline'
 NeoBundle 'ludovicchabant/vim-lawrencium'
 NeoBundle 'Raimondi/delimitMate'
@@ -41,6 +40,8 @@ NeoBundle 'chriskempson/base16-vim'
 NeoBundle 'embear/vim-localvimrc'
 NeoBundle 'eagletmt/ghcmod-vim'
 NeoBundle 'eagletmt/neco-ghc'
+NeoBundle 'gorkunov/smartpairs.vim'
+NeoBundle 'xaviershay/tslime.vim', {'terminal': 1}
 
 NeoBundleLazy 'vim-scripts/matchit.zip'
 NeoBundleLazy 'Shougo/neosnippet'
@@ -65,7 +66,6 @@ NeoBundleLazy 'majutsushi/tagbar'
 NeoBundleLazy 'kana/vim-niceblock'
 NeoBundleLazy 'kana/vim-smartinput'
 NeoBundleLazy 'kana/vim-smartchr'
-NeoBundleLazy 'terryma/vim-expand-region'
 
 
 call neobundle#end()
@@ -692,6 +692,7 @@ endif
 "==============================================================================
 if neobundle#tap('vim-coloresque')
     call neobundle#config({
+    \    'gui': 1,
     \    'autoload': {
     \        'filetypes': ['html', 'css', 'scss', 'sass', 'vim', 'less']
     \    }
@@ -699,7 +700,6 @@ if neobundle#tap('vim-coloresque')
 
     call neobundle#untap()
 endif
-
 
 " undotree
 "==============================================================================
