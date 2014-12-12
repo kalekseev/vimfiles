@@ -1,18 +1,38 @@
+scriptencoding utf-8
+
 if has('vim_starting')
     set nocompatible
     set runtimepath+=~/.vim/bundle/neobundle.vim/
+
+    let s:is_windows = has('win16') || has('win32') || has('win64')
+    let s:is_cygwin = has('win32unix')
+    function! IsWindows()
+        return s:is_windows
+    endfunction
+    function! IsMac()
+        return !s:is_windows && !s:is_cygwin
+            \ && (has('mac') || has('macunix') || has('gui_macvim') ||
+            \ (!executable('xdg-open') &&
+            \ system('uname') =~? '^darwin'))
+    endfunction
+
+    if IsWindows()
+        let &runtimepath = &runtimepath.','.$VIM.'/plugins/vimproc'
+    endif
 endif
 
 call neobundle#begin(expand('~/.vim/bundle/'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-NeoBundle 'Shougo/vimproc', {
-\    'build': {
-\        'unix': 'make -f make_unix.mak',
-\        'mac': 'make -f make_mac.mak',
-\    },
-\ }
+if !IsWindows()
+    NeoBundle 'Shougo/vimproc', {
+    \    'build': {
+    \        'unix': 'make -f make_unix.mak',
+    \        'mac': 'make -f make_mac.mak',
+    \    },
+    \ }
+endif
 
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-surround'
@@ -100,7 +120,11 @@ set showmode
 set number
 
 " start wrapped lines with the string
-set showbreak=↪..
+if IsWindows()
+    set showbreak=...
+else
+    set showbreak=↪..
+endif
 
 " wrap lines
 set wrap
@@ -136,6 +160,7 @@ set guioptions-=m
 set guioptions-=rL
 " no guitablabel
 set guioptions-=e
+set guioptions+=c
 
 
 " indent settings
@@ -229,10 +254,16 @@ set completeopt-=preview
 let g:netrw_liststyle=3
 
 if has("gui_running")
-    set guifont=Consolas\ 12
+    if IsWindows()
+        set guifont=Consolas:h12:cRUSSIAN
+    else
+        set guifont=Consolas\ 12
+    endif
+    set langmenu=en_US.UTF-8
 else
     set t_Co=16
 endif
+
 " theme
 if has('mac')
 elseif has('unix')
@@ -242,14 +273,64 @@ endif
 if filereadable(expand("~/.vimrc.local"))
     source $HOME/.vimrc.local
 else
-    colorscheme base16-tomorrow
-    set background=light
+    colorscheme base16-default
+    set background=dark
 end
 
 set colorcolumn=80
 
 " encoding
-set termencoding=utf-8
+set encoding=utf-8
+
+if IsWindows()
+    set termencoding=cp1251
+else
+    set termencoding=
+endif
+
+function! Highlight_remove_attr(attr)
+    " save selection registers
+    new
+    silent! put
+
+    " get current highlight configuration
+    redir @x
+    silent! highlight
+    redir END
+    " open temp buffer
+    new
+    " paste in
+    silent! put x
+
+    " convert to vim syntax (from Mkcolorscheme.vim,
+    "   http://vim.sourceforge.net/scripts/script.php?script_id=85)
+    " delete empty,"links" and "cleared" lines
+    silent! g/^$\| links \| cleared/d
+    " join any lines wrapped by the highlight command output
+    silent! %s/\n \+/ /
+    " remove the xxx's
+    silent! %s/ xxx / /
+    " add highlight commands
+    silent! %s/^/highlight /
+    " protect spaces in some font names
+    silent! %s/font=\(.*\)/font='\1'/
+
+    " substitute bold with "NONE"
+    execute 'silent! %s/' . a:attr . '\([\w,]*\)/NONE\1/geI'
+    " yank entire buffer
+    normal ggVG
+    " copy
+    silent! normal "xy
+    " run
+    execute @x
+
+    " remove temp buffer
+    bwipeout!
+
+    " restore selection registers
+    silent! normal ggVGy
+    bwipeout!
+endfunction
 
 " html indent
 let g:html_indent_inctags = "html,body,head,tbody,li,p"
@@ -258,6 +339,10 @@ let g:html_indent_inctags = "html,body,head,tbody,li,p"
 augroup MyAutoCmd
     autocmd!
 augroup END
+
+if has('gui_running')
+    autocmd MyAutoCmd BufNewFile,BufRead * call Highlight_remove_attr("bold")
+endif
 
 " save of focus lost
 au FocusLost * :silent! wall
@@ -619,8 +704,6 @@ endif
 if neobundle#tap('vim-airline')
     let g:airline_theme = "base16"
     let g:airline_detect_paste = 1
-    let g:airline_left_sep = '▶'
-    let g:airline_right_sep = '◀'
     let g:airline#extensions#branch#enabled = 1
     let g:airline#extensions#syntastic#enabled = 1
 
@@ -628,9 +711,13 @@ if neobundle#tap('vim-airline')
         let g:airline_symbols = {}
     endif
 
-    let g:airline_symbols.linenr = '␤'
-    let g:airline_symbols.branch = '⎇'
-    let g:airline_symbols.paste = 'Þ'
+    if !IsWindows()
+        let g:airline_left_sep = '▶'
+        let g:airline_right_sep = '◀'
+        let g:airline_symbols.linenr = '␤'
+        let g:airline_symbols.branch = '⎇'
+        let g:airline_symbols.paste = 'Þ'
+    endif
 
     call neobundle#untap()
 endif
@@ -642,9 +729,11 @@ if neobundle#tap('syntastic')
     let g:syntastic_enable_signs = 1
     let g:syntastic_check_on_open = 1
     let g:syntastic_error_symbol = '✗'
-    let g:syntastic_warning_symbol = '⚠'
     let g:syntastic_style_error_symbol = '✗'
-    let g:syntastic_style_warning_symbol = '⚠'
+    if !IsWindows()
+        let g:syntastic_warning_symbol = '⚠'
+        let g:syntastic_style_warning_symbol = '⚠'
+    endif
     let g:syntastic_javascript_checkers = ['jshint']
     let g:syntastic_python_checkers = ['pyflakes']
 
@@ -869,10 +958,14 @@ if neobundle#tap('indentLine')
     \        'insert': 1
     \    }
     \ })
-    let g:indentLine_char = '┊'
+    if IsWindows()
+        let g:indentLine_char = '|'
+    else
+        let g:indentLine_char = '┊'
+    endif
+    let g:indentLine_color_term = 8
     let g:indentLine_noConcealCursor=""
     let g:indentLine_faster = 1
-    let g:indentLine_color_term = 8
 
     call neobundle#untap()
 endif
