@@ -57,6 +57,7 @@ NeoBundle 'justinmk/vim-sneak'
 NeoBundle 'thinca/vim-visualstar'
 NeoBundle 'mhinz/vim-startify'
 NeoBundle 'chriskempson/base16-vim'
+NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'embear/vim-localvimrc'
 NeoBundle 'eagletmt/ghcmod-vim'
 NeoBundle 'eagletmt/neco-ghc'
@@ -273,7 +274,11 @@ endif
 if filereadable(expand("~/.vimrc.local"))
     source $HOME/.vimrc.local
 else
-    colorscheme base16-default
+    if IsWindows()
+        colorscheme solarized
+    else
+        colorscheme base16-default
+    endif
     set background=dark
 end
 
