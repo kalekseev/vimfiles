@@ -287,10 +287,12 @@ set colorcolumn=80
 " encoding
 set encoding=utf-8
 
-if IsWindows()
-    set termencoding=cp1251
-else
-    set termencoding=
+if !has('gui_running')
+    if IsWindows()
+        set termencoding=cp1251
+    else
+        set termencoding=
+    endif
 endif
 
 function! Highlight_remove_attr(attr)
@@ -1059,7 +1061,7 @@ endif
 
 " Reload .vimrc automatically.
 autocmd MyAutoCmd BufWritePost .vimrc,vimrc
-    \ NeoBundleClearCache | source $MYVIMRC | redraw
+    \ NeoBundleClearCache | source $MYVIMRC | redraw | call Highlight_remove_attr("bold")
 
 
 " jump to last cursor position when opening a file
