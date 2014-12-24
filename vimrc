@@ -275,7 +275,11 @@ if filereadable(expand("~/.vimrc.local"))
     source $HOME/.vimrc.local
 else
     if IsWindows()
-        colorscheme solarized
+        if has('gui_running')
+            colorscheme base16-default
+        else
+            colorscheme solarized
+        endif
     else
         colorscheme base16-default
     endif
