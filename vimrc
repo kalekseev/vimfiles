@@ -1,3 +1,4 @@
+set encoding=utf-8
 scriptencoding utf-8
 
 if has('vim_starting')
@@ -87,6 +88,7 @@ NeoBundleLazy 'majutsushi/tagbar'
 NeoBundleLazy 'kana/vim-niceblock'
 NeoBundleLazy 'kana/vim-smartinput'
 NeoBundleLazy 'kana/vim-smartchr'
+NeoBundleLazy 't9md/vim-quickhl'
 
 
 call neobundle#end()
@@ -149,7 +151,7 @@ set laststatus=2
 set hidden
 
 " remap leader
-let mapleader = "\<Space>"
+let g:mapleader = "\<Space>"
 
 " russian keymap
 set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
@@ -268,7 +270,7 @@ endif
 " theme
 if has('mac')
 elseif has('unix')
-    let base16colorspace=256
+    let g:base16colorspace=256
 endif
 
 if filereadable(expand("~/.vimrc.local"))
@@ -289,8 +291,6 @@ end
 set colorcolumn=80
 
 " encoding
-set encoding=utf-8
-
 if !has('gui_running')
     if IsWindows()
         set termencoding=cp1251
@@ -356,7 +356,7 @@ if has('gui_running')
 endif
 
 " save of focus lost
-au FocusLost * :silent! wall
+autocmd MyAutoCmd FocusLost * :silent! wall
 
 "set cursorline
 "augroup cline
@@ -366,11 +366,8 @@ au FocusLost * :silent! wall
 "augroup END
 
 " don't show trailing spaces in insert mode
-augroup trailing
-    au!
-    au InsertEnter * :set listchars-=trail:·
-    au InsertLeave * :set listchars+=trail:·
-augroup END
+autocmd MyAutoCmd InsertEnter * :set listchars-=trail:·
+autocmd MyAutoCmd InsertLeave * :set listchars+=trail:·
 
 "* * * * * * * * * * * * * * * * * MAPPING * * * * * * * * * * * * * * * * * *
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -452,45 +449,6 @@ vnoremap <C-l> >gv
 
 " allow the . to execute once for each line of a visual selection
 vnoremap . :normal .<CR>
-
-" https://bitbucket.org/sjl/dotfiles/src/tip/vim/vimrc
-function! HiInterestingWord(n) " {{{
-    " Save our location.
-    normal! mz
-
-    " Yank the current word into the z register.
-    normal! "zyiw
-
-    " Calculate an arbitrary match ID.  Hopefully nothing else is using it.
-    let mid = 86750 + a:n
-
-    " Clear existing matches, but don't worry if they don't exist.
-    silent! call matchdelete(mid)
-
-    " Construct a literal pattern that has to match at boundaries.
-    let pat = '\V\<' . escape(@z, '\') . '\>'
-
-    " Actually match the words.
-    call matchadd("InterestingWord" . a:n, pat, 1, mid)
-
-    " Move back to our original location.
-    normal! `z
-endfunction
-
-nnoremap <silent> <leader>1 :call HiInterestingWord(1)<cr>
-nnoremap <silent> <leader>2 :call HiInterestingWord(2)<cr>
-nnoremap <silent> <leader>3 :call HiInterestingWord(3)<cr>
-nnoremap <silent> <leader>4 :call HiInterestingWord(4)<cr>
-nnoremap <silent> <leader>5 :call HiInterestingWord(5)<cr>
-nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
-nnoremap <silent> <leader>0 :call clearmatches()<cr>
-
-hi def InterestingWord1 guifg=#000000 ctermfg=16 guibg=#ffa724 ctermbg=Magenta
-hi def InterestingWord2 guifg=#000000 ctermfg=16 guibg=#aeee00 ctermbg=Red
-hi def InterestingWord3 guifg=#000000 ctermfg=16 guibg=#8cffba ctermbg=DarkBlue
-hi def InterestingWord4 guifg=#000000 ctermfg=16 guibg=#b88853 ctermbg=Cyan
-hi def InterestingWord5 guifg=#000000 ctermfg=16 guibg=#ff9eb8 ctermbg=Green
-hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=DarkYellow
 
 
 "* * * * * * * * * * * * * * * * * PLUGINS * * * * * * * * * * * * * * * * * *
@@ -579,7 +537,7 @@ if neobundle#tap('vim-javascript')
     \    }
     \ })
 
-    let javascript_enable_domhtmlcss = 1
+    let g:javascript_enable_domhtmlcss = 1
     let g:javascript_conceal = 1
 
     call neobundle#untap()
@@ -768,8 +726,8 @@ endif
 "==============================================================================
 if neobundle#tap('delimitMate')
     "<CR> remaped for neocoplete, don't forget add delimitMateCr
-    let delimitMate_expand_cr = 1
-    let delimitMate_expand_space = 1
+    let g:delimitMate_expand_cr = 1
+    let g:delimitMate_expand_space = 1
 
     call neobundle#untap()
 endif
@@ -827,7 +785,7 @@ if neobundle#tap('vim-qfreplace')
 endif
 
 
-" vim-qfreplace
+" vim-quickrun
 "==============================================================================
 if neobundle#tap('vim-quickrun')
     call neobundle#config({
@@ -841,6 +799,25 @@ if neobundle#tap('vim-quickrun')
 
     nmap <F5> <Plug>(quickrun)
     vmap <F5> <Plug>(quickrun)
+
+    call neobundle#untap()
+endif
+
+
+" vim-quickhl
+"==============================================================================
+if neobundle#tap('vim-quickhl')
+    call neobundle#config({
+    \    'autoload': {
+    \        'mappings' : '<Plug>',
+    \    }
+    \ })
+
+    nmap <Leader>1 <Plug>(quickhl-manual-this)
+    xmap <Leader>1 <Plug>(quickhl-manual-this)
+    nmap <Leader>0 <Plug>(quickhl-manual-reset)
+    xmap <Leader>0 <Plug>(quickhl-manual-reset)
+    nmap <Leader>j <Plug>(quickhl-cword-toggle)
 
     call neobundle#untap()
 endif
