@@ -16,24 +16,19 @@ if has('vim_starting')
             \ (!executable('xdg-open') &&
             \ system('uname') =~? '^darwin'))
     endfunction
-
-    if IsWindows()
-        let &runtimepath = &runtimepath.','.$VIM.'/plugins/vimproc'
-    endif
 endif
 
 call neobundle#begin(expand('~/.vim/bundle/'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-if !IsWindows()
-    NeoBundle 'Shougo/vimproc', {
-    \    'build': {
-    \        'unix': 'make -f make_unix.mak',
-    \        'mac': 'make -f make_mac.mak',
-    \    },
-    \ }
-endif
+NeoBundle 'Shougo/vimproc', {
+\    'build': {
+\        'windows' : 'tools\\update-dll-mingw',
+\        'unix': 'make -f make_unix.mak',
+\        'mac': 'make -f make_mac.mak',
+\    },
+\ }
 
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-surround'
@@ -53,15 +48,13 @@ NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'bkad/CamelCaseMotion'
 NeoBundle 'mhinz/vim-signify'
-NeoBundle 'kalekseev/splitjoin.vim', 'scala'
+NeoBundle 'AndrewRadev/splitjoin.vim'
 NeoBundle 'justinmk/vim-sneak'
 NeoBundle 'thinca/vim-visualstar'
 NeoBundle 'mhinz/vim-startify'
 NeoBundle 'chriskempson/base16-vim'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'embear/vim-localvimrc'
-NeoBundle 'eagletmt/ghcmod-vim'
-NeoBundle 'eagletmt/neco-ghc'
 NeoBundle 'gorkunov/smartpairs.vim'
 NeoBundle 'xaviershay/tslime.vim', {'terminal': 1}
 
@@ -86,9 +79,10 @@ NeoBundleLazy 'gorodinskiy/vim-coloresque'
 NeoBundleLazy 'mbbill/undotree'
 NeoBundleLazy 'majutsushi/tagbar'
 NeoBundleLazy 'kana/vim-niceblock'
-NeoBundleLazy 'kana/vim-smartinput'
-NeoBundleLazy 'kana/vim-smartchr'
 NeoBundleLazy 't9md/vim-quickhl'
+NeoBundleLazy 'eagletmt/ghcmod-vim'
+NeoBundleLazy 'eagletmt/neco-ghc'
+NeoBundleLazy 'rstacruz/sparkup'
 
 
 call neobundle#end()
@@ -598,6 +592,29 @@ if neobundle#tap('rust.vim')
     call neobundle#untap()
 endif
 
+" ghcmod-vim
+"==============================================================================
+if neobundle#tap('ghcmod-vim')
+    call neobundle#config({
+    \    'autoload': {
+    \       'filetypes': 'haskell'
+    \    }
+    \ })
+
+    call neobundle#untap()
+endif
+
+" neco-ghc
+"==============================================================================
+if neobundle#tap('neco-ghc')
+    call neobundle#config({
+    \    'autoload': {
+    \       'filetypes': 'haskell'
+    \    }
+    \ })
+
+    call neobundle#untap()
+endif
 
 " vim-python-combined
 "==============================================================================
@@ -737,6 +754,20 @@ endif
 "==============================================================================
 if neobundle#tap('MatchTag')
     call neobundle#config({
+    \    'autoload': {
+    \        'filetypes': ['html', 'xml']
+    \    }
+    \ })
+
+    call neobundle#untap()
+endif
+
+
+" sparkup
+"==============================================================================
+if neobundle#tap('sparkup')
+    call neobundle#config({
+    \    'rtp': 'vim',
     \    'autoload': {
     \        'filetypes': ['html', 'xml']
     \    }
@@ -959,70 +990,6 @@ if neobundle#tap('indentLine')
 endif
 
 
-" vim-smartchr
-"==============================================================================
-if neobundle#tap('vim-smartchr')
-    call neobundle#config({
-    \    'autoload': {
-    \        'insert': 1,
-    \        'function_prefix:': 'smartchr',
-    \        'on_source': ['vim-smartinput']
-    \    }
-    \ })
-
-    call neobundle#untap()
-endif
-
-
-" vim-smartinput
-"==============================================================================
-if neobundle#tap('vim-smartinput')
-    call neobundle#config({
-    \    'autoload': {
-    \        'insert': 1
-    \    }
-    \ })
-
-    function! neobundle#tapped.hooks.on_source(bundle)
-        call smartinput#clear_rules()
-
-        call smartinput#map_to_trigger('i', ',', ',', ',')
-        call smartinput#define_rule({
-        \   'at': '\(([^)]*\|\[[^\]]*\|{[^}]*\)\%#',
-        \   'char': ',',
-        \   'input': ', ',
-        \   'mode': 'i'
-        \})
-
-        call smartinput#map_to_trigger('i', ':', ':', ':')
-        call smartinput#define_rule({
-        \   'at': '\%#',
-        \   'char': ':',
-        \   'input': ': ',
-        \   'mode': 'i',
-        \   'filetype': ['json', 'javascript', 'vim']
-        \})
-
-        call smartinput#map_to_trigger('i', '.', '.', '.')
-        call smartinput#define_rule({
-        \   'at': '\w\.\?\%#',
-        \   'char': '.',
-        \   'input':  "<C-r>=smartchr#loop('.', ' => ')<CR>",
-        \   'filetype': ['scala']
-        \})
-        call smartinput#define_rule({
-        \   'at': '\w\s\.\?\%#',
-        \   'char': '.',
-        \   'input':  "<C-r>=smartchr#loop('.', '=> ')<CR>",
-        \   'filetype': ['scala']
-        \})
-
-    endfunction
-
-    call neobundle#untap()
-endif
-
-
 " vim-conque
 " =============================================================================
 if neobundle#tap('vim-conque')
@@ -1059,6 +1026,9 @@ endfunction
 
 " cuda
 autocmd MyAutoCmd BufRead,BufNewFile *.cuh set ft=cuda
+
+" freemarker
+autocmd MyAutoCmd BufRead,BufNewFile *.ftl set ft=html
 
 function! BreakpointToggle(lnum, cmd)
     let line = getline(a:lnum)
