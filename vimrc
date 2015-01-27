@@ -75,7 +75,6 @@ NeoBundleLazy 'thinca/vim-unite-history'
 NeoBundleLazy 'tsukkee/unite-help'
 NeoBundleLazy 'ujihisa/unite-colorscheme'
 NeoBundleLazy 'gregsexton/MatchTag'
-NeoBundleLazy 'gorodinskiy/vim-coloresque'
 NeoBundleLazy 'mbbill/undotree'
 NeoBundleLazy 'majutsushi/tagbar'
 NeoBundleLazy 'kana/vim-niceblock'
@@ -776,19 +775,6 @@ if neobundle#tap('sparkup')
     call neobundle#untap()
 endif
 
-
-" vim-coloresque
-"==============================================================================
-if neobundle#tap('vim-coloresque')
-    call neobundle#config({
-    \    'gui': 1,
-    \    'autoload': {
-    \        'filetypes': ['html', 'css', 'scss', 'sass', 'vim', 'less']
-    \    }
-    \ })
-
-    call neobundle#untap()
-endif
 
 " undotree
 "==============================================================================
