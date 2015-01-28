@@ -3,7 +3,6 @@ scriptencoding utf-8
 
 if has('vim_starting')
     set nocompatible
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
 
     let s:is_windows = has('win16') || has('win32') || has('win64')
     let s:is_cygwin = has('win32unix')
@@ -16,9 +15,19 @@ if has('vim_starting')
             \ (!executable('xdg-open') &&
             \ system('uname') =~? '^darwin'))
     endfunction
+
+    if IsWindows()
+        set runtimepath+=~/vimfiles/bundle/neobundle.vim/
+    else
+        set runtimepath+=~/.vim/bundle/neobundle.vim/
+    endif
 endif
 
-call neobundle#begin(expand('~/.vim/bundle/'))
+if IsWindows()
+    call neobundle#begin(expand('~/vimfiles/bundle/'))
+else
+    call neobundle#begin(expand('~/.vim/bundle/'))
+endif
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
