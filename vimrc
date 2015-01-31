@@ -60,7 +60,6 @@ NeoBundle 'mhinz/vim-signify'
 NeoBundle 'AndrewRadev/splitjoin.vim'
 NeoBundle 'justinmk/vim-sneak'
 NeoBundle 'thinca/vim-visualstar'
-NeoBundle 'mhinz/vim-startify'
 NeoBundle 'chriskempson/base16-vim'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'embear/vim-localvimrc'
@@ -72,7 +71,6 @@ NeoBundleLazy 'Shougo/neosnippet'
 NeoBundleLazy 'Shougo/echodoc'
 NeoBundleLazy 'rking/ag.vim'
 NeoBundleLazy 'mitsuhiko/vim-python-combined'
-NeoBundleLazy 'amirh/HTML-AutoCloseTag'
 NeoBundleLazy 'pangloss/vim-javascript', { 'build': { 'unix': 'cp ftdetect/* ~/.vim/ftdetect/' } }
 NeoBundleLazy 'elzr/vim-json', { 'build': { 'unix': 'cp ftdetect/* ~/.vim/ftdetect/' } }
 NeoBundleLazy 'wting/rust.vim', { 'build': { 'unix': 'cp ftdetect/* ~/.vim/ftdetect/' } }
@@ -154,6 +152,7 @@ set hidden
 
 " remap leader
 let g:mapleader = "\<Space>"
+nnoremap <Space> <Nop>
 
 " russian keymap
 set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
@@ -523,8 +522,6 @@ if neobundle#tap('ag.vim')
     \    }
     \ })
 
-    nmap <leader>a :Ag! <C-w><cr>
-
     call neobundle#untap()
 endif
 
@@ -637,24 +634,19 @@ if neobundle#tap('vim-python-combined')
 endif
 
 
-" HTML-AutoCloseTag
-"==============================================================================
-if neobundle#tap('HTML-AutoCloseTag')
-    call neobundle#config({
-    \    'autoload': {
-    \       'filetypes': 'html'
-    \    }
-    \ })
-
-    call neobundle#untap()
-endif
-
-
 " NERDTree
 "==============================================================================
 if neobundle#tap('nerdtree')
     silent! nmap <silent> <leader>p :NERDTreeToggle<CR>
     nmap <silent> <C-f> :NERDTreeFind<CR>
+
+    call neobundle#untap()
+endif
+
+" NERDCommenter
+"==============================================================================
+if neobundle#tap('nerdcommenter')
+    map <Space>/ <Plug>NERDCommenterToggle
 
     call neobundle#untap()
 endif
@@ -823,8 +815,7 @@ if neobundle#tap('vim-quickrun')
 
     let g:quickrun_no_default_key_mappings = 1
 
-    nmap <F5> <Plug>(quickrun)
-    vmap <F5> <Plug>(quickrun)
+    map <F5> <Plug>(quickrun)
 
     call neobundle#untap()
 endif
@@ -843,7 +834,7 @@ if neobundle#tap('vim-quickhl')
     xmap <Leader>1 <Plug>(quickhl-manual-this)
     nmap <Leader>0 <Plug>(quickhl-manual-reset)
     xmap <Leader>0 <Plug>(quickhl-manual-reset)
-    nmap <Leader>j <Plug>(quickhl-cword-toggle)
+    nmap <Leader>2 <Plug>(quickhl-cword-toggle)
 
     call neobundle#untap()
 endif
@@ -942,13 +933,51 @@ endif
 " unite
 "==============================================================================
 if neobundle#tap('unite.vim')
+    if executable('ag')
+        let g:unite_source_grep_command='ag'
+        let g:unite_source_grep_default_opts='--nocolor --nogroup --hidden'
+        let g:unite_source_grep_recursive_opt=''
+    elseif executable('ack')
+        let g:unite_source_grep_command='ack'
+        let g:unite_source_grep_default_opts='--no-heading --no-color -a'
+        let g:unite_source_grep_recursive_opt=''
+    endif
+
     let g:unite_source_history_yank_enable = 1
+    let g:unite_source_menu_menus = {}
+    let g:unite_source_menu_menus.shortcut = {
+    \   'description': 'Shortcuts'
+    \ }
+
+    let g:unite_source_menu_menus.shortcut.candidates = {
+    \   'mru'            : 'Unite file_mru',
+    \   'file_rec/async' : 'Unite file_rec/async',
+    \   'find'           : 'Unite find',
+    \   'grep'           : 'Unite grep',
+    \   'register'       : 'Unite register',
+    \   'bookmark'       : 'Unite bookmark',
+    \   'output'         : 'Unite output',
+    \   'mapping'        : 'Unite mapping'
+    \ }
+
+    function g:unite_source_menu_menus.shortcut.map(key, value)
+        return {
+        \   'word' : a:key, 'kind' : 'command',
+        \   'action__command' : a:value,
+        \ }
+    endfunction
 
     call unite#filters#matcher_default#use(['matcher_fuzzy'])
     call unite#filters#sorter_default#use(['sorter_rank'])
+    call unite#custom#profile('default', 'context', {
+    \   'marked_icon': '»',
+    \   'candidate_icon': '›'
+    \ })
 
     nmap <Leader>b :Unite -start-insert buffer<cr>
     nmap <Leader>h :Unite history/yank<cr>
+    nmap <Leader>a :Unite grep:.<cr><C-R><C-W><cr>
+    nmap <Leader>s :Unite menu:shortcut -start-insert<cr>
 
     call neobundle#untap()
 endif
