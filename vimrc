@@ -720,7 +720,7 @@ if neobundle#tap('syntastic')
         let g:syntastic_warning_symbol = '⚠'
         let g:syntastic_style_warning_symbol = '⚠'
     endif
-    let g:syntastic_javascript_checkers = ['jshint']
+    let g:syntastic_javascript_checkers = ['jshint', 'jscs']
     let g:syntastic_python_checkers = ['pyflakes']
 
     call neobundle#untap()
