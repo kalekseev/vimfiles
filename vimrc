@@ -65,6 +65,7 @@ NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'embear/vim-localvimrc'
 NeoBundle 'gorkunov/smartpairs.vim'
 NeoBundle 'xaviershay/tslime.vim', {'terminal': 1}
+NeoBundle 'ryanss/vim-hackernews'
 
 NeoBundleLazy 'vim-scripts/matchit.zip'
 NeoBundleLazy 'Shougo/neosnippet'
