@@ -214,11 +214,11 @@ set noswapfile
 set backupdir-=.
 set autowrite
 
-set viminfo+=n$VIMHOME./.viminfo
+set viminfo+=n$VIMHOME/.viminfo
 
 " store undo
 if has("persistent_undo")
-    set undodir=$VIMHOME./undo,.
+    set undodir=$VIMHOME/undo,.
     set undofile
 endif
 
