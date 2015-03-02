@@ -74,6 +74,7 @@ NeoBundleLazy 'Shougo/neosnippet'
 NeoBundleLazy 'Shougo/echodoc'
 NeoBundleLazy 'rking/ag.vim'
 NeoBundleLazy 'mitsuhiko/vim-python-combined'
+NeoBundleLazy 'fatih/vim-go'
 NeoBundleLazy 'pangloss/vim-javascript', { 'build': { 'unix': 'cp ftdetect/* ~/.vim/ftdetect/' } }
 NeoBundleLazy 'elzr/vim-json', { 'build': { 'unix': 'cp ftdetect/* ~/.vim/ftdetect/' } }
 NeoBundleLazy 'wting/rust.vim', { 'build': { 'unix': 'cp ftdetect/* ~/.vim/ftdetect/' } }
@@ -606,6 +607,18 @@ if neobundle#tap('ghcmod-vim')
     call neobundle#config({
     \    'autoload': {
     \       'filetypes': 'haskell'
+    \    }
+    \ })
+
+    call neobundle#untap()
+endif
+
+" vim-go
+"==============================================================================
+if neobundle#tap('vim-go')
+    call neobundle#config({
+    \    'autoload': {
+    \       'filetypes': 'go'
     \    }
     \ })
 
