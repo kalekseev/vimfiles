@@ -24,8 +24,10 @@ if has('vim_starting')
 endif
 
 if IsWindows()
+    let $VIMHOME = $HOME."/vimfiles"
     call neobundle#begin(expand('~/vimfiles/bundle/'))
 else
+    let $VIMHOME = $HOME."/.vim"
     call neobundle#begin(expand('~/.vim/bundle/'))
 endif
 
@@ -211,11 +213,11 @@ set noswapfile
 set backupdir-=.
 set autowrite
 
-set viminfo+=n~/.vim/.viminfo
+set viminfo+=n$VIMHOME./.viminfo
 
 " store undo
 if has("persistent_undo")
-    set undodir=~/.vim/undo,.
+    set undodir=$VIMHOME./undo,.
     set undofile
 endif
 
@@ -275,7 +277,7 @@ elseif has('unix')
     let g:base16colorspace=256
 endif
 
-if filereadable(expand("~/.vimrc.local"))
+if filereadable($HOME."/.vimrc.local")
     source $HOME/.vimrc.local
 else
     if IsWindows()
@@ -884,7 +886,7 @@ if neobundle#tap('neosnippet')
 
     function! neobundle#tapped.hooks.on_source(bundle)
         let g:neosnippet#enable_snipmate_compatibility = 1
-        let g:neosnippet#snippets_directory = '~/.vim/snippets'
+        let g:neosnippet#snippets_directory = $VIMHOME.'/snippets'
         xmap <Leader>s     <Plug>(neosnippet_expand_target)
 
         imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
