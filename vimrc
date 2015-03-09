@@ -15,21 +15,20 @@ if has('vim_starting')
             \ (!executable('xdg-open') &&
             \ system('uname') =~? '^darwin'))
     endfunction
+    function! IsLinux()
+        return !IsWindows() && !IsMac()
+    endfunction
 
     if IsWindows()
-        set runtimepath+=~/vimfiles/bundle/neobundle.vim/
+        let $VIMHOME = $HOME.'/vimfiles'
     else
-        set runtimepath+=~/.vim/bundle/neobundle.vim/
+        let $VIMHOME = $HOME.'/.vim'
     endif
+
+    set runtimepath+=$VIMHOME/bundle/neobundle.vim/
 endif
 
-if IsWindows()
-    let $VIMHOME = $HOME."/vimfiles"
-    call neobundle#begin(expand('~/vimfiles/bundle/'))
-else
-    let $VIMHOME = $HOME."/.vim"
-    call neobundle#begin(expand('~/.vim/bundle/'))
-endif
+call neobundle#begin($VIMHOME.'/bundle/')
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
@@ -63,9 +62,9 @@ NeoBundle 'chriskempson/base16-vim'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'embear/vim-localvimrc'
 NeoBundle 'gorkunov/smartpairs.vim'
+NeoBundle 'vim-scripts/matchit.zip'
 NeoBundle 'xaviershay/tslime.vim', {'terminal': 1}
 
-NeoBundleLazy 'vim-scripts/matchit.zip'
 NeoBundleLazy 'Shougo/unite.vim'
 NeoBundleLazy 'Shougo/neomru.vim'
 NeoBundleLazy 'Shougo/neosnippet'
@@ -101,6 +100,11 @@ filetype plugin indent on
 
 NeoBundleCheck
 
+
+" reset my autocmd group
+augroup MyAutoCmd
+    autocmd!
+augroup END
 
 
 
@@ -195,7 +199,7 @@ set wildmode=list:longest
 set wildmenu
 set wildignore=*.aux,*.log,*.class,*.o,*.obj,*~,.git,*.pyc
 
-" dont continue comments when pushing o/O
+" don't continue comments when pushing o/O
 set formatoptions-=o
 
 " vertical/horizontal scroll off settings
@@ -217,7 +221,7 @@ set autowrite
 set viminfo+=n$VIMHOME/.viminfo
 
 " store undo
-if has("persistent_undo")
+if has('persistent_undo')
     set undodir=$VIMHOME/undo,.
     set undofile
 endif
@@ -261,7 +265,7 @@ set completeopt-=preview
 
 let g:netrw_liststyle=3
 
-if has("gui_running")
+if has('gui_running')
     if IsWindows()
         set guifont=Consolas:h12:cRUSSIAN
     else
@@ -273,12 +277,11 @@ else
 endif
 
 " theme
-if has('mac')
-elseif has('unix')
+if IsLinux()
     let g:base16colorspace=256
 endif
 
-if filereadable($HOME."/.vimrc.local")
+if filereadable($HOME.'/.vimrc.local')
     source $HOME/.vimrc.local
 else
     if IsWindows()
@@ -304,79 +307,10 @@ if !has('gui_running')
     endif
 endif
 
-function! Highlight_remove_attr(attr)
-    " save selection registers
-    new
-    silent! put
 
-    " get current highlight configuration
-    redir @x
-    silent! highlight
-    redir END
-    " open temp buffer
-    new
-    " paste in
-    silent! put x
-
-    " convert to vim syntax (from Mkcolorscheme.vim,
-    "   http://vim.sourceforge.net/scripts/script.php?script_id=85)
-    " delete empty,"links" and "cleared" lines
-    silent! g/^$\| links \| cleared/d
-    " join any lines wrapped by the highlight command output
-    silent! %s/\n \+/ /
-    " remove the xxx's
-    silent! %s/ xxx / /
-    " add highlight commands
-    silent! %s/^/highlight /
-    " protect spaces in some font names
-    silent! %s/font=\(.*\)/font='\1'/
-
-    " substitute bold with "NONE"
-    execute 'silent! %s/' . a:attr . '\([\w,]*\)/NONE\1/geI'
-    " yank entire buffer
-    normal ggVG
-    " copy
-    silent! normal "xy
-    " run
-    execute @x
-
-    " remove temp buffer
-    bwipeout!
-
-    " restore selection registers
-    silent! normal ggVGy
-    bwipeout!
-endfunction
-
-" html indent
-let g:html_indent_inctags = "html,body,head,tbody,li,p"
-
-" reset my autocmd group
-augroup MyAutoCmd
-    autocmd!
-augroup END
-
-if has('gui_running')
-    autocmd MyAutoCmd BufNewFile,BufRead * call Highlight_remove_attr("bold")
-endif
-
-" save of focus lost
-autocmd MyAutoCmd FocusLost * :silent! wall
-
-"set cursorline
-"augroup cline
-    "au!
-    "au WinLeave,InsertEnter * set nocursorline
-    "au WinEnter,InsertLeave * set cursorline
-"augroup END
-
-" don't show trailing spaces in insert mode
-autocmd MyAutoCmd InsertEnter * :set listchars-=trail:·
-autocmd MyAutoCmd InsertLeave * :set listchars+=trail:·
 
 "* * * * * * * * * * * * * * * * * MAPPING * * * * * * * * * * * * * * * * * *
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
 
 " edit vimrc
 nnoremap <Leader>ev :<C-u>edit $MYVIMRC<CR>
@@ -387,7 +321,7 @@ nmap <F2> :set invpaste paste?<CR>
 " switch between two files
 map <Leader><Leader> <C-^>
 
-" disable arrow keys
+" use arrow keys for windows size change
 map <Up> <C-W>+
 map <Down> <C-W>-
 map <Left> <C-W><
@@ -434,19 +368,13 @@ vmap / /\v
 " reselect pasted text
 nmap <Leader>v V`]
 
+" replace multiple
 nmap <Leader>r cgn
 
 " replace selected text
 vnoremap <Leader>p "_dP
 
-"nnoremap <C-j> :m+<CR>==
-"nnoremap <C-k> :m-2<CR>==
-"nnoremap <C-h> <<
-"nnoremap <C-l> >>
-"inoremap <C-j> <Esc>:m+<CR>==gi
-"inoremap <C-k> <Esc>:m-2<CR>==gi
-"inoremap <C-h> <Esc><<`]a
-"inoremap <C-l> <Esc>>>`]a
+" move selected lines
 vnoremap <C-j> :m'>+<CR>gv=gv
 vnoremap <C-k> :m-2<CR>gv=gv
 vnoremap <C-h> <gv
@@ -454,6 +382,7 @@ vnoremap <C-l> >gv
 
 " allow the . to execute once for each line of a visual selection
 vnoremap . :normal .<CR>
+
 
 
 "* * * * * * * * * * * * * * * * * PLUGINS * * * * * * * * * * * * * * * * * *
@@ -477,31 +406,6 @@ if neobundle#tap('vim-signify')
     call neobundle#untap()
 endif
 
-
-"startify
-"==============================================================================
-if neobundle#tap('vim-startify')
-    let g:startify_session_dir = '~/.vim/sessions'
-    let g:startify_list_order = ['sessions', 'files', 'dir', 'bookmarks']
-    let g:startify_change_to_vcs_root = 1
-
-    call neobundle#untap()
-endif
-
-
-" vim-expand-region
-"==============================================================================
-if neobundle#tap('vim-expand-region')
-    call neobundle#config({
-    \    'autoload': {
-    \       'mappings': '<Plug>(expand_region_expand)'
-    \    }
-    \ })
-
-    vmap v <Plug>(expand_region_expand)
-
-    call neobundle#untap()
-endif
 
 " CamelCaseMotion
 "==============================================================================
@@ -601,6 +505,7 @@ if neobundle#tap('rust.vim')
     call neobundle#untap()
 endif
 
+
 " ghcmod-vim
 "==============================================================================
 if neobundle#tap('ghcmod-vim')
@@ -612,6 +517,20 @@ if neobundle#tap('ghcmod-vim')
 
     call neobundle#untap()
 endif
+
+
+" neco-ghc
+"==============================================================================
+if neobundle#tap('neco-ghc')
+    call neobundle#config({
+    \    'autoload': {
+    \       'filetypes': 'haskell'
+    \    }
+    \ })
+
+    call neobundle#untap()
+endif
+
 
 " vim-go
 "==============================================================================
@@ -625,17 +544,6 @@ if neobundle#tap('vim-go')
     call neobundle#untap()
 endif
 
-" neco-ghc
-"==============================================================================
-if neobundle#tap('neco-ghc')
-    call neobundle#config({
-    \    'autoload': {
-    \       'filetypes': 'haskell'
-    \    }
-    \ })
-
-    call neobundle#untap()
-endif
 
 " vim-python-combined
 "==============================================================================
@@ -658,6 +566,7 @@ if neobundle#tap('nerdtree')
 
     call neobundle#untap()
 endif
+
 
 " NERDCommenter
 "==============================================================================
@@ -683,7 +592,6 @@ if neobundle#tap('vim-niceblock')
 endif
 
 
-
 " tagbar
 "==============================================================================
 if neobundle#tap('tagbar')
@@ -704,7 +612,7 @@ endif
 " airline
 "==============================================================================
 if neobundle#tap('vim-airline')
-    let g:airline_theme = "base16"
+    let g:airline_theme = 'base16'
     let g:airline_detect_paste = 1
     let g:airline#extensions#branch#enabled = 1
     let g:airline#extensions#syntastic#enabled = 1
@@ -730,9 +638,9 @@ endif
 if neobundle#tap('syntastic')
     let g:syntastic_enable_signs = 1
     let g:syntastic_check_on_open = 1
-    let g:syntastic_error_symbol = '✗'
-    let g:syntastic_style_error_symbol = '✗'
     if !IsWindows()
+        let g:syntastic_error_symbol = '✗'
+        let g:syntastic_style_error_symbol = '✗'
         let g:syntastic_warning_symbol = '⚠'
         let g:syntastic_style_warning_symbol = '⚠'
     endif
@@ -792,6 +700,7 @@ if neobundle#tap('sparkup')
     call neobundle#untap()
 endif
 
+
 " hackernews
 "==============================================================================
 if neobundle#tap('vim-hackernews')
@@ -801,6 +710,7 @@ if neobundle#tap('vim-hackernews')
 
     call neobundle#untap()
 endif
+
 
 " undotree
 "==============================================================================
@@ -867,15 +777,15 @@ endif
 
 " matchit.zip
 "==============================================================================
-if neobundle#tap('matchit.zip')
-    call neobundle#config({
-    \    'autoload': {
-    \        'filetypes': ['html', 'xml']
-    \    }
-    \ })
+"if neobundle#tap('matchit.zip')
+    "call neobundle#config({
+    "\    'autoload': {
+    "\        'filetypes': ['html', 'xml']
+    "\    }
+    "\ })
 
-    call neobundle#untap()
-endif
+    "call neobundle#untap()
+"endif
 
 
 " echodoc
@@ -1052,26 +962,37 @@ if neobundle#tap('indentLine')
 endif
 
 
-" vim-conque
-" =============================================================================
-if neobundle#tap('vim-conque')
-    call neobundle#config({
-    \    'autoload': {
-    \        'commands' : 'ConqueTerm'
-    \    }
-    \ })
-
-    call neobundle#untap()
-endif
-
-
 "* * * * * * * * * * * * * * * * * EXTRA * * * * * * * * * * * * * * * * * * *
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+" cuda
+autocmd MyAutoCmd BufRead,BufNewFile *.cuh set ft=cuda
+
+" freemarker
+autocmd MyAutoCmd BufRead,BufNewFile *.ftl set ft=html
+
+if has('gui_running')
+    autocmd MyAutoCmd BufNewFile,BufRead * call Highlight_remove_attr('bold')
+endif
+
+" save on focus lost (gui only)
+autocmd MyAutoCmd FocusLost * :silent! wall
+
+"set cursorline
+"augroup cline
+    "au!
+    "au WinLeave,InsertEnter * set nocursorline
+    "au WinEnter,InsertLeave * set cursorline
+"augroup END
+
+" don't show trailing spaces in insert mode
+autocmd MyAutoCmd InsertEnter * :set listchars-=trail:·
+autocmd MyAutoCmd InsertLeave * :set listchars+=trail:·
 
 
 " Reload .vimrc automatically.
 autocmd MyAutoCmd BufWritePost .vimrc,vimrc
-    \ NeoBundleClearCache | source $MYVIMRC | redraw | call Highlight_remove_attr("bold")
+    \ NeoBundleClearCache | source $MYVIMRC | redraw | call Highlight_remove_attr('bold')
 
 
 " jump to last cursor position when opening a file
@@ -1086,18 +1007,56 @@ function! SetCursorPosition()
     end
 endfunction
 
-" cuda
-autocmd MyAutoCmd BufRead,BufNewFile *.cuh set ft=cuda
-
-" freemarker
-autocmd MyAutoCmd BufRead,BufNewFile *.ftl set ft=html
-
 function! BreakpointToggle(lnum, cmd)
     let line = getline(a:lnum)
     let plnum = prevnonblank(a:lnum)
     call append(line('.')-1, repeat(' ', indent(plnum)).a:cmd)
     normal k
     if &modifiable && &modified | write | endif
+endfunction
+
+function! Highlight_remove_attr(attr)
+    " save selection registers
+    new
+    silent! put
+
+    " get current highlight configuration
+    redir @x
+    silent! highlight
+    redir END
+    " open temp buffer
+    new
+    " paste in
+    silent! put x
+
+    " convert to vim syntax (from Mkcolorscheme.vim,
+    "   http://vim.sourceforge.net/scripts/script.php?script_id=85)
+    " delete empty,"links" and "cleared" lines
+    silent! g/^$\| links \| cleared/d
+    " join any lines wrapped by the highlight command output
+    silent! %s/\n \+/ /
+    " remove the xxx's
+    silent! %s/ xxx / /
+    " add highlight commands
+    silent! %s/^/highlight /
+    " protect spaces in some font names
+    silent! %s/font=\(.*\)/font='\1'/
+
+    " substitute bold with "NONE"
+    execute 'silent! %s/' . a:attr . '\([\w,]*\)/NONE\1/geI'
+    " yank entire buffer
+    normal ggVG
+    " copy
+    silent! normal "xy
+    " run
+    execute @x
+
+    " remove temp buffer
+    bwipeout!
+
+    " restore selection registers
+    silent! normal ggVGy
+    bwipeout!
 endfunction
 
 
