@@ -48,10 +48,7 @@ NeoBundle 'tpope/vim-eunuch'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'scrooloose/syntastic'
-NeoBundle 'Shougo/neocomplete'
-NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'bling/vim-airline'
 NeoBundle 'ludovicchabant/vim-lawrencium'
 NeoBundle 'Raimondi/delimitMate'
@@ -67,11 +64,14 @@ NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'embear/vim-localvimrc'
 NeoBundle 'gorkunov/smartpairs.vim'
 NeoBundle 'xaviershay/tslime.vim', {'terminal': 1}
-NeoBundle 'ryanss/vim-hackernews'
 
 NeoBundleLazy 'vim-scripts/matchit.zip'
+NeoBundleLazy 'Shougo/unite.vim'
+NeoBundleLazy 'Shougo/neomru.vim'
 NeoBundleLazy 'Shougo/neosnippet'
 NeoBundleLazy 'Shougo/echodoc'
+NeoBundleLazy 'Shougo/unite-help'
+NeoBundleLazy 'Shougo/neocomplete'
 NeoBundleLazy 'rking/ag.vim'
 NeoBundleLazy 'mitsuhiko/vim-python-combined'
 NeoBundleLazy 'fatih/vim-go'
@@ -83,7 +83,6 @@ NeoBundleLazy 'hail2u/vim-css3-syntax'
 NeoBundleLazy 'thinca/vim-qfreplace'
 NeoBundleLazy 'thinca/vim-quickrun'
 NeoBundleLazy 'thinca/vim-unite-history'
-NeoBundleLazy 'tsukkee/unite-help'
 NeoBundleLazy 'ujihisa/unite-colorscheme'
 NeoBundleLazy 'gregsexton/MatchTag'
 NeoBundleLazy 'mbbill/undotree'
@@ -93,6 +92,7 @@ NeoBundleLazy 't9md/vim-quickhl'
 NeoBundleLazy 'eagletmt/ghcmod-vim'
 NeoBundleLazy 'eagletmt/neco-ghc'
 NeoBundleLazy 'rstacruz/sparkup'
+NeoBundleLazy 'ryanss/vim-hackernews'
 
 
 call neobundle#end()
@@ -792,6 +792,15 @@ if neobundle#tap('sparkup')
     call neobundle#untap()
 endif
 
+" hackernews
+"==============================================================================
+if neobundle#tap('vim-hackernews')
+    call neobundle#config({
+    \    'commands': ['HackerNews']
+    \ })
+
+    call neobundle#untap()
+endif
 
 " undotree
 "==============================================================================
@@ -889,10 +898,9 @@ endif
 if neobundle#tap('neosnippet')
     call neobundle#config({
     \    'autoload': {
-    \        'commands': ['NeoSnippetEdit', 'NeoSnippetSource'],
-    \        'depends' : ['Shougo/neosnippet-snippets', 'Shougo/neocomplete'],
-    \        'filetypes': 'snippet',
+    \        'depends' : ['Shougo/neosnippet-snippets'],
     \        'insert': 1,
+    \        'filetypes': 'snippet',
     \        'unite_sources': ['snippet', 'neosnippet/user', 'neosnippet/runtime'],
     \    }
     \ })
@@ -916,6 +924,12 @@ endif
 " neocomplete
 "==============================================================================
 if neobundle#tap('neocomplete')
+    call neobundle#config({
+    \    'autoload': {
+    \        'insert': 1
+    \    }
+    \ })
+
     let g:neocomplete#enable_at_startup = 1
     " use smartcase
     let g:neocomplete#enable_smart_case = 1
@@ -949,6 +963,12 @@ endif
 " unite
 "==============================================================================
 if neobundle#tap('unite.vim')
+    call neobundle#config({
+    \ 'commands' : [{ 'name' : 'Unite',
+    \                 'complete' : 'customlist,unite#complete_source' }],
+    \ 'depends' : 'Shougo/neomru.vim',
+    \ })
+
     if executable('ag')
         let g:unite_source_grep_command='ag'
         let g:unite_source_grep_default_opts='--nocolor --nogroup --hidden'
@@ -973,7 +993,9 @@ if neobundle#tap('unite.vim')
     \   'register'       : 'Unite register',
     \   'bookmark'       : 'Unite bookmark',
     \   'output'         : 'Unite output',
-    \   'mapping'        : 'Unite mapping'
+    \   'mapping'        : 'Unite mapping',
+    \   'help'           : 'Unite help',
+    \   'history'        : 'Unite history'
     \ }
 
     function g:unite_source_menu_menus.shortcut.map(key, value)
@@ -992,7 +1014,7 @@ if neobundle#tap('unite.vim')
 
     nmap <Leader>b :Unite -start-insert buffer<cr>
     nmap <Leader>h :Unite history/yank<cr>
-    nmap <Leader>a :Unite grep:.<cr><C-R><C-W><cr>
+    nmap <Leader>a :UniteWithCursorWord -auto-preview -vertical-preview grep<cr>
     nmap <Leader>s :Unite menu:shortcut -start-insert<cr>
 
     call neobundle#untap()
