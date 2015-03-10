@@ -55,16 +55,16 @@ NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'bkad/CamelCaseMotion'
 NeoBundle 'mhinz/vim-signify'
-NeoBundle 'AndrewRadev/splitjoin.vim'
-NeoBundle 'justinmk/vim-sneak'
 NeoBundle 'thinca/vim-visualstar'
 NeoBundle 'chriskempson/base16-vim'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'embear/vim-localvimrc'
 NeoBundle 'gorkunov/smartpairs.vim'
-NeoBundle 'vim-scripts/matchit.zip'
 NeoBundle 'xaviershay/tslime.vim', {'terminal': 1}
 
+NeoBundleLazy 'vim-scripts/matchit.zip'
+NeoBundleLazy 'AndrewRadev/splitjoin.vim'
+NeoBundleLazy 'justinmk/vim-sneak'
 NeoBundleLazy 'Shougo/unite.vim'
 NeoBundleLazy 'Shougo/neomru.vim'
 NeoBundleLazy 'Shougo/neosnippet'
@@ -666,7 +666,7 @@ endif
 " delimitMate
 "==============================================================================
 if neobundle#tap('delimitMate')
-    "<CR> remaped for neocoplete, don't forget add delimitMateCr
+    "<CR> remaped for neocomplete, don't forget add delimitMateCr
     let g:delimitMate_expand_cr = 1
     let g:delimitMate_expand_space = 1
 
@@ -777,15 +777,27 @@ endif
 
 " matchit.zip
 "==============================================================================
-"if neobundle#tap('matchit.zip')
-    "call neobundle#config({
-    "\    'autoload': {
-    "\        'filetypes': ['html', 'xml']
-    "\    }
-    "\ })
+if neobundle#tap('matchit.zip')
+    call neobundle#config({
+    \    'autoload': {
+    \        'mappings': [['nxo', '%', 'g%']]
+    \    }
+    \ })
 
-    "call neobundle#untap()
-"endif
+    call neobundle#untap()
+endif
+
+" matchit.zip
+"==============================================================================
+if neobundle#tap('splitjoin.vim')
+    call neobundle#config({
+    \    'autoload': {
+    \        'mappings': [['nxo', 'gS', 'gJ']]
+    \    }
+    \ })
+
+    call neobundle#untap()
+endif
 
 
 " echodoc
@@ -934,6 +946,11 @@ endif
 " sneak
 " =============================================================================
 if neobundle#tap('vim-sneak')
+    call neobundle#config({
+    \    'autoload': {
+    \        'mappings': [['nxo', 's']]
+    \    }
+    \ })
     let g:sneak#s_next = 1
     let g:sneak#streak = 1
 
