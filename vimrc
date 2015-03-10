@@ -42,7 +42,6 @@ NeoBundle 'Shougo/vimproc', {
 
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tpope/vim-eunuch'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/nerdcommenter'
@@ -53,15 +52,16 @@ NeoBundle 'ludovicchabant/vim-lawrencium'
 NeoBundle 'Raimondi/delimitMate'
 NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'ctrlpvim/ctrlp.vim'
-NeoBundle 'bkad/CamelCaseMotion'
 NeoBundle 'mhinz/vim-signify'
 NeoBundle 'thinca/vim-visualstar'
 NeoBundle 'chriskempson/base16-vim'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'embear/vim-localvimrc'
 NeoBundle 'gorkunov/smartpairs.vim'
-NeoBundle 'xaviershay/tslime.vim', {'terminal': 1}
+NeoBundle 'xaviershay/tslime.vim'
 
+NeoBundleLazy 'tpope/vim-repeat'
+NeoBundleLazy 'bkad/CamelCaseMotion'
 NeoBundleLazy 'vim-scripts/matchit.zip'
 NeoBundleLazy 'AndrewRadev/splitjoin.vim'
 NeoBundleLazy 'justinmk/vim-sneak'
@@ -407,9 +407,27 @@ if neobundle#tap('vim-signify')
 endif
 
 
+"signify
+"==============================================================================
+if neobundle#tap('vim-repeat')
+    call neobundle#config({
+    \    'autoload': {
+    \       'mappings': '.'
+    \    }
+    \ })
+
+    call neobundle#untap()
+endif
+
+
 " CamelCaseMotion
 "==============================================================================
 if neobundle#tap('CamelCaseMotion')
+    call neobundle#config({
+    \    'autoload': {
+    \       'mappings': '<Plug>CamelCaseMotion'
+    \    }
+    \ })
     nmap <silent> W <Plug>CamelCaseMotion_w
     xmap <silent> W <Plug>CamelCaseMotion_w
     omap <silent> W <Plug>CamelCaseMotion_w
@@ -963,11 +981,6 @@ endif
 " indentline
 "==============================================================================
 if neobundle#tap('indentLine')
-    call neobundle#config({
-    \    'autoload': {
-    \        'insert': 1
-    \    }
-    \ })
     if IsWindows()
         let g:indentLine_char = '|'
     else
@@ -997,13 +1010,6 @@ endif
 " save on focus lost (gui only)
 autocmd MyAutoCmd FocusLost * :silent! wall
 
-"set cursorline
-"augroup cline
-    "au!
-    "au WinLeave,InsertEnter * set nocursorline
-    "au WinEnter,InsertLeave * set cursorline
-"augroup END
-
 " don't show trailing spaces in insert mode
 autocmd MyAutoCmd InsertEnter * :set listchars-=trail:·
 autocmd MyAutoCmd InsertLeave * :set listchars+=trail:·
@@ -1011,12 +1017,13 @@ autocmd MyAutoCmd InsertLeave * :set listchars+=trail:·
 
 " Reload .vimrc automatically.
 autocmd MyAutoCmd BufWritePost .vimrc,vimrc
-    \ NeoBundleClearCache | source $MYVIMRC | redraw | call Highlight_remove_attr('bold')
+    \ NeoBundleClearCache | source $MYVIMRC | redraw | call GuiNoBold()
 
 
 " jump to last cursor position when opening a file
 " don't do it when writing a commit log entry
 autocmd MyAutoCmd BufReadPost * call SetCursorPosition()
+
 function! SetCursorPosition()
     if &filetype !~ 'commit\c'
         if line("'\"") > 0 && line("'\"") <= line("$")
@@ -1032,6 +1039,12 @@ function! BreakpointToggle(lnum, cmd)
     call append(line('.')-1, repeat(' ', indent(plnum)).a:cmd)
     normal k
     if &modifiable && &modified | write | endif
+endfunction
+
+function! GuiNoBold()
+    if has('gui_running')
+        call Highlight_remove_attr('bold')
+    endif
 endfunction
 
 function! Highlight_remove_attr(attr)
