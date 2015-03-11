@@ -73,7 +73,7 @@ NeoBundleLazy 'Shougo/unite-help'
 NeoBundleLazy 'Shougo/neocomplete'
 NeoBundleLazy 'rking/ag.vim'
 NeoBundleLazy 'mitsuhiko/vim-python-combined'
-NeoBundleLazy 'fatih/vim-go'
+NeoBundleLazy 'kalekseev/vim-go', 'fix-vimproc-escape'
 NeoBundleLazy 'pangloss/vim-javascript', { 'build': { 'unix': 'cp ftdetect/* ~/.vim/ftdetect/' } }
 NeoBundleLazy 'elzr/vim-json', { 'build': { 'unix': 'cp ftdetect/* ~/.vim/ftdetect/' } }
 NeoBundleLazy 'wting/rust.vim', { 'build': { 'unix': 'cp ftdetect/* ~/.vim/ftdetect/' } }
