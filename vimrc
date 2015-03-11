@@ -59,10 +59,10 @@ NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'embear/vim-localvimrc'
 NeoBundle 'gorkunov/smartpairs.vim'
 NeoBundle 'xaviershay/tslime.vim'
+NeoBundle 'vim-scripts/matchit.zip'
 
 NeoBundleLazy 'tpope/vim-repeat'
 NeoBundleLazy 'bkad/CamelCaseMotion'
-NeoBundleLazy 'vim-scripts/matchit.zip'
 NeoBundleLazy 'AndrewRadev/splitjoin.vim'
 NeoBundleLazy 'justinmk/vim-sneak'
 NeoBundleLazy 'Shougo/unite.vim'
@@ -396,7 +396,7 @@ if neobundle#tap('vim-localvimrc')
 endif
 
 
-"signify
+" signify
 "==============================================================================
 if neobundle#tap('vim-signify')
     let g:signify_vcs_list = [ 'git', 'hg' ]
@@ -407,7 +407,7 @@ if neobundle#tap('vim-signify')
 endif
 
 
-"signify
+" repeat
 "==============================================================================
 if neobundle#tap('vim-repeat')
     call neobundle#config({
@@ -793,19 +793,7 @@ if neobundle#tap('vim-quickhl')
 endif
 
 
-" matchit.zip
-"==============================================================================
-if neobundle#tap('matchit.zip')
-    call neobundle#config({
-    \    'autoload': {
-    \        'mappings': [['nxo', '%', 'g%']]
-    \    }
-    \ })
-
-    call neobundle#untap()
-endif
-
-" matchit.zip
+" splitjoin
 "==============================================================================
 if neobundle#tap('splitjoin.vim')
     call neobundle#config({
