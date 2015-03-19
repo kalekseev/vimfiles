@@ -62,6 +62,7 @@ NeoBundle 'xaviershay/tslime.vim'
 NeoBundle 'vim-scripts/matchit.zip'
 
 NeoBundleLazy 'tpope/vim-repeat'
+NeoBundleLazy 'tpope/vim-jdaddy'
 NeoBundleLazy 'bkad/CamelCaseMotion'
 NeoBundleLazy 'AndrewRadev/splitjoin.vim'
 NeoBundleLazy 'justinmk/vim-sneak'
@@ -402,6 +403,20 @@ if neobundle#tap('vim-signify')
     let g:signify_vcs_list = [ 'git', 'hg' ]
     let g:signify_sign_change = '~'
     let g:signify_disable_by_default = 1
+
+    call neobundle#untap()
+endif
+
+
+" vim-jdaddy
+"==============================================================================
+if neobundle#tap('vim-jdaddy')
+    call neobundle#config({
+    \    'autoload': {
+    \       'filetypes': 'json',
+    \       'filename_patterns': '\.json$'
+    \    }
+    \ })
 
     call neobundle#untap()
 endif
