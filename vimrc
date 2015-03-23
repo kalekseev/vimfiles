@@ -18,6 +18,9 @@ if has('vim_starting')
     function! IsLinux()
         return !IsWindows() && !IsMac()
     endfunction
+    function! IsPutty()
+        return !empty($PUTTY)
+    endfunction
 
     if IsWindows()
         let $VIMHOME = $HOME.'/vimfiles'
@@ -132,7 +135,7 @@ set showmode
 set number
 
 " start wrapped lines with the string
-if IsWindows()
+if IsWindows() || IsPutty()
     set showbreak=...
 else
     set showbreak=↪..
@@ -654,7 +657,7 @@ if neobundle#tap('vim-airline')
         let g:airline_symbols = {}
     endif
 
-    if !IsWindows()
+    if !(IsWindows() || IsPutty())
         let g:airline_left_sep = '▶'
         let g:airline_right_sep = '◀'
         let g:airline_symbols.linenr = '␤'
@@ -984,7 +987,7 @@ endif
 " indentline
 "==============================================================================
 if neobundle#tap('indentLine')
-    if IsWindows()
+    if IsWindows() || IsPutty()
         let g:indentLine_char = '|'
     else
         let g:indentLine_char = '┊'
