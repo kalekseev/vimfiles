@@ -78,10 +78,6 @@ NeoBundleLazy 'Shougo/neocomplete'
 NeoBundleLazy 'rking/ag.vim'
 NeoBundleLazy 'mitsuhiko/vim-python-combined'
 NeoBundleLazy 'fatih/vim-go', 'master'
-NeoBundleLazy 'pangloss/vim-javascript', { 'build': { 'unix': 'cp ftdetect/* ~/.vim/ftdetect/' } }
-NeoBundleLazy 'elzr/vim-json', { 'build': { 'unix': 'cp ftdetect/* ~/.vim/ftdetect/' } }
-NeoBundleLazy 'wting/rust.vim', { 'build': { 'unix': 'cp ftdetect/* ~/.vim/ftdetect/' } }
-NeoBundleLazy 'derekwyatt/vim-scala', { 'build': { 'unix': 'cp ftdetect/* ~/.vim/ftdetect/' } }
 NeoBundleLazy 'hail2u/vim-css3-syntax'
 NeoBundleLazy 'thinca/vim-qfreplace'
 NeoBundleLazy 'thinca/vim-quickrun'
@@ -96,6 +92,26 @@ NeoBundleLazy 'eagletmt/ghcmod-vim'
 NeoBundleLazy 'eagletmt/neco-ghc'
 NeoBundleLazy 'rstacruz/sparkup'
 NeoBundleLazy 'ryanss/vim-hackernews'
+NeoBundleLazy 'pangloss/vim-javascript', {
+            \   'build': {
+            \       'unix': 'cp ftdetect/* ~/.vim/ftdetect/'
+            \   }
+            \ }
+NeoBundleLazy 'elzr/vim-json', {
+            \   'build': {
+            \       'unix': 'cp ftdetect/* ~/.vim/ftdetect/'
+            \   }
+            \ }
+NeoBundleLazy 'wting/rust.vim', {
+            \   'build': {
+            \       'unix': 'cp ftdetect/* ~/.vim/ftdetect/'
+            \   }
+            \ }
+NeoBundleLazy 'derekwyatt/vim-scala', {
+            \   'build': {
+            \       'unix': 'cp ftdetect/* ~/.vim/ftdetect/'
+            \   }
+            \ }
 
 
 call neobundle#end()
@@ -847,7 +863,11 @@ if neobundle#tap('neosnippet')
     \        'depends' : ['Shougo/neosnippet-snippets'],
     \        'insert': 1,
     \        'filetypes': 'snippet',
-    \        'unite_sources': ['snippet', 'neosnippet/user', 'neosnippet/runtime'],
+    \        'unite_sources': [
+    \           'snippet',
+    \           'neosnippet/user',
+    \           'neosnippet/runtime'
+    \       ],
     \    }
     \ })
 
@@ -888,7 +908,8 @@ if neobundle#tap('neocomplete')
     let g:neocomplete#min_keyword_length = 3
 
     "imap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-    imap <expr> <CR> pumvisible() ? neocomplete#close_popup() . "\<CR>" : '<Plug>delimitMateCR'
+    imap <expr> <CR> pumvisible() ? neocomplete#close_popup() . "\<CR>"
+                \: '<Plug>delimitMateCR'
 
     call neobundle#untap()
 endif
@@ -934,16 +955,17 @@ if neobundle#tap('unite.vim')
     \ }
 
     let g:unite_source_menu_menus.shortcut.candidates = {
-    \   'mru'            : 'Unite file_mru',
-    \   'file_rec/async' : 'Unite file_rec/async',
-    \   'find'           : 'Unite find',
-    \   'grep'           : 'Unite grep',
-    \   'register'       : 'Unite register',
-    \   'bookmark'       : 'Unite bookmark',
-    \   'output'         : 'Unite output',
-    \   'mapping'        : 'Unite mapping',
-    \   'help'           : 'Unite help',
-    \   'history'        : 'Unite history'
+    \   'mru'             : 'Unite file_mru',
+    \   'file_rec/async'  : 'Unite file_rec/async',
+    \   'find'            : 'Unite find',
+    \   'grep'            : 'Unite grep',
+    \   'register'        : 'Unite register',
+    \   'bookmark'        : 'Unite bookmark',
+    \   'output'          : 'Unite output',
+    \   'mapping'         : 'Unite mapping',
+    \   'help'            : 'Unite help',
+    \   'history/command' : 'Unite history/command',
+    \   'history/yank'    : 'Unite history/yank'
     \ }
 
     function g:unite_source_menu_menus.shortcut.map(key, value)
