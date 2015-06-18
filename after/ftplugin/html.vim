@@ -1,1 +1,1 @@
-set ts=4 sw=4 sta et sts=4 ai
+set ts=2 sw=2 sta et sts=2 ai

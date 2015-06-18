@@ -46,6 +46,7 @@ NeoBundle 'Shougo/vimproc', {
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-eunuch'
+NeoBundle 'tpope/vim-abolish'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'scrooloose/syntastic'
@@ -63,10 +64,10 @@ NeoBundle 'embear/vim-localvimrc'
 NeoBundle 'gorkunov/smartpairs.vim'
 NeoBundle 'xaviershay/tslime.vim'
 NeoBundle 'vim-scripts/matchit.zip'
+NeoBundle 'bkad/CamelCaseMotion'
 
 NeoBundleLazy 'tpope/vim-repeat'
 NeoBundleLazy 'tpope/vim-jdaddy'
-NeoBundleLazy 'bkad/CamelCaseMotion'
 NeoBundleLazy 'AndrewRadev/splitjoin.vim'
 NeoBundleLazy 'justinmk/vim-sneak'
 NeoBundleLazy 'Shougo/unite.vim'
@@ -77,7 +78,7 @@ NeoBundleLazy 'Shougo/unite-help'
 NeoBundleLazy 'Shougo/neocomplete'
 NeoBundleLazy 'rking/ag.vim'
 NeoBundleLazy 'mitsuhiko/vim-python-combined'
-NeoBundleLazy 'fatih/vim-go', 'master'
+NeoBundleLazy 'fatih/vim-go'
 NeoBundleLazy 'hail2u/vim-css3-syntax'
 NeoBundleLazy 'thinca/vim-qfreplace'
 NeoBundleLazy 'thinca/vim-quickrun'
@@ -403,6 +404,9 @@ vnoremap <C-l> >gv
 " allow the . to execute once for each line of a visual selection
 vnoremap . :normal .<CR>
 
+command! CountSearch execute '%s///gn'
+command! CopyFilename execute 'let @+=expand("%:t")'
+command! CopyFilepath execute 'let @+=expand("%:p")'
 
 
 "* * * * * * * * * * * * * * * * * PLUGINS * * * * * * * * * * * * * * * * * *
@@ -457,11 +461,6 @@ endif
 " CamelCaseMotion
 "==============================================================================
 if neobundle#tap('CamelCaseMotion')
-    call neobundle#config({
-    \    'autoload': {
-    \       'mappings': '<Plug>CamelCaseMotion'
-    \    }
-    \ })
     nmap <silent> W <Plug>CamelCaseMotion_w
     xmap <silent> W <Plug>CamelCaseMotion_w
     omap <silent> W <Plug>CamelCaseMotion_w
@@ -522,7 +521,7 @@ endif
 if neobundle#tap('vim-css3-syntax')
     call neobundle#config({
     \    'autoload': {
-    \       'filetypes': ['css', 'scss', 'html']
+    \       'filetypes': ['css', 'scss', 'html', 'htmldjango']
     \    }
     \ })
 
@@ -615,6 +614,7 @@ endif
 if neobundle#tap('nerdtree')
     silent! nmap <silent> <leader>p :NERDTreeToggle<CR>
     nmap <silent> <C-f> :NERDTreeFind<CR>
+    let NERDTreeIgnore = ['\.pyc$']
 
     call neobundle#untap()
 endif
@@ -731,7 +731,7 @@ endif
 if neobundle#tap('MatchTag')
     call neobundle#config({
     \    'autoload': {
-    \        'filetypes': ['html', 'xml']
+    \        'filetypes': ['html', 'xml', 'htmldjango']
     \    }
     \ })
 
@@ -745,7 +745,7 @@ if neobundle#tap('sparkup')
     call neobundle#config({
     \    'rtp': 'vim',
     \    'autoload': {
-    \        'filetypes': ['html', 'xml']
+    \        'filetypes': ['html', 'xml', 'htmldjango']
     \    }
     \ })
 
@@ -919,7 +919,7 @@ endif
 "==============================================================================
 if neobundle#tap('ctrlp.vim')
     let g:ctrlp_custom_ignore = {
-    \    'dir': '\v[\/](\.git|\.hg|\.svn|target)$',
+    \    'dir': '\v[\/](\.git|\.hg|\.svn|target|node_modules|bower_components)$',
     \    'file': '\v\.(exe|so|dll|class|aux|log|jar)$',
     \ }
 

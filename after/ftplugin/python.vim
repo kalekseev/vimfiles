@@ -14,6 +14,7 @@ let python_highlight_all = 1
 " Wrap at 72 chars for comments.
 set formatoptions=cq textwidth=72 foldignore= wildignore+=*.py[co]
 
+set colorcolumn=110
 " Highlight end of line whitespace.
 highlight WhitespaceEOL ctermbg=Black guibg=red
 match WhitespaceEOL /\s\+$/

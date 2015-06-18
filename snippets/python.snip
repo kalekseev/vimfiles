@@ -1,0 +1,6 @@
+snippet gcd
+options head
+    def get_context_data(self, **kwargs):
+        context = super(${1}, self).get_context_data(**kwargs)
+        ${0:TARGET}
+        return context
