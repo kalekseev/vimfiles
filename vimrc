@@ -407,6 +407,7 @@ vnoremap . :normal .<CR>
 command! CountSearch execute '%s///gn'
 command! CopyFilename execute 'let @+=expand("%:t")'
 command! CopyFilepath execute 'let @+=expand("%:p")'
+command! -range ApplyQMacros execute '<line1>,<line2>normal! @q'
 
 
 "* * * * * * * * * * * * * * * * * PLUGINS * * * * * * * * * * * * * * * * * *
