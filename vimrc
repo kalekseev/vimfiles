@@ -75,6 +75,7 @@ NeoBundleLazy 'Shougo/neomru.vim'
 NeoBundleLazy 'Shougo/neosnippet'
 NeoBundleLazy 'Shougo/echodoc'
 NeoBundleLazy 'Shougo/unite-help'
+NeoBundleLazy 'tsukkee/unite-tag'
 NeoBundleLazy 'Shougo/neocomplete'
 NeoBundleLazy 'rking/ag.vim'
 NeoBundleLazy 'mitsuhiko/vim-python-combined'
@@ -966,7 +967,8 @@ if neobundle#tap('unite.vim')
     \   'mapping'         : 'Unite mapping',
     \   'help'            : 'Unite help',
     \   'history/command' : 'Unite history/command',
-    \   'history/yank'    : 'Unite history/yank'
+    \   'history/yank'    : 'Unite history/yank',
+    \   'tag'             : 'Unite tag'
     \ }
 
     function g:unite_source_menu_menus.shortcut.map(key, value)
@@ -1023,8 +1025,21 @@ if neobundle#tap('indentLine')
 endif
 
 
+" localvimrc
+"==============================================================================
+if neobundle#tap('vim-localvimrc')
+    let g:localvimrc_sandbox = 0
+
+    call neobundle#untap()
+endif
+
 "* * * * * * * * * * * * * * * * * EXTRA * * * * * * * * * * * * * * * * * * *
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+" filetype specific settings
+" (don't use after/ftplugin because localvimrc won't override it)
+autocmd MyAutoCmd FileType html setlocal ts=2 sw=2 sta et sts=2 ai
+autocmd MyAutoCmd FileType javascript setlocal ts=2 sw=2 sta et sts=2 ai
 
 " cuda
 autocmd MyAutoCmd BufRead,BufNewFile *.cuh set ft=cuda
