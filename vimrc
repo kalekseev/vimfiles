@@ -987,8 +987,9 @@ if neobundle#tap('unite.vim')
 
     nmap <Leader>b :Unite -start-insert buffer<cr>
     nmap <Leader>h :Unite history/yank<cr>
-    nmap <Leader>a :UniteWithCursorWord -auto-preview -vertical-preview grep<cr>
+    nmap <Leader>a :UniteWithCursorWord -auto-preview -vertical-preview grep<cr><cr>
     nmap <Leader>s :Unite menu:shortcut -start-insert<cr>
+    nmap <Leader>l :Unite file_mru<CR>
 
     call neobundle#untap()
 endif
