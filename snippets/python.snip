@@ -4,3 +4,12 @@ options head
         context = super(${1}, self).get_context_data(**kwargs)
         ${0:TARGET}
         return context
+
+
+snippet     pdb
+options     head
+	try:
+		${1:TARGET}
+	except ${2:Exception} as e:
+		import ipdb; ipdb.set_trace()
+		pass

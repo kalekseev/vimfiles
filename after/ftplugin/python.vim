@@ -33,8 +33,7 @@ EOL
 map <C-e> :py EvaluateCurrentRange()
 
 
-nnoremap <silent> <buffer> <F7> :call BreakpointToggle(line('.'), "import ipdb; ipdb.set_trace() ### XXX BREAKPOINT")<CR>
+nnoremap <silent> <buffer> <F7> :call BreakpointToggle(line('.'), "import pdb; pdb.set_trace() ### XXX BREAKPOINT")<CR>
 nnoremap <silent> <buffer> <F6> :call Flake8()<CR>
-nnoremap <silent> <buffer> <F12> :call BreakpointToggle(line('.'), "import pdb; pdb.set_trace() ### XXX BREAKPOINT")<CR>
 
 highlight SpellBad term=underline

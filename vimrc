@@ -65,6 +65,8 @@ NeoBundle 'gorkunov/smartpairs.vim'
 NeoBundle 'xaviershay/tslime.vim'
 NeoBundle 'vim-scripts/matchit.zip'
 NeoBundle 'bkad/CamelCaseMotion'
+NeoBundle 'jmcomets/vim-pony'
+NeoBundle 'chase/vim-ansible-yaml'
 
 NeoBundleLazy 'tpope/vim-repeat'
 NeoBundleLazy 'tpope/vim-jdaddy'
@@ -978,12 +980,23 @@ if neobundle#tap('unite.vim')
         \ }
     endfunction
 
-    call unite#filters#matcher_default#use(['matcher_fuzzy'])
-    call unite#filters#sorter_default#use(['sorter_rank'])
-    call unite#custom#profile('default', 'context', {
-    \   'marked_icon': '»',
-    \   'candidate_icon': '›'
-    \ })
+    function! neobundle#tapped.hooks.on_source(bundle)
+        call unite#custom#source(
+            \ 'buffer,file_rec,file_rec/async,file_rec/git', 'matchers',
+            \ ['converter_relative_word', 'matcher_fuzzy'])
+        call unite#custom#source(
+            \ 'file_mru', 'matchers',
+            \ ['matcher_project_files', 'matcher_fuzzy',
+            \  'matcher_hide_hidden_files', 'matcher_hide_current_file'])
+        call unite#custom#source(
+            \ 'file_rec,file_rec/async,file_rec/git,file_mru', 'converters',
+            \ ['converter_file_directory'])
+        call unite#filters#sorter_default#use(['sorter_rank'])
+        call unite#custom#profile('default', 'context', {
+        \   'marked_icon': '»',
+        \   'candidate_icon': '›'
+        \ })
+    endfunction
 
     nmap <Leader>b :Unite -start-insert buffer<cr>
     nmap <Leader>h :Unite history/yank<cr>
@@ -1040,7 +1053,7 @@ endif
 " filetype specific settings
 " (don't use after/ftplugin because localvimrc won't override it)
 autocmd MyAutoCmd FileType html setlocal ts=2 sw=2 sta et sts=2 ai
-autocmd MyAutoCmd FileType javascript setlocal ts=2 sw=2 sta et sts=2 ai
+autocmd MyAutoCmd FileType javascript setlocal ts=2 sw=2 sta et sts=2 ai colorcolumn=110
 
 " cuda
 autocmd MyAutoCmd BufRead,BufNewFile *.cuh set ft=cuda
