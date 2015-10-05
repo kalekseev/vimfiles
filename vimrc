@@ -336,6 +336,9 @@ endif
 "* * * * * * * * * * * * * * * * * MAPPING * * * * * * * * * * * * * * * * * *
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
+" esc
+inoremap jk <ESC>
+
 " edit vimrc
 nnoremap <Leader>ev :<C-u>edit $MYVIMRC<CR>
 
@@ -440,8 +443,8 @@ endif
 if neobundle#tap('vim-jdaddy')
     call neobundle#config({
     \    'autoload': {
-    \       'filetypes': 'json',
-    \       'filename_patterns': '\.json$'
+    \       'filetypes': ['json', 'python'],
+    \       'filename_patterns': ['\.json$', '\.py$']
     \    }
     \ })
 
