@@ -68,53 +68,169 @@ NeoBundle 'bkad/CamelCaseMotion'
 NeoBundle 'jmcomets/vim-pony'
 NeoBundle 'chase/vim-ansible-yaml'
 
-NeoBundleLazy 'tpope/vim-repeat'
-NeoBundleLazy 'tpope/vim-jdaddy'
-NeoBundleLazy 'AndrewRadev/splitjoin.vim'
-NeoBundleLazy 'justinmk/vim-sneak'
-NeoBundleLazy 'Shougo/unite.vim'
+NeoBundleLazy 'tpope/vim-repeat', {
+            \    'autoload': {
+            \       'mappings': '.'
+            \    }
+            \ }
+NeoBundleLazy 'tpope/vim-jdaddy', {
+            \    'autoload': {
+            \       'filetypes': ['json', 'python'],
+            \       'filename_patterns': ['\.json$', '\.py$']
+            \    }
+            \ }
+NeoBundleLazy 'AndrewRadev/splitjoin.vim', {
+            \    'autoload': {
+            \        'mappings': [['nxo', 'gS', 'gJ']]
+            \    }
+            \ }
+NeoBundleLazy 'justinmk/vim-sneak', {
+            \    'autoload': {
+            \        'mappings': [['nxo', 's']]
+            \    }
+            \ }
+NeoBundleLazy 'Shougo/unite.vim', {
+            \ 'commands' : [{ 'name' : 'Unite',
+            \                 'complete' : 'customlist,unite#complete_source' }],
+            \ 'depends' : 'Shougo/neomru.vim',
+            \ }
 NeoBundleLazy 'Shougo/neomru.vim'
-NeoBundleLazy 'Shougo/neosnippet'
-NeoBundleLazy 'Shougo/echodoc'
+NeoBundleLazy 'Shougo/neosnippet', {
+            \    'autoload': {
+            \        'depends' : ['Shougo/neosnippet-snippets'],
+            \        'insert': 1,
+            \        'filetypes': 'snippet',
+            \        'unite_sources': [
+            \           'snippet',
+            \           'neosnippet/user',
+            \           'neosnippet/runtime'
+            \       ],
+            \    }
+            \ }
+NeoBundleLazy 'Shougo/echodoc', {
+            \    'autoload': {
+            \        'insert': 1
+            \    }
+            \ }
 NeoBundleLazy 'Shougo/unite-help'
 NeoBundleLazy 'tsukkee/unite-tag'
-NeoBundleLazy 'Shougo/neocomplete'
-NeoBundleLazy 'rking/ag.vim'
-NeoBundleLazy 'mitsuhiko/vim-python-combined'
-NeoBundleLazy 'fatih/vim-go'
-NeoBundleLazy 'hail2u/vim-css3-syntax'
-NeoBundleLazy 'thinca/vim-qfreplace'
-NeoBundleLazy 'thinca/vim-quickrun'
+NeoBundleLazy 'Shougo/neocomplete', {
+            \    'autoload': {
+            \        'insert': 1
+            \    }
+            \ }
+NeoBundleLazy 'rking/ag.vim', {
+            \    'autoload': {
+            \       'commands': ['Ag', 'AgAdd', 'AgFromSearch']
+            \    }
+            \ }
+NeoBundleLazy 'mitsuhiko/vim-python-combined', {
+            \    'autoload': {
+            \       'filetypes': 'python'
+            \    }
+            \ }
+NeoBundleLazy 'fatih/vim-go', {
+            \    'autoload': {
+            \       'filetypes': 'go'
+            \    }
+            \ }
+NeoBundleLazy 'hail2u/vim-css3-syntax', {
+            \    'autoload': {
+            \       'filetypes': ['css', 'scss', 'html', 'htmldjango']
+            \    }
+            \ }
+NeoBundleLazy 'thinca/vim-qfreplace', {
+            \    'autoload': {
+            \        'commands': ['Qfreplace']
+            \    }
+            \ }
+NeoBundleLazy 'thinca/vim-quickrun', {
+            \    'autoload': {
+            \        'commands': ['QuickRun'],
+            \        'mappings' : '<Plug>(quickrun)',
+            \    }
+            \ }
 NeoBundleLazy 'thinca/vim-unite-history'
 NeoBundleLazy 'ujihisa/unite-colorscheme'
-NeoBundleLazy 'gregsexton/MatchTag'
-NeoBundleLazy 'mbbill/undotree'
-NeoBundleLazy 'majutsushi/tagbar'
-NeoBundleLazy 'kana/vim-niceblock'
-NeoBundleLazy 't9md/vim-quickhl'
-NeoBundleLazy 'eagletmt/ghcmod-vim'
-NeoBundleLazy 'eagletmt/neco-ghc'
-NeoBundleLazy 'rstacruz/sparkup'
-NeoBundleLazy 'ryanss/vim-hackernews'
+NeoBundleLazy 'gregsexton/MatchTag', {
+            \    'autoload': {
+            \        'filetypes': ['html', 'xml', 'htmldjango']
+            \    }
+            \ }
+NeoBundleLazy 'mbbill/undotree', {
+            \    'autoload': {
+            \        'commands': ['UndotreeToggle']
+            \    }
+            \ }
+NeoBundleLazy 'majutsushi/tagbar', {
+            \    'autoload': {
+            \        'commands': ['TagbarToggle']
+            \    }
+            \ }
+NeoBundleLazy 'kana/vim-niceblock', {
+            \    'autoload': {
+            \       'mappings': '<Plug>'
+            \    }
+            \ }
+NeoBundleLazy 't9md/vim-quickhl', {
+            \    'autoload': {
+            \        'mappings' : '<Plug>',
+            \    }
+            \ }
+NeoBundleLazy 'eagletmt/ghcmod-vim', {
+            \    'autoload': {
+            \       'filetypes': 'haskell'
+            \    }
+            \ }
+NeoBundleLazy 'eagletmt/neco-ghc', {
+            \    'autoload': {
+            \       'filetypes': 'haskell'
+            \    }
+            \ }
+NeoBundleLazy 'rstacruz/sparkup', {
+            \    'rtp': 'vim',
+            \    'autoload': {
+            \        'filetypes': ['html', 'xml', 'htmldjango']
+            \    }
+            \ }
+NeoBundleLazy 'ryanss/vim-hackernews', {
+            \    'commands': ['HackerNews']
+            \ }
 NeoBundleLazy 'pangloss/vim-javascript', {
             \   'build': {
             \       'unix': 'cp ftdetect/* ~/.vim/ftdetect/'
+            \   },
+            \   'autoload': {
+            \       'filetypes': 'javascript',
+            \       'filename_patterns': '\.js$'
             \   }
             \ }
 NeoBundleLazy 'elzr/vim-json', {
             \   'build': {
             \       'unix': 'cp ftdetect/* ~/.vim/ftdetect/'
+            \   },
+            \   'autoload': {
+            \       'filetypes': 'json',
+            \       'filename_patterns': '\.json$'
             \   }
             \ }
 NeoBundleLazy 'wting/rust.vim', {
             \   'build': {
             \       'unix': 'cp ftdetect/* ~/.vim/ftdetect/'
+            \   },
+            \   'autoload': {
+            \       'filetypes': 'rust',
+            \       'filename_patterns': '\.rs$'
             \   }
             \ }
 NeoBundleLazy 'derekwyatt/vim-scala', {
             \   'build': {
             \       'unix': 'cp ftdetect/* ~/.vim/ftdetect/'
-            \   }
+            \   },
+            \    'autoload': {
+            \       'filetypes': 'scala',
+            \       'filename_patterns': '\.scala$'
+            \    }
             \ }
 
 
@@ -438,33 +554,6 @@ if neobundle#tap('vim-signify')
 endif
 
 
-" vim-jdaddy
-"==============================================================================
-if neobundle#tap('vim-jdaddy')
-    call neobundle#config({
-    \    'autoload': {
-    \       'filetypes': ['json', 'python'],
-    \       'filename_patterns': ['\.json$', '\.py$']
-    \    }
-    \ })
-
-    call neobundle#untap()
-endif
-
-
-" repeat
-"==============================================================================
-if neobundle#tap('vim-repeat')
-    call neobundle#config({
-    \    'autoload': {
-    \       'mappings': '.'
-    \    }
-    \ })
-
-    call neobundle#untap()
-endif
-
-
 " CamelCaseMotion
 "==============================================================================
 if neobundle#tap('CamelCaseMotion')
@@ -479,138 +568,11 @@ if neobundle#tap('CamelCaseMotion')
 endif
 
 
-" silver searcher
-"==============================================================================
-if neobundle#tap('ag.vim')
-    call neobundle#config({
-    \    'autoload': {
-    \       'commands': ['Ag', 'AgAdd', 'AgFromSearch']
-    \    }
-    \ })
-
-    call neobundle#untap()
-endif
-
-
 " vim-javascript
 "==============================================================================
 if neobundle#tap('vim-javascript')
-    call neobundle#config({
-    \    'autoload': {
-    \       'filetypes': 'javascript',
-    \       'filename_patterns': '\.js$'
-    \    }
-    \ })
-
     let g:javascript_enable_domhtmlcss = 1
     let g:javascript_conceal = 1
-
-    call neobundle#untap()
-endif
-
-
-" vim-scala
-"==============================================================================
-if neobundle#tap('vim-scala')
-    call neobundle#config({
-    \    'autoload': {
-    \       'filetypes': 'scala',
-    \       'filename_patterns': '\.scala$'
-    \    }
-    \ })
-
-    call neobundle#untap()
-endif
-
-
-" vim-css3-syntax
-"==============================================================================
-if neobundle#tap('vim-css3-syntax')
-    call neobundle#config({
-    \    'autoload': {
-    \       'filetypes': ['css', 'scss', 'html', 'htmldjango']
-    \    }
-    \ })
-
-    call neobundle#untap()
-endif
-
-
-" vim-json
-"==============================================================================
-if neobundle#tap('vim-json')
-    call neobundle#config({
-    \    'autoload': {
-    \       'filetypes': 'json',
-    \       'filename_patterns': '\.json$'
-    \    }
-    \ })
-
-    call neobundle#untap()
-endif
-
-
-" rust.vim
-"==============================================================================
-if neobundle#tap('rust.vim')
-    call neobundle#config({
-    \    'autoload': {
-    \       'filetypes': 'rust',
-    \       'filename_patterns': '\.rs$'
-    \    }
-    \ })
-
-    call neobundle#untap()
-endif
-
-
-" ghcmod-vim
-"==============================================================================
-if neobundle#tap('ghcmod-vim')
-    call neobundle#config({
-    \    'autoload': {
-    \       'filetypes': 'haskell'
-    \    }
-    \ })
-
-    call neobundle#untap()
-endif
-
-
-" neco-ghc
-"==============================================================================
-if neobundle#tap('neco-ghc')
-    call neobundle#config({
-    \    'autoload': {
-    \       'filetypes': 'haskell'
-    \    }
-    \ })
-
-    call neobundle#untap()
-endif
-
-
-" vim-go
-"==============================================================================
-if neobundle#tap('vim-go')
-    call neobundle#config({
-    \    'autoload': {
-    \       'filetypes': 'go'
-    \    }
-    \ })
-
-    call neobundle#untap()
-endif
-
-
-" vim-python-combined
-"==============================================================================
-if neobundle#tap('vim-python-combined')
-    call neobundle#config({
-    \    'autoload': {
-    \       'filetypes': 'python'
-    \    }
-    \ })
 
     call neobundle#untap()
 endif
@@ -639,11 +601,6 @@ endif
 " vim-niceblock
 "==============================================================================
 if neobundle#tap('vim-niceblock')
-    call neobundle#config({
-    \    'autoload': {
-    \       'mappings': '<Plug>'
-    \    }
-    \ })
     xmap I <Plug>(niceblock-I)
     xmap A <Plug>(niceblock-A)
 
@@ -654,12 +611,6 @@ endif
 " tagbar
 "==============================================================================
 if neobundle#tap('tagbar')
-    call neobundle#config({
-    \    'autoload': {
-    \        'commands': ['TagbarToggle']
-    \    }
-    \ })
-
     let g:tagbar_autoclose = 1
 
     nmap <silent> <F9> :TagbarToggle<CR>
@@ -733,80 +684,9 @@ if neobundle#tap('delimitMate')
 endif
 
 
-" MatchTag
-"==============================================================================
-if neobundle#tap('MatchTag')
-    call neobundle#config({
-    \    'autoload': {
-    \        'filetypes': ['html', 'xml', 'htmldjango']
-    \    }
-    \ })
-
-    call neobundle#untap()
-endif
-
-
-" sparkup
-"==============================================================================
-if neobundle#tap('sparkup')
-    call neobundle#config({
-    \    'rtp': 'vim',
-    \    'autoload': {
-    \        'filetypes': ['html', 'xml', 'htmldjango']
-    \    }
-    \ })
-
-    call neobundle#untap()
-endif
-
-
-" hackernews
-"==============================================================================
-if neobundle#tap('vim-hackernews')
-    call neobundle#config({
-    \    'commands': ['HackerNews']
-    \ })
-
-    call neobundle#untap()
-endif
-
-
-" undotree
-"==============================================================================
-if neobundle#tap('undotree')
-    call neobundle#config({
-    \    'autoload': {
-    \        'commands': ['UndotreeToggle']
-    \    }
-    \ })
-
-    call neobundle#untap()
-endif
-
-
-" vim-qfreplace
-"==============================================================================
-if neobundle#tap('vim-qfreplace')
-    call neobundle#config({
-    \    'autoload': {
-    \        'commands': ['Qfreplace']
-    \    }
-    \ })
-
-    call neobundle#untap()
-endif
-
-
 " vim-quickrun
 "==============================================================================
 if neobundle#tap('vim-quickrun')
-    call neobundle#config({
-    \    'autoload': {
-    \        'commands': ['QuickRun'],
-    \        'mappings' : '<Plug>(quickrun)',
-    \    }
-    \ })
-
     let g:quickrun_no_default_key_mappings = 1
 
     map <F5> <Plug>(quickrun)
@@ -818,12 +698,6 @@ endif
 " vim-quickhl
 "==============================================================================
 if neobundle#tap('vim-quickhl')
-    call neobundle#config({
-    \    'autoload': {
-    \        'mappings' : '<Plug>',
-    \    }
-    \ })
-
     nmap <Leader>1 <Plug>(quickhl-manual-this)
     xmap <Leader>1 <Plug>(quickhl-manual-this)
     nmap <Leader>0 <Plug>(quickhl-manual-reset)
@@ -834,27 +708,9 @@ if neobundle#tap('vim-quickhl')
 endif
 
 
-" splitjoin
-"==============================================================================
-if neobundle#tap('splitjoin.vim')
-    call neobundle#config({
-    \    'autoload': {
-    \        'mappings': [['nxo', 'gS', 'gJ']]
-    \    }
-    \ })
-
-    call neobundle#untap()
-endif
-
-
 " echodoc
 "==============================================================================
 if neobundle#tap('echodoc')
-    call neobundle#config({
-    \    'autoload': {
-    \        'insert': 1
-    \    }
-    \ })
 
     let g:echodoc_enable_at_startup = 1
 
@@ -865,18 +721,6 @@ endif
 " neosnippet
 "==============================================================================
 if neobundle#tap('neosnippet')
-    call neobundle#config({
-    \    'autoload': {
-    \        'depends' : ['Shougo/neosnippet-snippets'],
-    \        'insert': 1,
-    \        'filetypes': 'snippet',
-    \        'unite_sources': [
-    \           'snippet',
-    \           'neosnippet/user',
-    \           'neosnippet/runtime'
-    \       ],
-    \    }
-    \ })
 
     function! neobundle#tapped.hooks.on_source(bundle)
         let g:neosnippet#enable_snipmate_compatibility = 1
@@ -897,11 +741,6 @@ endif
 " neocomplete
 "==============================================================================
 if neobundle#tap('neocomplete')
-    call neobundle#config({
-    \    'autoload': {
-    \        'insert': 1
-    \    }
-    \ })
 
     let g:neocomplete#enable_at_startup = 1
     " use smartcase
@@ -937,12 +776,6 @@ endif
 " unite
 "==============================================================================
 if neobundle#tap('unite.vim')
-    call neobundle#config({
-    \ 'commands' : [{ 'name' : 'Unite',
-    \                 'complete' : 'customlist,unite#complete_source' }],
-    \ 'depends' : 'Shougo/neomru.vim',
-    \ })
-
     if executable('ag')
         let g:unite_source_grep_command='ag'
         let g:unite_source_grep_default_opts =
@@ -1014,11 +847,6 @@ endif
 " sneak
 " =============================================================================
 if neobundle#tap('vim-sneak')
-    call neobundle#config({
-    \    'autoload': {
-    \        'mappings': [['nxo', 's']]
-    \    }
-    \ })
     let g:sneak#s_next = 1
     let g:sneak#streak = 1
 
