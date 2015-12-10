@@ -66,7 +66,7 @@ NeoBundle 'xaviershay/tslime.vim'
 NeoBundle 'vim-scripts/matchit.zip'
 NeoBundle 'bkad/CamelCaseMotion'
 NeoBundle 'jmcomets/vim-pony'
-NeoBundle 'chase/vim-ansible-yaml'
+NeoBundle 'pearofducks/ansible-vim'
 
 NeoBundleLazy 'tpope/vim-repeat', {
             \    'autoload': {
