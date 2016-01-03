@@ -1,8 +1,10 @@
-set encoding=utf-8
-scriptencoding utf-8
-
 if has('vim_starting')
-    set nocompatible
+    set encoding=utf-8
+    scriptencoding utf-8
+
+    if !has('nvim')
+        set nocompatible
+    endif
 
     let s:is_windows = has('win16') || has('win32') || has('win64')
     let s:is_cygwin = has('win32unix')
@@ -290,7 +292,9 @@ set list listchars=tab:»·
 set linespace=4
 
 " disable visual bell
-set visualbell t_vb=
+if !has('nvim')
+    set visualbell t_vb=
+endif
 
 " always show statusline
 set laststatus=2
@@ -349,7 +353,9 @@ set sidescroll=1
 
 " some stuff to get the mouse going in term
 set mouse=a
-set ttymouse=xterm2
+if !has('nvim')
+    set ttymouse=xterm2
+endif
 
 " backup
 set nobackup
@@ -358,7 +364,11 @@ set noswapfile
 set backupdir-=.
 set autowrite
 
-set viminfo+=n$VIMHOME/.viminfo
+if has('nvim')
+    set viminfo+=n$VIMHOME/.viminfo.shada
+else
+    set viminfo+=n$VIMHOME/.viminfo
+endif
 
 " store undo
 if has('persistent_undo')
@@ -374,7 +384,9 @@ set splitbelow
 set autoread
 
 " fast terminal connection
-set ttyfast
+if !has('nvim')
+    set ttyfast
+endif
 
 " yank use system clipboard
 set clipboard=unnamed
@@ -413,7 +425,9 @@ if has('gui_running')
     endif
     set langmenu=en_US.UTF-8
 else
-    set t_Co=16
+    if !has('nvim')
+        set t_Co=16
+    endif
 endif
 
 " theme
