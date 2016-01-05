@@ -897,8 +897,8 @@ endif
 
 " filetype specific settings
 " (don't use after/ftplugin because localvimrc won't override it)
-autocmd MyAutoCmd FileType html setlocal ts=4 sw=4 sta et sts=4 ai
-autocmd MyAutoCmd FileType javascript setlocal ts=4 sw=4 sta et sts=4 ai colorcolumn=110
+autocmd MyAutoCmd FileType html setlocal ts=2 sw=2 sta et sts=2 ai
+autocmd MyAutoCmd FileType javascript setlocal ts=2 sw=2 sta et sts=2 ai colorcolumn=110
 
 " cuda
 autocmd MyAutoCmd BufRead,BufNewFile *.cuh set ft=cuda
