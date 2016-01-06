@@ -75,6 +75,7 @@ NeoBundle 'Valloric/YouCompleteMe', {
         \ 'unix'    : './install.py --tern-completer'
         \ }
      \ }
+NeoBundle 'morhetz/gruvbox'
 
 NeoBundleLazy 'tpope/vim-repeat', {
             \    'autoload': {
@@ -472,8 +473,13 @@ endif
 "* * * * * * * * * * * * * * * * * MAPPING * * * * * * * * * * * * * * * * * *
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-" esc
-inoremap jk <ESC>
+" n always search forward and N backward
+nnoremap <expr> n  'Nn'[v:searchforward].'zvzz'
+nnoremap <expr> N  'nN'[v:searchforward].'zvzz'
+
+" move current line above or below
+noremap <Leader>k  :<c-u>execute 'move -1-'. v:count1<cr>
+noremap <Leader>j  :<c-u>execute 'move +'. v:count1<cr>
 
 " edit vimrc
 nnoremap <Leader>ev :<C-u>edit $MYVIMRC<CR>
