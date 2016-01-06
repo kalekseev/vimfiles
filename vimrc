@@ -69,6 +69,12 @@ NeoBundle 'vim-scripts/matchit.zip'
 NeoBundle 'bkad/CamelCaseMotion'
 NeoBundle 'jmcomets/vim-pony'
 NeoBundle 'pearofducks/ansible-vim'
+NeoBundle 'Valloric/YouCompleteMe', {
+     \ 'build'      : {
+        \ 'mac'     : './install.py --tern-completer',
+        \ 'unix'    : './install.py --tern-completer'
+        \ }
+     \ }
 
 NeoBundleLazy 'tpope/vim-repeat', {
             \    'autoload': {
@@ -116,11 +122,11 @@ NeoBundleLazy 'Shougo/echodoc', {
             \ }
 NeoBundleLazy 'Shougo/unite-help'
 NeoBundleLazy 'tsukkee/unite-tag'
-NeoBundleLazy 'Shougo/neocomplete', {
-            \    'autoload': {
-            \        'insert': 1
-            \    }
-            \ }
+"NeoBundleLazy 'Shougo/neocomplete', {
+            "\    'autoload': {
+            "\        'insert': 1
+            "\    }
+            "\ }
 NeoBundleLazy 'rking/ag.vim', {
             \    'autoload': {
             \       'commands': ['Ag', 'AgAdd', 'AgFromSearch']
@@ -754,25 +760,25 @@ endif
 
 " neocomplete
 "==============================================================================
-if neobundle#tap('neocomplete')
+"if neobundle#tap('neocomplete')
 
-    let g:neocomplete#enable_at_startup = 1
-    " use smartcase
-    let g:neocomplete#enable_smart_case = 1
-    let g:neocomplete#enable_camel_case = 1
-    " minimum syntax keyword length
-    let g:neocomplete#sources#syntax#min_keyword_length = 3
-    " Set auto completion length.
-    let g:neocomplete#auto_completion_start_length = 2
-    " Set minimum keyword length.
-    let g:neocomplete#min_keyword_length = 3
+    "let g:neocomplete#enable_at_startup = 1
+    "" use smartcase
+    "let g:neocomplete#enable_smart_case = 1
+    "let g:neocomplete#enable_camel_case = 1
+    "" minimum syntax keyword length
+    "let g:neocomplete#sources#syntax#min_keyword_length = 3
+    "" Set auto completion length.
+    "let g:neocomplete#auto_completion_start_length = 2
+    "" Set minimum keyword length.
+    "let g:neocomplete#min_keyword_length = 3
 
-    "imap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-    imap <expr> <CR> pumvisible() ? neocomplete#close_popup() . "\<CR>"
-                \: '<Plug>delimitMateCR'
+    ""imap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+    "imap <expr> <CR> pumvisible() ? neocomplete#close_popup() . "\<CR>"
+                "\: '<Plug>delimitMateCR'
 
-    call neobundle#untap()
-endif
+    "call neobundle#untap()
+"endif
 
 
 " ctrlp
