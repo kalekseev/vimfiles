@@ -568,6 +568,15 @@ if neobundle#tap('vim-localvimrc')
     call neobundle#untap()
 endif
 
+"YouCompleteMe
+if neobundle#tap('YouCompleteMe')
+    if (IsMac())
+        let g:ycm_path_to_python_interpreter = '/usr/local/bin/python'
+    endif
+
+    call neobundle#untap()
+endif
+
 
 " signify
 "==============================================================================
