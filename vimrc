@@ -658,8 +658,8 @@ if neobundle#tap('vim-airline')
     endif
 
     if !(IsWindows() || IsPutty())
-        let g:airline_left_sep = '▶'
-        let g:airline_right_sep = '◀'
+        "let g:airline_left_sep = '▶'
+        "let g:airline_right_sep = '◀'
         let g:airline_symbols.linenr = '␤'
         let g:airline_symbols.branch = '⎇'
         let g:airline_symbols.paste = 'Þ'
@@ -680,7 +680,7 @@ if neobundle#tap('syntastic')
         let g:syntastic_warning_symbol = '⚠'
         let g:syntastic_style_warning_symbol = '⚠'
     endif
-    let g:syntastic_javascript_checkers = ['jshint', 'jscs']
+    let g:syntastic_javascript_checkers = ['eslint']
     let g:syntastic_python_checkers = ['flake8']
 
     call neobundle#untap()
