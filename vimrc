@@ -82,6 +82,16 @@ NeoBundleLazy 'tpope/vim-repeat', {
             \       'mappings': '.'
             \    }
             \ }
+NeoBundleLazy 'tpope/vim-fireplace', {
+            \    'autoload': {
+            \       'filetypes': ['clojure']
+            \    }
+            \ }
+NeoBundleLazy 'vim-scripts/paredit.vim', {
+            \    'autoload': {
+            \       'filetypes': ['clojure']
+            \    }
+            \ }
 NeoBundleLazy 'tpope/vim-jdaddy', {
             \    'autoload': {
             \       'filetypes': ['json', 'python'],
