@@ -53,7 +53,8 @@ NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'bling/vim-airline'
+NeoBundle 'vim-airline/vim-airline'
+NeoBundle 'vim-airline/vim-airline-themes'
 NeoBundle 'ludovicchabant/vim-lawrencium'
 NeoBundle 'Raimondi/delimitMate'
 NeoBundle 'Yggdroot/indentLine'
@@ -141,6 +142,11 @@ NeoBundleLazy 'mitsuhiko/vim-python-combined', {
             \    'autoload': {
             \       'filetypes': 'python'
             \    }
+            \ }
+NeoBundleLazy 'davidhalter/jedi-vim', {
+            \   'autoload': {
+            \       'filetypes': 'python'
+            \   }
             \ }
 NeoBundleLazy 'fatih/vim-go', {
             \    'autoload': {
@@ -426,6 +432,11 @@ set noshowmode
 set completeopt+=menuone
 set completeopt-=preview
 
+" don't show messages on completition
+if has("patch-7.4.314")
+    set shortmess+=c
+endif
+
 let g:netrw_liststyle=3
 
 if has('gui_running')
@@ -476,14 +487,6 @@ endif
 
 "* * * * * * * * * * * * * * * * * MAPPING * * * * * * * * * * * * * * * * * *
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-" n always search forward and N backward
-nnoremap <expr> n  'Nn'[v:searchforward].'zvzz'
-nnoremap <expr> N  'nN'[v:searchforward].'zvzz'
-
-" move current line above or below
-noremap <Leader>k  :<c-u>execute 'move -1-'. v:count1<cr>
-noremap <Leader>j  :<c-u>execute 'move +'. v:count1<cr>
 
 " edit vimrc
 nnoremap <Leader>ev :<C-u>edit $MYVIMRC<CR>
@@ -776,16 +779,43 @@ if neobundle#tap('neocomplete')
     " use smartcase
     let g:neocomplete#enable_smart_case = 1
     let g:neocomplete#enable_camel_case = 1
+
+    " use fuzzy completion
+    let g:neocomplete#enable_fuzzy_completion = 1
     " minimum syntax keyword length
     let g:neocomplete#sources#syntax#min_keyword_length = 3
     " Set auto completion length.
     let g:neocomplete#auto_completion_start_length = 2
+    let g:neocomplete#manual_completion_start_length = 0
     " Set minimum keyword length.
     let g:neocomplete#min_keyword_length = 3
 
     "imap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
     imap <expr> <CR> pumvisible() ? neocomplete#close_popup() . "\<CR>"
                 \: '<Plug>delimitMateCR'
+
+    " <TAB>: completion.
+    inoremap <silent><expr> <TAB>
+                \ pumvisible() ? "\<C-n>" :
+                \ <SID>check_back_space() ? "\<TAB>" :
+                \ neocomplete#start_manual_complete()
+    function! s:check_back_space() abort "{{{
+        let col = col('.') - 1
+        return !col || getline('.')[col - 1]  =~ '\s'
+    endfunction"}}}
+
+    " <S-TAB>: completion back.
+    inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
+
+    call neobundle#untap()
+endif
+
+
+" jedi-vim
+"==============================================================================
+if neobundle#tap('jedi-vim')
+    let g:jedi#completions_enabled = 0
+    let g:jedi#auto_vim_configuration = 0
 
     call neobundle#untap()
 endif
@@ -915,6 +945,7 @@ endif
 " (don't use after/ftplugin because localvimrc won't override it)
 autocmd MyAutoCmd FileType html setlocal ts=2 sw=2 sta et sts=2 ai
 autocmd MyAutoCmd FileType javascript setlocal ts=2 sw=2 sta et sts=2 ai colorcolumn=110
+autocmd MyAutoCmd FileType python setlocal omnifunc=jedi#completions
 
 " cuda
 autocmd MyAutoCmd BufRead,BufNewFile *.cuh set ft=cuda
