@@ -62,51 +62,53 @@ NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'mhinz/vim-signify'
 NeoBundle 'thinca/vim-visualstar'
 NeoBundle 'chriskempson/base16-vim'
+NeoBundle 'morhetz/gruvbox'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'embear/vim-localvimrc'
 NeoBundle 'gorkunov/smartpairs.vim'
 NeoBundle 'xaviershay/tslime.vim'
-NeoBundle 'vim-scripts/matchit.zip'
-NeoBundle 'bkad/CamelCaseMotion'
-NeoBundle 'jmcomets/vim-pony'
-NeoBundle 'pearofducks/ansible-vim'
-NeoBundle 'morhetz/gruvbox'
+NeoBundle 'benjifisher/matchit.zip'
 
+NeoBundleLazy 'pearofducks/ansible-vim', {
+            \   'on_ft': 'yaml',
+            \ }
+NeoBundleLazy 'bkad/CamelCaseMotion', {
+            \   'on_map': ['<Plug>CamelCaseMotion_w', '<Plug>CamelCaseMotion_b']
+            \ }
 NeoBundleLazy 'tpope/vim-repeat', {
-            \    'autoload': {
-            \       'mappings': '.'
-            \    }
+            \   'on_map': '.'
             \ }
 NeoBundleLazy 'tpope/vim-fireplace', {
-            \    'autoload': {
-            \       'filetypes': ['clojure']
-            \    }
+            \   'on_ft': 'clojure'
             \ }
 NeoBundleLazy 'vim-scripts/paredit.vim', {
-            \    'autoload': {
-            \       'filetypes': ['clojure']
-            \    }
+            \   'on_ft': 'clojure'
             \ }
 NeoBundleLazy 'tpope/vim-jdaddy', {
-            \    'autoload': {
-            \       'filetypes': ['json', 'python'],
-            \       'filename_patterns': ['\.json$', '\.py$']
-            \    }
+            \   'on_ft': ['json', 'python']
             \ }
 NeoBundleLazy 'AndrewRadev/splitjoin.vim', {
-            \    'autoload': {
-            \        'mappings': [['nxo', 'gS', 'gJ']]
-            \    }
+            \   'on_map': [['nxo', 'gS', 'gJ']]
             \ }
 NeoBundleLazy 'justinmk/vim-sneak', {
-            \    'autoload': {
-            \        'mappings': [['nxo', 's']]
-            \    }
+            \   'on_map': [['nxo', 's']]
             \ }
 NeoBundleLazy 'Shougo/unite.vim', {
-            \ 'commands' : [{ 'name' : 'Unite',
+            \   'on_cmd' : [{ 'name' : 'Unite',
             \                 'complete' : 'customlist,unite#complete_source' }],
-            \ 'depends' : 'Shougo/neomru.vim',
+            \   'depends' : 'Shougo/neomru.vim',
+            \ }
+NeoBundleLazy 'Shougo/unite-help', {
+            \   'on_unite': 'help',
+            \ }
+NeoBundleLazy 'tsukkee/unite-tag', {
+            \   'on_unite': 'tag',
+            \ }
+NeoBundleLazy 'thinca/vim-unite-history', {
+            \   'on_unite': 'history',
+            \ }
+NeoBundleLazy 'ujihisa/unite-colorscheme', {
+            \   'on_unite': 'colorscheme',
             \ }
 NeoBundleLazy 'Shougo/neomru.vim'
 NeoBundleLazy 'Shougo/neosnippet', {
@@ -122,116 +124,72 @@ NeoBundleLazy 'Shougo/neosnippet', {
             \    }
             \ }
 NeoBundleLazy 'Shougo/echodoc', {
-            \    'autoload': {
-            \        'insert': 1
-            \    }
+            \   'on_i': 1
             \ }
-NeoBundleLazy 'Shougo/unite-help'
-NeoBundleLazy 'tsukkee/unite-tag'
 NeoBundleLazy 'Shougo/neocomplete', {
-            \    'autoload': {
-            \        'insert': 1
-            \    }
+            \   'on_i': 1
             \ }
 NeoBundleLazy 'rking/ag.vim', {
-            \    'autoload': {
-            \       'commands': ['Ag', 'AgAdd', 'AgFromSearch']
-            \    }
+            \   'on_cmd': ['Ag', 'AgAdd', 'AgFromSearch']
+            \ }
+NeoBundleLazy 'jmcomets/vim-pony', {
+            \   'on_ft': 'python',
             \ }
 NeoBundleLazy 'mitsuhiko/vim-python-combined', {
-            \    'autoload': {
-            \       'filetypes': 'python'
-            \    }
+            \   'on_ft': 'python'
             \ }
 NeoBundleLazy 'davidhalter/jedi-vim', {
-            \   'autoload': {
-            \       'filetypes': 'python'
-            \   }
+            \   'on_ft': 'python'
             \ }
 NeoBundleLazy 'fatih/vim-go', {
-            \    'autoload': {
-            \       'filetypes': 'go'
-            \    }
+            \   'on_ft': 'go'
             \ }
 NeoBundleLazy 'hail2u/vim-css3-syntax', {
-            \    'autoload': {
-            \       'filetypes': ['css', 'scss', 'html', 'htmldjango']
-            \    }
+            \   'on_ft': ['css', 'scss', 'html', 'htmldjango']
             \ }
 NeoBundleLazy 'thinca/vim-qfreplace', {
-            \    'autoload': {
-            \        'commands': ['Qfreplace']
-            \    }
+            \   'on_cmd': ['Qfreplace']
             \ }
 NeoBundleLazy 'thinca/vim-quickrun', {
-            \    'autoload': {
-            \        'commands': ['QuickRun'],
-            \        'mappings' : '<Plug>(quickrun)',
-            \    }
+            \   'on_cmd': ['QuickRun'],
+            \   'on_map' : '<Plug>(quickrun)',
             \ }
-NeoBundleLazy 'thinca/vim-unite-history'
-NeoBundleLazy 'ujihisa/unite-colorscheme'
 NeoBundleLazy 'gregsexton/MatchTag', {
-            \    'autoload': {
-            \        'filetypes': ['html', 'xml', 'htmldjango']
-            \    }
+            \   'on_ft': ['html', 'xml', 'htmldjango']
             \ }
 NeoBundleLazy 'mbbill/undotree', {
-            \    'autoload': {
-            \        'commands': ['UndotreeToggle']
-            \    }
+            \   'on_cmd': ['UndotreeToggle']
             \ }
 NeoBundleLazy 'majutsushi/tagbar', {
-            \    'autoload': {
-            \        'commands': ['TagbarToggle']
-            \    }
+            \   'on_cmd': ['TagbarToggle']
             \ }
 NeoBundleLazy 'kana/vim-niceblock', {
-            \    'autoload': {
-            \       'mappings': '<Plug>'
-            \    }
+            \   'on_map': '<Plug>'
             \ }
 NeoBundleLazy 't9md/vim-quickhl', {
-            \    'autoload': {
-            \        'mappings' : '<Plug>',
-            \    }
+            \   'on_map' : '<Plug>',
             \ }
 NeoBundleLazy 'eagletmt/ghcmod-vim', {
-            \    'autoload': {
-            \       'filetypes': 'haskell'
-            \    }
+            \   'on_ft': 'haskell'
             \ }
 NeoBundleLazy 'eagletmt/neco-ghc', {
-            \    'autoload': {
-            \       'filetypes': 'haskell'
-            \    }
+            \   'on_ft': 'haskell'
             \ }
 NeoBundleLazy 'rstacruz/sparkup', {
             \    'rtp': 'vim',
-            \    'autoload': {
-            \        'filetypes': ['html', 'xml', 'htmldjango']
-            \    }
-            \ }
-NeoBundleLazy 'ryanss/vim-hackernews', {
-            \    'commands': ['HackerNews']
+            \   'on_ft': ['html', 'xml', 'htmldjango']
             \ }
 NeoBundleLazy 'pangloss/vim-javascript', {
             \   'build': {
             \       'unix': 'cp ftdetect/* ~/.vim/ftdetect/'
             \   },
-            \   'autoload': {
-            \       'filetypes': 'javascript',
-            \       'filename_patterns': '\.js$'
-            \   }
+            \   'on_ft': 'javascript',
             \ }
 NeoBundleLazy 'elzr/vim-json', {
             \   'build': {
             \       'unix': 'cp ftdetect/* ~/.vim/ftdetect/'
             \   },
-            \   'autoload': {
-            \       'filetypes': 'json',
-            \       'filename_patterns': '\.json$'
-            \   }
+            \   'on_ft': 'json',
             \ }
 NeoBundleLazy 'wting/rust.vim', {
             \   'build': {
