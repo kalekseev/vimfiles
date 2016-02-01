@@ -775,6 +775,11 @@ if neobundle#tap('jedi-vim')
     let g:jedi#completions_enabled = 0
     let g:jedi#auto_vim_configuration = 0
     let g:jedi#show_call_signatures = 2
+    let g:jedi#documentation_command = "<leader>d"
+    let g:jedi#goto_assignments_command = "gd"
+    let g:jedi#goto_definitions_command = "gD"
+    let g:jedi#usages_command = "<leader>ju"
+    let g:jedi#rename_command = "<leader>jr"
 
     call neobundle#untap()
 endif
