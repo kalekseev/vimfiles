@@ -68,12 +68,11 @@ NeoBundle 'embear/vim-localvimrc'
 NeoBundle 'gorkunov/smartpairs.vim'
 NeoBundle 'xaviershay/tslime.vim'
 NeoBundle 'benjifisher/matchit.zip'
+NeoBundle 'bkad/CamelCaseMotion'
+
 
 NeoBundleLazy 'pearofducks/ansible-vim', {
             \   'on_ft': 'yaml',
-            \ }
-NeoBundleLazy 'bkad/CamelCaseMotion', {
-            \   'on_map': ['<Plug>CamelCaseMotion_w', '<Plug>CamelCaseMotion_b']
             \ }
 NeoBundleLazy 'tpope/vim-repeat', {
             \   'on_map': '.'
