@@ -69,6 +69,7 @@ NeoBundle 'gorkunov/smartpairs.vim'
 NeoBundle 'xaviershay/tslime.vim'
 NeoBundle 'benjifisher/matchit.zip'
 NeoBundle 'bkad/CamelCaseMotion'
+NeoBundle 'ryanoasis/vim-devicons'
 
 
 NeoBundleLazy 'pearofducks/ansible-vim', {
@@ -616,18 +617,7 @@ if neobundle#tap('vim-airline')
     let g:airline_detect_paste = 1
     let g:airline#extensions#branch#enabled = 1
     let g:airline#extensions#syntastic#enabled = 1
-
-    if !exists('g:airline_symbols')
-        let g:airline_symbols = {}
-    endif
-
-    if !(IsWindows() || IsPutty())
-        "let g:airline_left_sep = '▶'
-        "let g:airline_right_sep = '◀'
-        let g:airline_symbols.linenr = '␤'
-        let g:airline_symbols.branch = '⎇'
-        let g:airline_symbols.paste = 'Þ'
-    endif
+    let g:airline_powerline_fonts = 1
 
     call neobundle#untap()
 endif
