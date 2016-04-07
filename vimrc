@@ -789,7 +789,7 @@ endif
 "==============================================================================
 if neobundle#tap('ctrlp.vim')
     let g:ctrlp_custom_ignore = {
-    \    'dir': '\v[\/](\.git|\.hg|\.svn|target|node_modules|bower_components)$',
+    \    'dir': '\v[\/](\.git|\.hg|\.svn|target|node_modules|bower_components|htmlcov)$',
     \    'file': '\v\.(exe|so|dll|class|aux|log|jar)$',
     \ }
 
