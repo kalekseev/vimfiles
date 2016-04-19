@@ -577,6 +577,7 @@ if neobundle#tap('nerdtree')
     silent! nmap <silent> <leader>p :NERDTreeToggle<CR>
     nmap <silent> <C-f> :NERDTreeFind<CR>
     let NERDTreeIgnore = ['\.pyc$']
+    let NERDTreeQuitOnOpen = 1
 
     call neobundle#untap()
 endif
