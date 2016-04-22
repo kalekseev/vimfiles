@@ -64,11 +64,11 @@ NeoBundle 'thinca/vim-visualstar'
 NeoBundle 'chriskempson/base16-vim'
 NeoBundle 'morhetz/gruvbox'
 NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'embear/vim-localvimrc'
 NeoBundle 'gorkunov/smartpairs.vim'
 NeoBundle 'xaviershay/tslime.vim'
 NeoBundle 'benjifisher/matchit.zip'
 NeoBundle 'bkad/CamelCaseMotion'
+NeoBundle 'editorconfig/editorconfig-vim'
 if IsMac()
     NeoBundle 'ryanoasis/vim-devicons'
 endif
@@ -528,9 +528,9 @@ command! -range ApplyQMacros execute '<line1>,<line2>normal! @q'
 "* * * * * * * * * * * * * * * * * PLUGINS * * * * * * * * * * * * * * * * * *
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-"localvimrc
-if neobundle#tap('vim-localvimrc')
-    let g:localvimrc_persistent = 1
+"editorconfig
+if neobundle#tap('editorconfig-vim')
+    let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
     call neobundle#untap()
 endif
