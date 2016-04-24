@@ -128,9 +128,31 @@ NeoBundleLazy 'Shougo/neosnippet', {
 NeoBundleLazy 'Shougo/echodoc', {
             \   'on_i': 1
             \ }
-NeoBundleLazy 'Shougo/neocomplete', {
-            \   'on_i': 1
-            \ }
+if has('nvim')
+    NeoBundleLazy 'Shougo/deoplete.nvim', {
+                \   'on_i': 1,
+                \   'depends': ['Shougo/echodoc'],
+                \ }
+    NeoBundleLazy 'zchee/deoplete-jedi', {
+                \   'on_ft': 'python',
+                \   'on_i': 1,
+                \   'depends': ['Shougo/deoplete.nvim', 'davidhalter/jedi-vim'],
+                \ }
+    "NeoBundle 'Valloric/YouCompleteMe', {
+     "\ 'depends': ['davidhalter/jedi-vim'],
+     "\ 'build'      : {
+        "\ 'mac'     : './install.py',
+        "\ 'unix'    : './install.py',
+        "\ 'windows' : 'install.py',
+        "\ 'cygwin'  : './install.py'
+        "\ }
+     "\ }
+else
+    NeoBundleLazy 'Shougo/neocomplete', {
+                \   'on_i': 1,
+                \   'depends': 'davidhalter/jedi-vim',
+                \ }
+endif
 NeoBundleLazy 'rking/ag.vim', {
             \   'on_cmd': ['Ag', 'AgAdd', 'AgFromSearch']
             \ }
@@ -225,6 +247,11 @@ augroup MyAutoCmd
     autocmd!
 augroup END
 
+
+if has('nvim')
+    let g:python_host_prog = '/usr/bin/python2'
+    let g:python3_host_prog = '/usr/bin/python3'
+endif
 
 
 "* * * * * * * * * * * * * * * * * SETUP * * * * * * * * * * * * * * * * * * *
@@ -527,6 +554,12 @@ command! -range ApplyQMacros execute '<line1>,<line2>normal! @q'
 
 "* * * * * * * * * * * * * * * * * PLUGINS * * * * * * * * * * * * * * * * * *
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+if neobundle#tap('deoplete.nvim')
+    let g:deoplete#enable_at_startup = 1
+
+    call neobundle#untap()
+endif
 
 "editorconfig
 if neobundle#tap('editorconfig-vim')
@@ -929,6 +962,8 @@ autocmd MyAutoCmd FocusLost * :silent! wall
 autocmd MyAutoCmd InsertEnter * :set listchars-=trail:·
 autocmd MyAutoCmd InsertLeave * :set listchars+=trail:·
 
+" detect django templates
+autocmd BufNewFile,BufRead */templates/*.html setlocal filetype=htmldjango
 
 " Reload .vimrc automatically.
 autocmd MyAutoCmd BufWritePost .vimrc,vimrc
