@@ -826,6 +826,13 @@ if neobundle#tap('ctrlp.vim')
     \    'dir': '\v[\/](\.git|\.hg|\.svn|target|node_modules|bower_components|htmlcov)$',
     \    'file': '\v\.(exe|so|dll|class|aux|log|jar)$',
     \ }
+    let g:ctrlp_user_command = {
+                \   'types': {
+                \     1: ['.git', 'cd %s && git ls-files . -co --exclude-standard'],
+                \     2: ['.hg', 'hg --cwd %s locate -I .'],
+                \   },
+                \   'fallback': 'find %s -type f'
+                \ }
 
     call neobundle#untap()
 endif

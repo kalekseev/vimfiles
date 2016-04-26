@@ -4,3 +4,4 @@ undo/
 .netrwhist
 .viminfo
 .viminfo.shada
+.init.vim*
