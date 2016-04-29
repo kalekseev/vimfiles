@@ -69,6 +69,7 @@ NeoBundle 'xaviershay/tslime.vim'
 NeoBundle 'benjifisher/matchit.zip'
 NeoBundle 'bkad/CamelCaseMotion'
 NeoBundle 'editorconfig/editorconfig-vim'
+NeoBundle 'nginx/nginx', {'rtp': 'contrib/vim', 'type__depth': 1}
 if IsMac()
     NeoBundle 'ryanoasis/vim-devicons'
 endif
