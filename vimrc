@@ -70,6 +70,7 @@ NeoBundle 'benjifisher/matchit.zip'
 NeoBundle 'bkad/CamelCaseMotion'
 NeoBundle 'editorconfig/editorconfig-vim'
 NeoBundle 'nginx/nginx', {'rtp': 'contrib/vim', 'type__depth': 1}
+
 if IsMac()
     NeoBundle 'ryanoasis/vim-devicons'
 endif
@@ -92,6 +93,9 @@ NeoBundleLazy 'tpope/vim-jdaddy', {
             \ }
 NeoBundleLazy 'AndrewRadev/splitjoin.vim', {
             \   'on_map': [['nxo', 'gS', 'gJ']]
+            \ }
+NeoBundleLazy 'FooSoft/vim-argwrap', {
+            \   'on_cmd': ['ArgWrap']
             \ }
 NeoBundleLazy 'justinmk/vim-sneak', {
             \   'on_map': [['nxo', 's']]
@@ -178,6 +182,9 @@ NeoBundleLazy 'thinca/vim-qfreplace', {
 NeoBundleLazy 'thinca/vim-quickrun', {
             \   'on_cmd': ['QuickRun'],
             \   'on_map' : '<Plug>(quickrun)',
+            \ }
+NeoBundleLazy 'vim-scripts/ReplaceWithRegister', {
+            \ 'on_map': [['nxo', 'gr', 'grr']]
             \ }
 NeoBundleLazy 'gregsexton/MatchTag', {
             \   'on_ft': ['html', 'xml', 'htmldjango']
@@ -560,6 +567,14 @@ command! -range ApplyQMacros execute '<line1>,<line2>normal! @q'
 
 "* * * * * * * * * * * * * * * * * PLUGINS * * * * * * * * * * * * * * * * * *
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+
+if neobundle#tap('vim-argwrap')
+    nnoremap <silent>gW :<C-u>:ArgWrap<CR>
+
+    call neobundle#untap()
+endif
+
 
 if neobundle#tap('deoplete.nvim')
     let g:deoplete#enable_at_startup = 1
@@ -957,6 +972,7 @@ endif
 autocmd MyAutoCmd FileType html setlocal ts=2 sw=2 sta et sts=2 ai
 autocmd MyAutoCmd FileType javascript setlocal ts=2 sw=2 sta et sts=2 ai colorcolumn=110
 autocmd MyAutoCmd FileType python setlocal omnifunc=jedi#completions
+autocmd MyAutoCmd FileType python let g:argwrap_tail_comma = 1
 
 " cuda
 autocmd MyAutoCmd BufRead,BufNewFile *.cuh set ft=cuda
