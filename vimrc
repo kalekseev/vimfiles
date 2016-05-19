@@ -568,6 +568,12 @@ command! -range ApplyQMacros execute '<line1>,<line2>normal! @q'
 "* * * * * * * * * * * * * * * * * PLUGINS * * * * * * * * * * * * * * * * * *
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
+if neobundle#tap('vim-json')
+    let g:vim_json_syntax_conceal = 0
+
+    call neobundle#untap()
+endif
+
 
 if neobundle#tap('vim-argwrap')
     nnoremap <silent>gW :<C-u>:ArgWrap<CR>
