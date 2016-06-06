@@ -1076,6 +1076,8 @@ function! Highlight_remove_attr(attr)
     bwipeout!
 endfunction
 
+nnoremap <leader>o :!echo `hg burl`%\#cl-<C-R>=line('.')<CR> \| xargs xdg-open<CR><CR>
+
 
 if !has('vim_starting')
   " Call on_source hook when reloading .vimrc.
