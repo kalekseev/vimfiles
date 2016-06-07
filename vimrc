@@ -217,6 +217,10 @@ NeoBundleLazy 'pangloss/vim-javascript', {
             \   },
             \   'on_ft': 'javascript',
             \ }
+NeoBundleLazy 'mxw/vim-jsx', {
+            \   'on_ft': ['javascript'],
+            \   'depends': ['pangloss/vim-javascript']
+            \ }
 NeoBundleLazy 'elzr/vim-json', {
             \   'build': {
             \       'unix': 'cp ftdetect/* ~/.vim/ftdetect/'
