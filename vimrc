@@ -1076,7 +1076,16 @@ function! Highlight_remove_attr(attr)
     bwipeout!
 endfunction
 
-nnoremap <leader>o :!echo `hg burl`%\#cl-<C-R>=line('.')<CR> \| xargs xdg-open<CR><CR>
+function! OpenCMD()
+    if IsMac()
+        return 'open'
+    else
+        return 'xdg-open'
+    endif
+endfunction
+
+nnoremap <leader>o :!echo `hg burl`%\#cl-<C-R>=line('.')<CR> \| xargs -i <C-R>=OpenCMD()<CR> {} > /dev/null<CR><CR>
+vnoremap <leader>o <Esc>:!echo `hg burl`%\#cl-<C-R>=line("'<")<CR>:<C-R>=line("'>")<CR> \| xargs -i <C-R>=OpenCMD()<CR> {} > /dev/null<CR><CR>gv
 
 
 if !has('vim_starting')
