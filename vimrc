@@ -170,6 +170,9 @@ NeoBundleLazy 'mitsuhiko/vim-python-combined', {
 NeoBundleLazy 'davidhalter/jedi-vim', {
             \   'on_ft': 'python'
             \ }
+NeoBundleLazy 'chrisbra/csv.vim', {
+            \   'on_ft': 'csv'
+            \ }
 NeoBundleLazy 'fatih/vim-go', {
             \   'on_ft': 'go'
             \ }
