@@ -63,7 +63,6 @@ NeoBundle 'mhinz/vim-signify'
 NeoBundle 'thinca/vim-visualstar'
 NeoBundle 'chriskempson/base16-vim'
 NeoBundle 'morhetz/gruvbox'
-NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'gorkunov/smartpairs.vim'
 NeoBundle 'xaviershay/tslime.vim'
 NeoBundle 'benjifisher/matchit.zip'
@@ -460,24 +459,33 @@ else
 endif
 
 " theme
-if IsLinux()
+if IsLinux() && !has('nvim')
     let g:base16colorspace=256
 endif
 
-if filereadable($HOME.'/.vimrc.local')
-    source $HOME/.vimrc.local
-else
-    if IsWindows()
-        if has('gui_running')
-            colorscheme base16-default
-        else
-            colorscheme solarized
-        endif
-    else
+set background=dark
+if has('nvim')
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+if has("termguicolors")
+    set termguicolors
+endif
+
+
+if IsWindows()
+    if has('gui_running')
         colorscheme base16-default
+    else
+        colorscheme solarized
     endif
-    set background=dark
-end
+elseif IsLinux() && !has('nvim')
+    let g:base16colorspace=256
+    colorscheme base16-default
+else
+    let g:gruvbox_italic=1
+    colorscheme gruvbox
+endif
+
 
 set colorcolumn=80
 
@@ -683,18 +691,18 @@ endif
 " airline
 "==============================================================================
 if neobundle#tap('vim-airline')
-    let g:airline_theme = 'base16'
+    if !has('nvim')
+        let g:airline_theme = 'base16'
+    endif
     let g:airline_detect_paste = 1
     let g:airline#extensions#branch#enabled = 1
     let g:airline#extensions#syntastic#enabled = 1
-    if IsMac()
-        let g:airline_powerline_fonts = 1
-    else
+    let g:airline_powerline_fonts = 1
+    if !IsMac()
         if !exists('g:airline_symbols')
             let g:airline_symbols = {}
         endif
         let g:airline_symbols.linenr = '␤'
-        let g:airline_symbols.branch = '⎇'
         let g:airline_symbols.paste = 'Þ'
     endif
 endif
