@@ -459,10 +459,6 @@ else
 endif
 
 " theme
-if IsLinux() && !has('nvim')
-    let g:base16colorspace=256
-endif
-
 set background=dark
 if has('nvim')
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -478,7 +474,7 @@ if IsWindows()
     else
         colorscheme solarized
     endif
-elseif IsLinux() && !has('nvim')
+elseif !has('nvim')
     let g:base16colorspace=256
     colorscheme base16-default
 else
