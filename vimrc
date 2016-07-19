@@ -70,9 +70,7 @@ NeoBundle 'bkad/CamelCaseMotion'
 NeoBundle 'editorconfig/editorconfig-vim'
 NeoBundle 'nginx/nginx', {'rtp': 'contrib/vim', 'type__depth': 1}
 
-if IsMac()
-    NeoBundle 'ryanoasis/vim-devicons'
-endif
+NeoBundle 'ryanoasis/vim-devicons'
 
 
 NeoBundleLazy 'pearofducks/ansible-vim', {
@@ -210,7 +208,7 @@ NeoBundleLazy 'eagletmt/neco-ghc', {
             \   'on_ft': 'haskell'
             \ }
 NeoBundleLazy 'rstacruz/sparkup', {
-            \    'rtp': 'vim',
+            \   'rtp': 'vim',
             \   'on_ft': ['html', 'xml', 'htmldjango']
             \ }
 NeoBundleLazy 'pangloss/vim-javascript', {
