@@ -140,15 +140,6 @@ if has('nvim')
                 \   'on_i': 1,
                 \   'depends': ['Shougo/deoplete.nvim', 'davidhalter/jedi-vim'],
                 \ }
-    "NeoBundle 'Valloric/YouCompleteMe', {
-     "\ 'depends': ['davidhalter/jedi-vim'],
-     "\ 'build'      : {
-        "\ 'mac'     : './install.py',
-        "\ 'unix'    : './install.py',
-        "\ 'windows' : 'install.py',
-        "\ 'cygwin'  : './install.py'
-        "\ }
-     "\ }
 else
     NeoBundleLazy 'Shougo/neocomplete', {
                 \   'on_i': 1,
@@ -346,7 +337,6 @@ set softtabstop=4
 set shiftround
 set expandtab
 set autoindent
-set smartindent
 
 " fold based on indent
 set foldmethod=indent
@@ -458,9 +448,6 @@ endif
 
 " theme
 set background=dark
-if has('nvim')
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-endif
 if has("termguicolors")
     set termguicolors
 endif
