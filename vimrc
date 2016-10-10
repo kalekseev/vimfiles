@@ -81,7 +81,6 @@ Plug 'Shougo/neomru.vim' | Plug 'Shougo/unite.vim'
 Plug 'Shougo/unite-help'
 Plug 'tsukkee/unite-tag'
 Plug 'thinca/vim-unite-history'
-Plug 'ujihisa/unite-colorscheme'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/echodoc'
 if has('nvim')
@@ -94,7 +93,7 @@ Plug 'rking/ag.vim', {
             \ }
 Plug 'jmcomets/vim-pony'
 Plug 'mitsuhiko/vim-python-combined'
-Plug 'chrisbra/csv.vim'
+Plug 'chrisbra/csv.vim', {'for': 'csv'}
 Plug 'fatih/vim-go'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'thinca/vim-qfreplace', {
@@ -121,7 +120,6 @@ Plug 'elzr/vim-json', {
             \       'unix': 'cp ftdetect/* ~/.vim/ftdetect/'
             \   }
             \ }
-Plug 'raphamorim/lucario'
 
 
 call plug#end()
