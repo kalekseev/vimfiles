@@ -454,8 +454,6 @@ command! -range ApplyQMacros execute '<line1>,<line2>normal! @q'
 let g:vim_json_syntax_conceal = 0
 "vim-argwrap
 nnoremap <silent>gW :<C-u>:ArgWrap<CR>
-"deoplete.nvim
-let g:deoplete#enable_at_startup = 1
 
 "editorconfig-vim
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
@@ -590,38 +588,44 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 
 " neocomplete
 "==============================================================================
-let g:neocomplete#enable_at_startup = 1
-" use smartcase
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#enable_camel_case = 1
+if has('nvim')
+    "deoplete.nvim
+    let g:deoplete#enable_at_startup = 1
+    imap <expr> <CR> pumvisible() ? deoplete#close_popup() . "\<CR>"
+                \: '<Plug>delimitMateCR'
+else
+    let g:neocomplete#enable_at_startup = 1
+    " use smartcase
+    let g:neocomplete#enable_smart_case = 1
+    let g:neocomplete#enable_camel_case = 1
 
-" use fuzzy completion
-let g:neocomplete#enable_fuzzy_completion = 1
-" minimum syntax keyword length
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-" Set auto completion length.
-let g:neocomplete#auto_completion_start_length = 2
-let g:neocomplete#manual_completion_start_length = 0
-" Set minimum keyword length.
-let g:neocomplete#min_keyword_length = 3
+    " use fuzzy completion
+    let g:neocomplete#enable_fuzzy_completion = 1
+    " minimum syntax keyword length
+    let g:neocomplete#sources#syntax#min_keyword_length = 3
+    " Set auto completion length.
+    let g:neocomplete#auto_completion_start_length = 2
+    let g:neocomplete#manual_completion_start_length = 0
+    " Set minimum keyword length.
+    let g:neocomplete#min_keyword_length = 3
 
-"imap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-imap <expr> <CR> pumvisible() ? neocomplete#close_popup() . "\<CR>"
-            \: '<Plug>delimitMateCR'
+    "imap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+    imap <expr> <CR> pumvisible() ? neocomplete#close_popup() . "\<CR>"
+                \: '<Plug>delimitMateCR'
 
-" <TAB>: completion.
-inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ neocomplete#start_manual_complete()
-function! s:check_back_space() abort "{{{
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-endfunction"}}}
+    " <TAB>: completion.
+    inoremap <silent><expr> <TAB>
+                \ pumvisible() ? "\<C-n>" :
+                \ <SID>check_back_space() ? "\<TAB>" :
+                \ neocomplete#start_manual_complete()
+    function! s:check_back_space() abort "{{{
+        let col = col('.') - 1
+        return !col || getline('.')[col - 1]  =~ '\s'
+    endfunction"}}}
 
-" <S-TAB>: completion back.
-inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
-
+    " <S-TAB>: completion back.
+    inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
+endif
 
 " jedi-vim
 "==============================================================================
