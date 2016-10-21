@@ -537,6 +537,15 @@ if !IsWindows()
 endif
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_filetype_map = {
+        \ "htmldjango": "html",
+        \}
+let g:syntastic_html_tidy_quiet_messages = {
+    \ "regex": [
+        \ '<a> escaping malformed URI reference',
+        \ "plain text isn't allowed in <.*> elements",
+        \ 'trimming empty <i>'
+    \ ]}
 
 
 " fugitive
@@ -769,9 +778,6 @@ autocmd MyAutoCmd FocusLost * :silent! wall
 " don't show trailing spaces in insert mode
 autocmd MyAutoCmd InsertEnter * :set listchars-=trail:·
 autocmd MyAutoCmd InsertLeave * :set listchars+=trail:·
-
-" detect django templates
-autocmd BufNewFile,BufRead */templates/*.html setlocal filetype=htmldjango
 
 " Reload .vimrc automatically.
 autocmd MyAutoCmd BufWritePost .vimrc,vimrc
