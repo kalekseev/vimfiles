@@ -600,7 +600,7 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 if has('nvim')
     "deoplete.nvim
     let g:deoplete#enable_at_startup = 1
-    imap <expr> <CR> pumvisible() ? deoplete#close_popup() . "\<CR>"
+    imap <expr> <CR> pumvisible() ? deoplete#mappings#close_popup() . "\<CR>"
                 \: '<Plug>delimitMateCR'
 else
     let g:neocomplete#enable_at_startup = 1
