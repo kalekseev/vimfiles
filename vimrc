@@ -542,7 +542,7 @@ let g:syntastic_filetype_map = {
         \}
 let g:syntastic_html_tidy_quiet_messages = {
     \ "regex": [
-        \ '<a> escaping malformed URI reference',
+        \ '<.*> escaping malformed URI reference',
         \ "plain text isn't allowed in <.*> elements",
         \ 'trimming empty <i>'
     \ ]}
