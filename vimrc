@@ -658,7 +658,7 @@ let g:ctrlp_custom_ignore = {
 \ }
 let g:ctrlp_user_command = {
             \   'types': {
-            \     1: ['.git', 'cd %s && git ls-files . -co --exclude-standard'],
+            \     1: ['.git', 'cd %s && git ls-files . -c --exclude-standard'],
             \     2: ['.hg', 'hg --cwd %s locate -I .'],
             \   },
             \   'fallback': 'find %s -type f'
