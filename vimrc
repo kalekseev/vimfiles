@@ -202,7 +202,7 @@ let g:mapleader = "\<Space>"
 nnoremap <Space> <Nop>
 
 " russian keymap
-set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
+set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz,\\;№;$#
 
 " turn off needless toolbar on gvim/mvim
 set guioptions-=T
@@ -288,6 +288,7 @@ set clipboard=unnamed
 " ignore case only if contains upper case
 set ignorecase
 set smartcase
+set inccommand=nosplit
 
 " incremental search
 set incsearch
