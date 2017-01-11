@@ -749,15 +749,10 @@ let g:indentLine_noConcealCursor=""
 let g:indentLine_faster = 1
 
 
-" localvimrc
-"==============================================================================
-let g:localvimrc_sandbox = 0
-
 "* * * * * * * * * * * * * * * * * EXTRA * * * * * * * * * * * * * * * * * * *
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 " filetype specific settings
-" (don't use after/ftplugin because localvimrc won't override it)
 autocmd MyAutoCmd FileType html setlocal ts=2 sw=2 sta et sts=2 ai
 autocmd MyAutoCmd FileType javascript setlocal ts=2 sw=2 sta et sts=2 ai colorcolumn=110
 autocmd MyAutoCmd FileType python setlocal omnifunc=jedi#completions
