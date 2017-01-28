@@ -115,11 +115,7 @@ Plug 'rstacruz/sparkup', {
             \   'for': ['html', 'xml', 'htmldjango', 'javascript.jsx']
             \ }
 Plug 'pangloss/vim-javascript' | Plug 'mxw/vim-jsx'
-Plug 'elzr/vim-json', {
-            \   'build': {
-            \       'unix': 'cp ftdetect/* ~/.vim/ftdetect/'
-            \   }
-            \ }
+Plug 'elzr/vim-json'
 
 
 call plug#end()
@@ -769,6 +765,9 @@ autocmd MyAutoCmd FocusLost * :silent! wall
 autocmd MyAutoCmd InsertEnter * :set listchars-=trail:·
 autocmd MyAutoCmd InsertLeave * :set listchars+=trail:·
 
+" js, jsx
+autocmd MyAutoCmd BufRead *.js call s:FTjs()
+
 
 " jump to last cursor position when opening a file
 " don't do it when writing a commit log entry
@@ -801,3 +800,16 @@ endfunction
 
 nnoremap <leader>o :!echo `hg burl`%\#%:t-<C-R>=line('.')<CR> \| xargs <C-R>=OpenCMD()<CR> {} > /dev/null<CR><CR>
 vnoremap <leader>o <Esc>:!echo `hg burl`%\#%:t-<C-R>=line("'<")<CR>:<C-R>=line("'>")<CR> \| xargs <C-R>=OpenCMD()<CR> {} > /dev/null<CR><CR>gv
+
+
+" Distinguish between javascript, jsx
+func! s:FTjs()
+  let n = 1
+  while n < 10 && n < line("$")
+    if getline(n) =~ "\\v'react'|'preact'"
+      set filetype=javascript.jsx
+      return
+    endif
+    let n = n + 1
+  endwhile
+endfunc
