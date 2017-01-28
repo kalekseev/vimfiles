@@ -112,7 +112,7 @@ Plug 'kana/vim-niceblock'
 Plug 't9md/vim-quickhl'
 Plug 'rstacruz/sparkup', {
             \   'rtp': 'vim',
-            \   'for': ['html', 'xml', 'htmldjango']
+            \   'for': ['html', 'xml', 'htmldjango', 'javascript.jsx']
             \ }
 Plug 'pangloss/vim-javascript' | Plug 'mxw/vim-jsx'
 Plug 'elzr/vim-json', {
@@ -757,16 +757,10 @@ autocmd MyAutoCmd FileType html setlocal ts=2 sw=2 sta et sts=2 ai
 autocmd MyAutoCmd FileType javascript setlocal ts=2 sw=2 sta et sts=2 ai colorcolumn=110
 autocmd MyAutoCmd FileType python setlocal omnifunc=jedi#completions
 autocmd MyAutoCmd FileType python let g:argwrap_tail_comma = 1
+autocmd MyAutoCmd FileType javascript.jsx runtime! ftplugin/html/sparkup.vim
 
 " cuda
 autocmd MyAutoCmd BufRead,BufNewFile *.cuh set ft=cuda
-
-" freemarker
-autocmd MyAutoCmd BufRead,BufNewFile *.ftl set ft=html
-
-if has('gui_running')
-    autocmd MyAutoCmd BufNewFile,BufRead * call Highlight_remove_attr('bold')
-endif
 
 " save on focus lost (gui only)
 autocmd MyAutoCmd FocusLost * :silent! wall
@@ -774,10 +768,6 @@ autocmd MyAutoCmd FocusLost * :silent! wall
 " don't show trailing spaces in insert mode
 autocmd MyAutoCmd InsertEnter * :set listchars-=trail:·
 autocmd MyAutoCmd InsertLeave * :set listchars+=trail:·
-
-" Reload .vimrc automatically.
-autocmd MyAutoCmd BufWritePost .vimrc,vimrc
-    \ source $MYVIMRC | redraw | call GuiNoBold()
 
 
 " jump to last cursor position when opening a file
@@ -801,56 +791,6 @@ function! BreakpointToggle(lnum, cmd)
     if &modifiable && &modified | write | endif
 endfunction
 
-function! GuiNoBold()
-    if has('gui_running')
-        call Highlight_remove_attr('bold')
-    endif
-endfunction
-
-function! Highlight_remove_attr(attr)
-    " save selection registers
-    new
-    silent! put
-
-    " get current highlight configuration
-    redir @x
-    silent! highlight
-    redir END
-    " open temp buffer
-    new
-    " paste in
-    silent! put x
-
-    " convert to vim syntax (from Mkcolorscheme.vim,
-    "   http://vim.sourceforge.net/scripts/script.php?script_id=85)
-    " delete empty,"links" and "cleared" lines
-    silent! g/^$\| links \| cleared/d
-    " join any lines wrapped by the highlight command output
-    silent! %s/\n \+/ /
-    " remove the xxx's
-    silent! %s/ xxx / /
-    " add highlight commands
-    silent! %s/^/highlight /
-    " protect spaces in some font names
-    silent! %s/font=\(.*\)/font='\1'/
-
-    " substitute bold with "NONE"
-    execute 'silent! %s/' . a:attr . '\([\w,]*\)/NONE\1/geI'
-    " yank entire buffer
-    normal ggVG
-    " copy
-    silent! normal "xy
-    " run
-    execute @x
-
-    " remove temp buffer
-    bwipeout!
-
-    " restore selection registers
-    silent! normal ggVGy
-    bwipeout!
-endfunction
-
 function! OpenCMD()
     if IsMac()
         return '-I {} open'
@@ -861,9 +801,3 @@ endfunction
 
 nnoremap <leader>o :!echo `hg burl`%\#%:t-<C-R>=line('.')<CR> \| xargs <C-R>=OpenCMD()<CR> {} > /dev/null<CR><CR>
 vnoremap <leader>o <Esc>:!echo `hg burl`%\#%:t-<C-R>=line("'<")<CR>:<C-R>=line("'>")<CR> \| xargs <C-R>=OpenCMD()<CR> {} > /dev/null<CR><CR>gv
-
-
-if !has('vim_starting')
-  " Call on_source hook when reloading .vimrc.
-  call neobundle#call_hook('on_source')
-endif
