@@ -116,6 +116,8 @@ Plug 'rstacruz/sparkup', {
             \ }
 Plug 'pangloss/vim-javascript' | Plug 'mxw/vim-jsx'
 Plug 'elzr/vim-json'
+Plug 'alfredodeza/pytest.vim'
+Plug 'alfredodeza/coveragepy.vim'
 
 
 call plug#end()
