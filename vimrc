@@ -123,7 +123,6 @@ call plug#end()
 filetype plugin indent on
 
 
-
 " reset my autocmd group
 augroup MyAutoCmd
     autocmd!
@@ -766,7 +765,7 @@ autocmd MyAutoCmd InsertEnter * :set listchars-=trail:·
 autocmd MyAutoCmd InsertLeave * :set listchars+=trail:·
 
 " js, jsx
-autocmd MyAutoCmd BufRead *.js call s:FTjs()
+autocmd MyAutoCmd BufRead,BufNewFile *.js call s:FTjs()
 
 
 " jump to last cursor position when opening a file
@@ -813,3 +812,8 @@ func! s:FTjs()
     let n = n + 1
   endwhile
 endfunc
+
+
+" Reload .vimrc automatically.
+autocmd MyAutoCmd BufWritePost .vimrc,vimrc,init.vim
+    \ source $MYVIMRC | redraw
