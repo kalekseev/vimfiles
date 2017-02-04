@@ -521,6 +521,7 @@ endif
 let g:ale_linters = {
             \   'javascript': ['eslint'],
             \   'python': ['flake8'],
+            \   'scss': ['stylelint'],
             \}
 let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '⚠'
