@@ -48,7 +48,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-abolish'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/syntastic'
+Plug 'w0rp/ale'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -285,7 +285,9 @@ set clipboard=unnamed
 " ignore case only if contains upper case
 set ignorecase
 set smartcase
-set inccommand=nosplit
+if has('nvim')
+    set inccommand=nosplit
+endif
 
 " incremental search
 set incsearch
@@ -337,19 +339,8 @@ if has("termguicolors")
 endif
 
 
-if IsWindows()
-    if has('gui_running')
-        colorscheme base16-default
-    else
-        colorscheme solarized
-    endif
-elseif !has('nvim')
-    let g:base16colorspace=256
-    colorscheme base16-default
-else
-    let g:gruvbox_italic=1
-    colorscheme gruvbox
-endif
+let g:gruvbox_italic=1
+colorscheme gruvbox
 
 
 set colorcolumn=80
@@ -512,7 +503,9 @@ if !has('nvim')
 endif
 let g:airline_detect_paste = 1
 let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#syntastic#enabled = 1
+let g:airline#extensions#ale#error_symbol = '✗ '
+let g:airline#extensions#ale#warning_symbol = '⚠ '
+
 let g:airline_powerline_fonts = 1
 if !IsMac()
     if !exists('g:airline_symbols')
@@ -523,27 +516,14 @@ if !IsMac()
 endif
 
 
-" syntastic
+" ale
 "==============================================================================
-let g:syntastic_enable_signs = 1
-let g:syntastic_check_on_open = 1
-if !IsWindows()
-    let g:syntastic_error_symbol = '✗'
-    let g:syntastic_style_error_symbol = '✗'
-    let g:syntastic_warning_symbol = '⚠'
-    let g:syntastic_style_warning_symbol = '⚠'
-endif
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_python_checkers = ['flake8']
-let g:syntastic_filetype_map = {
-        \ "htmldjango": "html",
-        \}
-let g:syntastic_html_tidy_quiet_messages = {
-    \ "regex": [
-        \ '<.*> escaping malformed URI reference',
-        \ "plain text isn't allowed in <.*> elements",
-        \ 'trimming empty <i>'
-    \ ]}
+let g:ale_linters = {
+            \   'javascript': ['eslint'],
+            \   'python': ['flake8'],
+            \}
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = '⚠'
 
 
 " fugitive
