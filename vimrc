@@ -49,7 +49,6 @@ Plug 'tpope/vim-abolish'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'w0rp/ale'
-Plug 'Shougo/neosnippet-snippets'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ludovicchabant/vim-lawrencium'
@@ -81,7 +80,6 @@ Plug 'Shougo/neomru.vim' | Plug 'Shougo/unite.vim'
 Plug 'Shougo/unite-help'
 Plug 'tsukkee/unite-tag'
 Plug 'thinca/vim-unite-history'
-Plug 'Shougo/neosnippet'
 Plug 'Shougo/echodoc'
 if has('nvim')
     Plug 'davidhalter/jedi-vim' | Plug 'Shougo/deoplete.nvim' | Plug 'zchee/deoplete-jedi'
@@ -118,7 +116,8 @@ Plug 'pangloss/vim-javascript' | Plug 'mxw/vim-jsx'
 Plug 'elzr/vim-json'
 Plug 'alfredodeza/pytest.vim'
 Plug 'alfredodeza/coveragepy.vim'
-
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 call plug#end()
 
@@ -558,20 +557,6 @@ nmap <Leader>2 <Plug>(quickhl-cword-toggle)
 " echodoc
 "==============================================================================
 let g:echodoc_enable_at_startup = 1
-
-
-" neosnippet
-"==============================================================================
-let g:neosnippet#enable_snipmate_compatibility = 1
-let g:neosnippet#snippets_directory = $VIMHOME.'/snippets'
-xmap <Leader>s     <Plug>(neosnippet_expand_target)
-
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-            \ "\<Plug>(neosnippet_expand_or_jump)"
-            \: pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-            \ "\<Plug>(neosnippet_expand_or_jump)"
-            \: "\<TAB>""
 
 
 " neocomplete
