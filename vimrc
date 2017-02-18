@@ -116,8 +116,9 @@ Plug 'pangloss/vim-javascript' | Plug 'mxw/vim-jsx'
 Plug 'elzr/vim-json'
 Plug 'alfredodeza/pytest.vim'
 Plug 'alfredodeza/coveragepy.vim'
-Plug 'SirVer/ultisnips'
+"Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'sbdchd/neoformat', { 'for': 'javascript.jsx' }
 
 call plug#end()
 
@@ -524,6 +525,8 @@ let g:ale_linters = {
             \}
 let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '⚠'
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 0
 
 
 " fugitive
@@ -564,6 +567,7 @@ let g:echodoc_enable_at_startup = 1
 if has('nvim')
     "deoplete.nvim
     let g:deoplete#enable_at_startup = 1
+    inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
     imap <expr> <CR> pumvisible() ? deoplete#mappings#close_popup() . "\<CR>"
                 \: '<Plug>delimitMateCR'
 else
@@ -710,6 +714,16 @@ endif
 let g:indentLine_color_term = 8
 let g:indentLine_noConcealCursor=""
 let g:indentLine_faster = 1
+
+" neoformat
+"==============================================================================
+"
+let g:neoformat_javascript_prettiereslint = {
+            \ 'exe': 'node_modules/.bin/prettier-eslint',
+            \ 'args': ['--stdin'],
+            \ 'stdin': 1,
+            \ }
+let g:neoformat_enabled_javascript = ['prettiereslint']
 
 
 "* * * * * * * * * * * * * * * * * EXTRA * * * * * * * * * * * * * * * * * * *
