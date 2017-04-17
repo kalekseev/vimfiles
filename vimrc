@@ -118,7 +118,9 @@ Plug 'alfredodeza/pytest.vim'
 Plug 'alfredodeza/coveragepy.vim'
 "Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'sbdchd/neoformat', { 'for': 'javascript.jsx' }
+Plug 'sbdchd/neoformat', { 'for': ['javascript.jsx', 'javascript'] }
+Plug 'racer-rust/vim-racer'
+Plug 'rust-lang/rust.vim'
 
 call plug#end()
 
@@ -735,6 +737,11 @@ autocmd MyAutoCmd FileType javascript setlocal ts=2 sw=2 sta et sts=2 ai colorco
 autocmd MyAutoCmd FileType python setlocal omnifunc=jedi#completions
 autocmd MyAutoCmd FileType python let g:argwrap_tail_comma = 1
 autocmd MyAutoCmd FileType javascript.jsx runtime! ftplugin/html/sparkup.vim
+
+autocmd FileType rust nmap gd <Plug>(rust-def)
+autocmd FileType rust nmap gs <Plug>(rust-def-split)
+autocmd FileType rust nmap gx <Plug>(rust-def-vertical)
+autocmd FileType rust nmap K <Plug>(rust-doc)
 
 " cuda
 autocmd MyAutoCmd BufRead,BufNewFile *.cuh set ft=cuda
