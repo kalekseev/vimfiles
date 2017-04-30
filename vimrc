@@ -121,6 +121,7 @@ Plug 'honza/vim-snippets'
 Plug 'sbdchd/neoformat', { 'for': ['javascript.jsx', 'javascript'] }
 Plug 'racer-rust/vim-racer'
 Plug 'rust-lang/rust.vim'
+Plug 'jremmen/vim-ripgrep'
 
 call plug#end()
 
@@ -637,7 +638,11 @@ let g:ctrlp_user_command = {
 
 " unite
 "==============================================================================
-if executable('ag')
+if executable('rg')
+    let g:unite_source_grep_command='rg'
+    let g:unite_source_grep_default_opts='--hidden --no-heading --vimgrep -S'
+    let g:unite_source_grep_recursive_opt=''
+elseif executable('ag')
     let g:unite_source_grep_command='ag'
     let g:unite_source_grep_default_opts =
         \ '-i --line-numbers --nocolor --nogroup --hidden --ignore ' .
