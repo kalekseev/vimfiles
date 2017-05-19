@@ -122,6 +122,7 @@ Plug 'sbdchd/neoformat', { 'for': ['javascript.jsx', 'javascript'] }
 Plug 'racer-rust/vim-racer'
 Plug 'rust-lang/rust.vim'
 Plug 'jremmen/vim-ripgrep'
+Plug 'mitsuhiko/vim-rst'
 
 call plug#end()
 
