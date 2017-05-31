@@ -738,6 +738,9 @@ let g:neoformat_enabled_javascript = ['prettiereslint']
 "* * * * * * * * * * * * * * * * * EXTRA * * * * * * * * * * * * * * * * * * *
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
+" disable C-c mapping from SQLComplete
+let g:omni_sql_no_default_maps = 1
+
 " filetype specific settings
 autocmd MyAutoCmd FileType html setlocal ts=2 sw=2 sta et sts=2 ai
 autocmd MyAutoCmd FileType javascript setlocal ts=2 sw=2 sta et sts=2 ai colorcolumn=110
