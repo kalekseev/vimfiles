@@ -45,7 +45,7 @@ Plug 'Shougo/vimproc', {
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-abolish'  "used to replace camel case with snake case
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'w0rp/ale'
