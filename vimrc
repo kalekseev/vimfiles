@@ -76,7 +76,7 @@ Plug 'FooSoft/vim-argwrap', {
             \   'on': ['ArgWrap']
             \ }
 Plug 'justinmk/vim-sneak'
-Plug 'Shougo/neomru.vim' | Plug 'Shougo/unite.vim'
+Plug 'Shougo/neomru.vim' | Plug 'Shougo/denite.nvim'
 Plug 'Shougo/unite-help'
 Plug 'tsukkee/unite-tag'
 Plug 'thinca/vim-unite-history'
@@ -533,6 +533,9 @@ let g:ale_sign_warning = '⚠'
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 0
 
+nmap <silent> <leader>pe <Plug>(ale_previous_wrap)
+nmap <silent> <leader>ne <Plug>(ale_next_wrap)
+
 
 " fugitive
 "==============================================================================
@@ -637,74 +640,72 @@ let g:ctrlp_user_command = {
             \   'fallback': 'find %s -type f'
             \ }
 
+"---------------------------------------------------------------------------
+" denite.nvim
+"
 
-" unite
-"==============================================================================
 if executable('rg')
-    let g:unite_source_grep_command='rg'
-    let g:unite_source_grep_default_opts='--hidden --no-heading --vimgrep -S'
-    let g:unite_source_grep_recursive_opt=''
-elseif executable('ag')
-    let g:unite_source_grep_command='ag'
-    let g:unite_source_grep_default_opts =
-        \ '-i --line-numbers --nocolor --nogroup --hidden --ignore ' .
-        \  '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
-    let g:unite_source_grep_recursive_opt=''
-elseif executable('ack')
-    let g:unite_source_grep_command='ack'
-    let g:unite_source_grep_default_opts='--no-heading --no-color -a'
-    let g:unite_source_grep_recursive_opt=''
+  call denite#custom#var('file_rec', 'command',
+        \ ['rg', '--files', '--glob', '!.git'])
+  call denite#custom#var('grep', 'command', ['rg', '--threads', '1'])
+  call denite#custom#var('grep', 'recursive_opts', [])
+  call denite#custom#var('grep', 'final_opts', [])
+  call denite#custom#var('grep', 'separator', ['--'])
+  call denite#custom#var('grep', 'default_opts',
+        \ ['--vimgrep', '--no-heading'])
+else
+  call denite#custom#var('file_rec', 'command',
+        \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
 endif
 
-let g:unite_source_history_yank_enable = 1
-let g:unite_source_menu_menus = {}
-let g:unite_source_menu_menus.shortcut = {
-\   'description': 'Shortcuts'
-\ }
+call denite#custom#source('file_old', 'matchers',
+      \ ['matcher_fuzzy', 'matcher_project_files'])
+if has('nvim')
+  call denite#custom#source('file_rec,grep', 'matchers',
+        \ ['matcher_cpsm'])
+endif
+call denite#custom#source('file_old', 'converters',
+      \ ['converter_relative_word'])
 
-let g:unite_source_menu_menus.shortcut.candidates = {
-\   'mru'             : 'Unite file_mru',
-\   'file_rec/async'  : 'Unite file_rec/async',
-\   'find'            : 'Unite find',
-\   'grep'            : 'Unite grep',
-\   'register'        : 'Unite register',
-\   'bookmark'        : 'Unite bookmark',
-\   'output'          : 'Unite output',
-\   'mapping'         : 'Unite mapping',
-\   'help'            : 'Unite help',
-\   'history/command' : 'Unite history/command',
-\   'history/yank'    : 'Unite history/yank',
-\   'tag'             : 'Unite tag'
-\ }
+call denite#custom#map('insert', '<C-j>',
+      \ '<denite:move_to_next_line>', 'noremap')
+call denite#custom#map('insert', '<C-k>',
+      \ '<denite:move_to_previous_line>', 'noremap')
+call denite#custom#map('insert', "'",
+      \ '<denite:move_to_next_line>', 'noremap')
+call denite#custom#map('normal', 'r',
+      \ '<denite:do_action:quickfix>', 'noremap')
+call denite#custom#map('insert', ';',
+      \ 'vimrc#sticky_func()', 'expr')
 
-function g:unite_source_menu_menus.shortcut.map(key, value)
-    return {
-    \   'word' : a:key, 'kind' : 'command',
-    \   'action__command' : a:value,
+call denite#custom#alias('source', 'file_rec/git', 'file_rec')
+call denite#custom#var('file_rec/git', 'command',
+      \ ['git', 'ls-files', '-co', '--exclude-standard'])
+
+" call denite#custom#option('default', 'prompt', '>')
+" call denite#custom#option('default', 'short_source_names', v:true)
+call denite#custom#option('default', {
+      \ 'prompt': '>', 'short_source_names': v:true
+      \ })
+
+let s:menus = {}
+let s:menus.vim = {
+    \ 'description': 'Vim',
     \ }
-endfunction
+let s:menus.vim.file_candidates = [
+    \ ['    > Edit configuation file (init.vim)', '~/.config/nvim/init.vim']
+    \ ]
+call denite#custom#var('menu', 'menus', s:menus)
 
-call unite#custom#source(
-    \ 'buffer,file_rec,file_rec/async,file_rec/git', 'matchers',
-    \ ['converter_relative_word', 'matcher_fuzzy'])
-call unite#custom#source(
-    \ 'file_mru', 'matchers',
-    \ ['matcher_project_files', 'matcher_fuzzy',
-    \  'matcher_hide_hidden_files', 'matcher_hide_current_file'])
-call unite#custom#source(
-    \ 'file_rec,file_rec/async,file_rec/git,file_mru', 'converters',
-    \ ['converter_file_directory'])
-call unite#filters#sorter_default#use(['sorter_rank'])
-call unite#custom#profile('default', 'context', {
-\   'marked_icon': '»',
-\   'candidate_icon': '›'
-\ })
+call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
+      \ [ '.git/', '.hg/', '__pycache__/',
+      \   'env/', 'images/', '*.min.*', 'img/', 'fonts/'])
 
-nmap <Leader>b :Unite buffer<cr>
-nmap <Leader>h :Unite history/yank<cr>
-nmap <Leader>a :UniteWithCursorWord -auto-preview -vertical-preview grep<cr><cr>
-nmap <Leader>s :Unite menu:shortcut -start-insert<cr>
-nmap <Leader>l :Unite file_mru<CR>
+nmap <Leader>b :Denite buffer<cr>
+nmap <Leader>h :Denite history/yank<cr>
+nmap <Leader>a :DeniteCursorWord -auto-preview -vertical-preview grep<cr><cr>
+nmap <Leader>s :Denite menu:shortcut<cr>
+nmap <Leader>l :Denite file_mru<CR>
 
 
 " sneak
