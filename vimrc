@@ -391,12 +391,6 @@ command! -bang Qa q<bang>
 " make Y consistent with C and D
 nmap Y y$
 
-" key mapping for window navigation
-nmap <C-h> <C-w>h
-nmap <C-j> <C-w>j
-nmap <C-k> <C-w>k
-nmap <C-l> <C-w>l
-
 " key mapping for saving file
 nmap <C-s> :w<CR>
 
@@ -411,10 +405,6 @@ nmap < <<
 nmap > >>
 xmap < <gV
 xmap > >gV
-
-" use sane regexes
-nmap / /\v
-vmap / /\v
 
 " reselect pasted text
 nmap <Leader>v V`]
@@ -675,8 +665,6 @@ call denite#custom#map('insert', "'",
       \ '<denite:move_to_next_line>', 'noremap')
 call denite#custom#map('normal', 'r',
       \ '<denite:do_action:quickfix>', 'noremap')
-call denite#custom#map('insert', ';',
-      \ 'vimrc#sticky_func()', 'expr')
 
 call denite#custom#alias('source', 'file_rec/git', 'file_rec')
 call denite#custom#var('file_rec/git', 'command',
@@ -701,11 +689,12 @@ call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
       \ [ '.git/', '.hg/', '__pycache__/',
       \   'env/', 'images/', '*.min.*', 'img/', 'fonts/'])
 
-nmap <Leader>b :Denite buffer<cr>
+nmap <Leader>b :Denite buffer -mode=normal -reversed<cr>
 nmap <Leader>h :Denite history/yank<cr>
 nmap <Leader>a :DeniteCursorWord -auto-preview -vertical-preview grep<cr><cr>
 nmap <Leader>s :Denite menu:shortcut<cr>
 nmap <Leader>l :Denite file_mru<CR>
+nmap <Leader>g :Denite grep<CR>
 
 
 " sneak
