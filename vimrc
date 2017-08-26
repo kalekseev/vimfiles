@@ -236,7 +236,7 @@ set wildmode=list:longest
 
 " enable ctrl-n and ctrl-p to scroll thru matches
 set wildmenu
-set wildignore=*.aux,*.log,*.class,*.o,*.obj,*~,.git,*.pyc
+set wildignore=*.aux,*.log,*.class,*.o,*.obj,*~,.git,*.pyc,*/.hg/*
 
 " don't continue comments when pushing o/O
 set formatoptions-=o
@@ -514,7 +514,7 @@ endif
 " ale
 "==============================================================================
 let g:ale_linters = {
-            \   'javascript': ['eslint'],
+            \   'javascript': ['eslint', 'flow'],
             \   'python': ['flake8'],
             \   'scss': ['stylelint'],
             \}
@@ -623,12 +623,13 @@ let g:ctrlp_custom_ignore = {
 \    'file': '\v\.(exe|so|dll|class|aux|log|jar)$',
 \ }
 let g:ctrlp_user_command = {
-            \   'types': {
-            \     1: ['.git', 'cd %s && git ls-files . -co --exclude-standard'],
-            \     2: ['.hg', 'hg --cwd %s locate -I .'],
-            \   },
-            \   'fallback': 'find %s -type f'
-            \ }
+\   'types': {
+\     1: ['.git', 'cd %s && git ls-files . -co --exclude-standard'],
+\     2: ['.hg', 'hg --cwd %s files --subrepos -I .'],
+\   },
+\   'fallback': 'rg %s --files --hidden --color=never --follow --glob "!.git/*" --glob "!.hg/*"'
+\ }
+"let g:ctrlp_use_caching = 0
 
 "---------------------------------------------------------------------------
 " denite.nvim
@@ -718,7 +719,7 @@ let g:indentLine_faster = 1
 "==============================================================================
 "
 let g:neoformat_javascript_prettiereslint = {
-            \ 'exe': 'node_modules/.bin/prettier-eslint',
+            \ 'exe': 'prettier-eslint',
             \ 'args': ['--stdin'],
             \ 'stdin': 1,
             \ }
