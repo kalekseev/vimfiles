@@ -629,6 +629,8 @@ let g:ctrlp_user_command = {
 \   },
 \   'fallback': 'rg %s --files --hidden --color=never --follow --glob "!.git/*" --glob "!.hg/*"'
 \ }
+
+let g:ctrlp_root_markers = ['.hgsub']  "hg subrepos root
 "let g:ctrlp_use_caching = 0
 
 "---------------------------------------------------------------------------
