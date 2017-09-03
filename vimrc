@@ -123,6 +123,8 @@ Plug 'racer-rust/vim-racer'
 Plug 'rust-lang/rust.vim'
 Plug 'jremmen/vim-ripgrep'
 Plug 'mitsuhiko/vim-rst'
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'mhartington/nvim-typescript'
 
 call plug#end()
 
