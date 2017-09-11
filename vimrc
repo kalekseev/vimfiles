@@ -118,7 +118,7 @@ Plug 'alfredodeza/pytest.vim'
 Plug 'alfredodeza/coveragepy.vim'
 "Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'sbdchd/neoformat', { 'for': ['javascript.jsx', 'javascript'] }
+Plug 'sbdchd/neoformat', { 'for': ['javascript.jsx', 'javascript', 'typescript'] }
 Plug 'racer-rust/vim-racer'
 Plug 'rust-lang/rust.vim'
 Plug 'jremmen/vim-ripgrep'
@@ -728,6 +728,7 @@ let g:neoformat_javascript_prettiereslint = {
             \ 'stdin': 1,
             \ }
 let g:neoformat_enabled_javascript = ['prettiereslint']
+let g:neoformat_enabled_typescript = ['prettier', 'typecheck']
 
 
 "* * * * * * * * * * * * * * * * * EXTRA * * * * * * * * * * * * * * * * * * *
@@ -739,6 +740,7 @@ let g:omni_sql_no_default_maps = 1
 " filetype specific settings
 autocmd MyAutoCmd FileType html setlocal ts=2 sw=2 sta et sts=2 ai
 autocmd MyAutoCmd FileType javascript setlocal ts=2 sw=2 sta et sts=2 ai colorcolumn=110
+autocmd MyAutoCmd FileType typescript setlocal ts=2 sw=2 sta et sts=2 ai colorcolumn=110
 autocmd MyAutoCmd FileType python setlocal omnifunc=jedi#completions
 autocmd MyAutoCmd FileType python let g:argwrap_tail_comma = 1
 autocmd MyAutoCmd FileType javascript.jsx runtime! ftplugin/html/sparkup.vim
