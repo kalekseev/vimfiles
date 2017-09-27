@@ -118,7 +118,7 @@ Plug 'alfredodeza/pytest.vim'
 Plug 'alfredodeza/coveragepy.vim'
 "Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'sbdchd/neoformat', { 'for': ['javascript.jsx', 'javascript', 'typescript'] }
+Plug 'sbdchd/neoformat', { 'for': ['javascript.jsx', 'javascript', 'typescript', 'css', 'scss'] }
 Plug 'racer-rust/vim-racer'
 Plug 'rust-lang/rust.vim'
 Plug 'jremmen/vim-ripgrep'
@@ -519,6 +519,7 @@ let g:ale_linters = {
             \   'javascript': ['eslint', 'flow'],
             \   'python': ['flake8'],
             \   'scss': ['stylelint'],
+            \   'typescript': ['tslint', 'tsserver', 'typecheck'],
             \}
 let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '⚠'
