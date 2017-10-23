@@ -64,11 +64,8 @@ Plug 'xaviershay/tslime.vim'
 Plug 'benjifisher/matchit.zip'
 Plug 'bkad/CamelCaseMotion'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'nginx/nginx', {'rtp': 'contrib/vim'}
 Plug 'ryanoasis/vim-devicons'
-Plug 'pearofducks/ansible-vim'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-fireplace'
 Plug 'vim-scripts/paredit.vim'
 Plug 'tpope/vim-jdaddy'
 Plug 'AndrewRadev/splitjoin.vim'
@@ -90,10 +87,7 @@ Plug 'rking/ag.vim', {
             \   'on': ['Ag', 'AgAdd', 'AgFromSearch']
             \ }
 Plug 'jmcomets/vim-pony'
-Plug 'mitsuhiko/vim-python-combined'
 Plug 'chrisbra/csv.vim', {'for': 'csv'}
-Plug 'fatih/vim-go'
-Plug 'hail2u/vim-css3-syntax'
 Plug 'thinca/vim-qfreplace', {
             \   'on': 'Qfreplace'
             \ }
@@ -110,20 +104,16 @@ Plug 'kana/vim-niceblock'
 Plug 't9md/vim-quickhl'
 Plug 'rstacruz/sparkup', {
             \   'rtp': 'vim',
-            \   'for': ['html', 'xml', 'htmldjango', 'javascript.jsx']
+            \   'for': ['html', 'xml', 'htmldjango', 'javascript.jsx', 'typescript.tsx']
             \ }
-Plug 'pangloss/vim-javascript' | Plug 'mxw/vim-jsx'
-Plug 'elzr/vim-json'
 Plug 'alfredodeza/pytest.vim'
 Plug 'alfredodeza/coveragepy.vim'
 "Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'sbdchd/neoformat', { 'for': ['javascript.jsx', 'javascript', 'typescript', 'css', 'scss'] }
-Plug 'racer-rust/vim-racer'
-Plug 'rust-lang/rust.vim'
+Plug 'sbdchd/neoformat', { 'for': ['javascript', 'typescript', 'css', 'scss'] }
 Plug 'jremmen/vim-ripgrep'
-Plug 'mitsuhiko/vim-rst'
-Plug 'HerringtonDarkholme/yats.vim'
+Plug 'sheerun/vim-polyglot'
+Plug 'ianks/vim-tsx'
 Plug 'mhartington/nvim-typescript'
 
 call plug#end()
@@ -746,6 +736,7 @@ autocmd MyAutoCmd FileType typescript setlocal ts=2 sw=2 sta et sts=2 ai colorco
 autocmd MyAutoCmd FileType python setlocal omnifunc=jedi#completions
 autocmd MyAutoCmd FileType python let g:argwrap_tail_comma = 1
 autocmd MyAutoCmd FileType javascript.jsx runtime! ftplugin/html/sparkup.vim
+autocmd MyAutoCmd FileType typescript.tsx runtime! ftplugin/html/sparkup.vim
 
 autocmd FileType rust nmap gd <Plug>(rust-def)
 autocmd FileType rust nmap gs <Plug>(rust-def-split)
