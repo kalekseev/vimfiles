@@ -73,13 +73,13 @@ Plug 'FooSoft/vim-argwrap', {
             \   'on': ['ArgWrap']
             \ }
 Plug 'justinmk/vim-sneak'
-Plug 'Shougo/neomru.vim' | Plug 'Shougo/denite.nvim'
+Plug 'Shougo/neomru.vim' | Plug 'Shougo/denite.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'Shougo/unite-help'
 Plug 'tsukkee/unite-tag'
 Plug 'thinca/vim-unite-history'
 Plug 'Shougo/echodoc'
 if has('nvim')
-    Plug 'davidhalter/jedi-vim' | Plug 'Shougo/deoplete.nvim' | Plug 'zchee/deoplete-jedi'
+    Plug 'davidhalter/jedi-vim' | Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'} | Plug 'zchee/deoplete-jedi'
 else
     Plug 'davidhalter/jedi-vim' | Plug 'Shougo/neocomplete'
 endif
@@ -114,7 +114,7 @@ Plug 'sbdchd/neoformat', { 'for': ['javascript', 'typescript', 'css', 'scss'] }
 Plug 'jremmen/vim-ripgrep'
 Plug 'sheerun/vim-polyglot'
 Plug 'ianks/vim-tsx'
-Plug 'mhartington/nvim-typescript'
+Plug 'mhartington/nvim-typescript', {'do': ':UpdateRemotePlugins'}
 
 call plug#end()
 
