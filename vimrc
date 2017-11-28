@@ -357,7 +357,7 @@ endif
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 " edit vimrc
-nnoremap <Leader>ev :<C-u>edit $MYVIMRC<CR>
+nnoremap <Leader>ev :<C-u>edit ~/.vim/vimrc<CR>
 
 " toggle paste
 nmap <F2> :set invpaste paste?<CR>
