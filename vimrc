@@ -111,6 +111,7 @@ Plug 'alfredodeza/coveragepy.vim'
 "Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'sbdchd/neoformat', { 'for': ['javascript', 'typescript', 'css', 'scss'] }
+Plug 'flowtype/vim-flow', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'jremmen/vim-ripgrep'
 Plug 'sheerun/vim-polyglot'
 Plug 'ianks/vim-tsx'
@@ -722,6 +723,12 @@ let g:neoformat_javascript_prettiereslint = {
             \ }
 let g:neoformat_enabled_javascript = ['prettiereslint']
 let g:neoformat_enabled_typescript = ['prettier', 'typecheck']
+
+" flow
+"==============================================================================
+"
+let g:flow#enable = 0
+let g:flow#showquickfix = 0
 
 
 "* * * * * * * * * * * * * * * * * EXTRA * * * * * * * * * * * * * * * * * * *
