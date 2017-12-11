@@ -130,13 +130,8 @@ augroup END
 
 
 if has('nvim')
-    if IsMac()
-        let g:python_host_prog = $HOME.'/.local/venvs/neovim2/bin/python'
-        let g:python3_host_prog = $HOME.'/.local/venvs/neovim3/bin/python'
-    else
-        let g:python_host_prog = '/usr/bin/python2'
-        let g:python3_host_prog = '/usr/bin/python3'
-    endif
+    let g:python_host_prog = $HOME.'/.local/venvs/neovim2/bin/python'
+    let g:python3_host_prog = $HOME.'/.local/venvs/neovim3/bin/python'
 endif
 
 
