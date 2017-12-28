@@ -110,7 +110,7 @@ Plug 'alfredodeza/pytest.vim'
 Plug 'alfredodeza/coveragepy.vim'
 "Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'sbdchd/neoformat', { 'for': ['javascript', 'typescript', 'css', 'scss'] }
+Plug 'sbdchd/neoformat', { 'for': ['javascript', 'typescript', 'css', 'scss', 'python'] }
 Plug 'flowtype/vim-flow', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'jremmen/vim-ripgrep'
 Plug 'sheerun/vim-polyglot'
@@ -723,6 +723,7 @@ let g:neoformat_javascript_prettiereslint = {
             \ }
 let g:neoformat_enabled_javascript = ['prettiereslint']
 let g:neoformat_enabled_typescript = ['prettier', 'typecheck']
+let g:neoformat_enabled_python = ['isort']
 
 " flow
 "==============================================================================
@@ -797,6 +798,13 @@ endfunction
 
 nnoremap <leader>o :!echo `hg burl`%\#%:t-<C-R>=line('.')<CR> \| xargs <C-R>=OpenCMD()<CR> {} > /dev/null<CR><CR>
 vnoremap <leader>o <Esc>:!echo `hg burl`%\#%:t-<C-R>=line("'<")<CR>:<C-R>=line("'>")<CR> \| xargs <C-R>=OpenCMD()<CR> {} > /dev/null<CR><CR>gv
+
+
+nnoremap <leader>uu :call GenUUID()<CR>
+func! GenUUID()
+  let cmd = 'uuidgen | tr "[:upper:]" "[:lower:]" | tr -d "[:cntrl:]"'
+  silent exec ":normal i" . system(cmd)
+endfunc
 
 
 " Distinguish between javascript, jsx
