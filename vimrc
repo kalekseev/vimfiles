@@ -34,14 +34,7 @@ endif
 
 call plug#begin($VIMHOME.'/bundle/')
 
-Plug 'Shougo/vimproc', {
-\    'do': {
-\        'windows' : 'tools\\update-dll-mingw',
-\        'unix': 'make -f make_unix.mak',
-\        'mac': 'make -f make_mac.mak',
-\    },
-\ }
-
+Plug 'Shougo/vimproc', {'do': 'make'}
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-eunuch'
@@ -69,48 +62,56 @@ Plug 'tpope/vim-repeat'
 Plug 'vim-scripts/paredit.vim'
 Plug 'tpope/vim-jdaddy'
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'FooSoft/vim-argwrap', {
-            \   'on': ['ArgWrap']
-            \ }
+Plug 'FooSoft/vim-argwrap', {'on': ['ArgWrap']}
 Plug 'justinmk/vim-sneak'
-Plug 'Shougo/neomru.vim' | Plug 'Shougo/denite.nvim', {'do': ':UpdateRemotePlugins'}
+Plug 'Shougo/neomru.vim' |
+            \ Plug 'Shougo/denite.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'Shougo/unite-help'
 Plug 'tsukkee/unite-tag'
 Plug 'thinca/vim-unite-history'
 Plug 'Shougo/echodoc'
 if has('nvim')
-    Plug 'davidhalter/jedi-vim' | Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'} | Plug 'zchee/deoplete-jedi'
+    Plug 'davidhalter/jedi-vim' |
+                \ Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'} |
+                \ Plug 'zchee/deoplete-jedi'
 else
-    Plug 'davidhalter/jedi-vim' | Plug 'Shougo/neocomplete'
+    Plug 'davidhalter/jedi-vim' |
+                \ Plug 'Shougo/neocomplete'
 endif
-Plug 'rking/ag.vim', {
-            \   'on': ['Ag', 'AgAdd', 'AgFromSearch']
-            \ }
+Plug 'rking/ag.vim', {'on': ['Ag', 'AgAdd', 'AgFromSearch']}
 Plug 'jmcomets/vim-pony'
 Plug 'chrisbra/csv.vim', {'for': 'csv'}
-Plug 'thinca/vim-qfreplace', {
-            \   'on': 'Qfreplace'
-            \ }
-Plug 'thinca/vim-quickrun', {
-            \   'on': 'QuickRun',
-            \ }
+Plug 'thinca/vim-qfreplace', {'on': 'Qfreplace'}
+Plug 'thinca/vim-quickrun', {'on': 'QuickRun'}
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'gregsexton/MatchTag'
-Plug 'mbbill/undotree', {
-            \   'on': 'UndotreeToggle'
-            \ }
+Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 Plug 'majutsushi/tagbar'
 Plug 'kana/vim-niceblock'
 Plug 't9md/vim-quickhl'
 Plug 'rstacruz/sparkup', {
             \   'rtp': 'vim',
-            \   'for': ['html', 'xml', 'htmldjango', 'javascript.jsx', 'typescript.tsx']
+            \   'for': [
+            \     'html',
+            \     'xml',
+            \     'htmldjango',
+            \     'javascript.jsx',
+            \     'typescript.tsx'
+            \   ]
             \ }
 Plug 'alfredodeza/pytest.vim'
 Plug 'alfredodeza/coveragepy.vim'
 "Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'sbdchd/neoformat', { 'for': ['javascript', 'typescript', 'css', 'scss', 'python'] }
+Plug 'sbdchd/neoformat', {
+            \   'for': [
+            \     'javascript',
+            \     'typescript',
+            \     'css',
+            \     'scss',
+            \     'python'
+            \   ]
+            \ }
 Plug 'flowtype/vim-flow', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'jremmen/vim-ripgrep'
 Plug 'sheerun/vim-polyglot'
