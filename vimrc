@@ -119,6 +119,7 @@ Plug 'ianks/vim-tsx'
 Plug 'mhartington/nvim-typescript', {'do': ':UpdateRemotePlugins'}
 Plug 'wellle/targets.vim'
 Plug 'racer-rust/vim-racer'
+Plug 'nixprime/cpsm', {'do': 'PY3=ON ./install.sh'}
 
 call plug#end()
 
