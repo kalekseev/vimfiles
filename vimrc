@@ -714,14 +714,16 @@ let g:indentLine_faster = 1
 " neoformat
 "==============================================================================
 "
-let g:neoformat_javascript_prettiereslint = {
-            \ 'exe': 'prettier-eslint',
-            \ 'args': ['--stdin'],
+let g:neoformat_python_black = {
+            \ 'exe': 'black',
             \ 'stdin': 1,
+            \ 'args': ['--line-length', '110', '-', '2>/dev/null'],
             \ }
+
 let g:neoformat_enabled_javascript = ['prettiereslint']
-let g:neoformat_enabled_typescript = ['prettier', 'typecheck']
-let g:neoformat_enabled_python = ['isort']
+let g:neoformat_enabled_typescript = ['prettier']
+let g:neoformat_enabled_python = ['isort', 'black']
+let g:neoformat_run_all_formatters = 1
 
 " flow
 "==============================================================================
