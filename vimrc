@@ -470,6 +470,7 @@ let NERDTreeQuitOnOpen = 1
 " NERDCommenter
 "==============================================================================
 map <Space>/ <Plug>NERDCommenterToggle
+let NERDSpaceDelims = 1
 
 
 " vim-niceblock
