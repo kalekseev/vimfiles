@@ -119,6 +119,7 @@ Plug 'ianks/vim-tsx'
 Plug 'mhartington/nvim-typescript', {'do': ':UpdateRemotePlugins'}
 Plug 'wellle/targets.vim'
 Plug 'racer-rust/vim-racer'
+Plug 'rust-lang/rust.vim', { 'for': ['rust'] }
 Plug 'nixprime/cpsm', {'do': 'PY3=ON ./install.sh'}
 
 call plug#end()
@@ -738,10 +739,10 @@ let g:flow#showquickfix = 0
 
 let g:racer_cmd = $HOME.'/.cargo/bin/racer'
 let g:racer_experimental_completer = 1
-au FileType rust nmap gd <Plug>(rust-def)
-au FileType rust nmap gs <Plug>(rust-def-split)
-au FileType rust nmap gx <Plug>(rust-def-vertical)
-au FileType rust nmap <leader>gd <Plug>(rust-doc)
+autocmd MyAutoCmd FileType rust nmap gd <Plug>(rust-def)
+autocmd MyAutoCmd FileType rust nmap gs <Plug>(rust-def-split)
+autocmd MyAutoCmd FileType rust nmap gx <Plug>(rust-def-vertical)
+autocmd MyAutoCmd FileType rust nmap K <Plug>(rust-doc)
 
 
 " disable C-c mapping from SQLComplete
@@ -756,11 +757,6 @@ autocmd MyAutoCmd FileType python setlocal omnifunc=jedi#completions
 autocmd MyAutoCmd FileType python let g:argwrap_tail_comma = 1
 autocmd MyAutoCmd FileType javascript.jsx runtime! ftplugin/html/sparkup.vim
 autocmd MyAutoCmd FileType typescript.tsx runtime! ftplugin/html/sparkup.vim
-
-autocmd FileType rust nmap gd <Plug>(rust-def)
-autocmd FileType rust nmap gs <Plug>(rust-def-split)
-autocmd FileType rust nmap gx <Plug>(rust-def-vertical)
-autocmd FileType rust nmap K <Plug>(rust-doc)
 
 " cuda
 autocmd MyAutoCmd BufRead,BufNewFile *.cuh set ft=cuda
