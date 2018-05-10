@@ -119,8 +119,8 @@ Plug 'ianks/vim-tsx'
 Plug 'mhartington/nvim-typescript', {'do': ':UpdateRemotePlugins'}
 Plug 'wellle/targets.vim'
 Plug 'racer-rust/vim-racer'
-Plug 'rust-lang/rust.vim', { 'for': ['rust'] }
 Plug 'nixprime/cpsm', {'do': 'PY3=ON ./install.sh'}
+Plug 'posva/vim-vue', { 'for': 'vue' }
 
 call plug#end()
 
@@ -724,7 +724,8 @@ let g:neoformat_python_black = {
 
 let g:neoformat_enabled_javascript = ['prettiereslint']
 let g:neoformat_enabled_typescript = ['prettier']
-let g:neoformat_enabled_python = ['isort', 'black']
+let g:neoformat_enabled_scss = ['prettier']
+let g:neoformat_enabled_python = ['isort']
 let g:neoformat_run_all_formatters = 1
 
 " flow
