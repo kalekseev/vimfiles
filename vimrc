@@ -84,7 +84,7 @@ Plug 'chrisbra/csv.vim', {'for': 'csv'}
 Plug 'thinca/vim-qfreplace', {'on': 'Qfreplace'}
 Plug 'thinca/vim-quickrun', {'on': 'QuickRun'}
 Plug 'vim-scripts/ReplaceWithRegister'
-Plug 'gregsexton/MatchTag'
+" Plug 'gregsexton/MatchTag'
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 Plug 'majutsushi/tagbar'
 Plug 'kana/vim-niceblock'
@@ -362,6 +362,7 @@ nnoremap <Leader>ev :<C-u>edit ~/.vim/vimrc<CR>
 " toggle paste
 nmap <F2> :set invpaste paste?<CR>
 
+imap jj <ESC>
 " switch between two files
 map <Leader><Leader> <C-^>
 
