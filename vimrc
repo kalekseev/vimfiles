@@ -120,7 +120,6 @@ Plug 'mhartington/nvim-typescript', {'do': ':UpdateRemotePlugins'}
 Plug 'wellle/targets.vim'
 Plug 'racer-rust/vim-racer'
 Plug 'nixprime/cpsm', {'do': 'PY3=ON ./install.sh'}
-Plug 'posva/vim-vue', { 'for': 'vue' }
 
 call plug#end()
 
