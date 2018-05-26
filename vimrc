@@ -358,6 +358,8 @@ endif
 " edit vimrc
 nnoremap <Leader>ev :<C-u>edit ~/.vim/vimrc<CR>
 
+imap jj <Esc>
+
 " toggle paste
 nmap <F2> :set invpaste paste?<CR>
 
