@@ -363,7 +363,6 @@ imap jj <Esc>
 " toggle paste
 nmap <F2> :set invpaste paste?<CR>
 
-imap jj <ESC>
 " switch between two files
 map <Leader><Leader> <C-^>
 
