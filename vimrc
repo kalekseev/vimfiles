@@ -109,17 +109,19 @@ Plug 'sbdchd/neoformat', {
             \     'typescript',
             \     'css',
             \     'scss',
-            \     'python'
+            \     'python',
+            \     'vue'
             \   ]
             \ }
 Plug 'flowtype/vim-flow', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'jremmen/vim-ripgrep'
 Plug 'sheerun/vim-polyglot'
 Plug 'ianks/vim-tsx'
-Plug 'mhartington/nvim-typescript', {'do': ':UpdateRemotePlugins'}
+Plug 'mhartington/nvim-typescript', {'for': ['typescript', 'tsx'], 'do': './install.sh' }
 Plug 'wellle/targets.vim'
 Plug 'racer-rust/vim-racer'
 Plug 'nixprime/cpsm', {'do': 'PY3=ON ./install.sh'}
+Plug 'ambv/black'
 
 call plug#end()
 
@@ -135,6 +137,7 @@ augroup END
 if has('nvim')
     let g:python_host_prog = $HOME.'/.local/venvs/neovim2/bin/python'
     let g:python3_host_prog = $HOME.'/.local/venvs/neovim3/bin/python'
+    let g:node_host_prog = $HOME.'/.config/yarn/global/node_modules/.bin/neovim-node-host'
 endif
 
 
