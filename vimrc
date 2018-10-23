@@ -148,6 +148,7 @@ endif
 " turn on syntax highlighting
 syntax on
 
+set regexpengine=1  "work faster on macos
 " allow backspacing over everything in INS mode
 set backspace=indent,eol,start
 
@@ -231,7 +232,7 @@ set wildmode=list:longest
 
 " enable ctrl-n and ctrl-p to scroll thru matches
 set wildmenu
-set wildignore=*.aux,*.log,*.class,*.o,*.obj,*~,.git,*.pyc,*/.hg/*
+set wildignore=*.module.scss.d.ts,*.aux,*.log,*.class,*.o,*.obj,*~,.git,*.pyc,*/.hg/*
 
 " don't continue comments when pushing o/O
 set formatoptions-=o
@@ -467,7 +468,7 @@ let g:javascript_conceal = 1
 "==============================================================================
 silent! nmap <silent> <leader>p :NERDTreeToggle<CR>
 nmap <silent> <C-f> :NERDTreeFind<CR>
-let NERDTreeIgnore = ['\.pyc$']
+let NERDTreeIgnore = ['\.pyc$', '\.module.scss.d.ts']
 let NERDTreeQuitOnOpen = 1
 
 
@@ -614,18 +615,19 @@ let g:jedi#goto_assignments_command = "gd"
 let g:jedi#goto_definitions_command = "gD"
 let g:jedi#usages_command = "<leader>ju"
 let g:jedi#rename_command = "<leader>jr"
-
+let g:deoplete#sources#jedi#python_path = $HOME.'/.local/venvs/neovim3/bin/python'
 
 " ctrlp
 "==============================================================================
-let g:ctrlp_custom_ignore = {
-\    'dir': '\v[\/](\.git|\.hg|\.svn|target|node_modules|bower_components|htmlcov)$',
-\    'file': '\v\.(exe|so|dll|class|aux|log|jar)$',
-\ }
+" custom ignore doesn't work with ctrlp_user_command
+" let g:ctrlp_custom_ignore = {
+" \    'dir': '\v[\/](\.git|\.hg|\.svn|target|node_modules|bower_components|htmlcov)$',
+" \    'file': '\v\.(exe|ts)$',
+" \ }
 let g:ctrlp_user_command = {
 \   'types': {
 \     1: ['.git', 'cd %s && git ls-files . -co --exclude-standard'],
-\     2: ['.hg', 'hg --cwd %s files --subrepos -I .'],
+\     2: ['.hg', 'hg --cwd %s files --subrepos -X \*\*/__generated__ -I .'],
 \   },
 \   'fallback': 'rg %s --files --hidden --color=never --follow --glob "!.git/*" --glob "!.hg/*"'
 \ }
@@ -753,12 +755,15 @@ autocmd MyAutoCmd FileType rust nmap K <Plug>(rust-doc)
 " disable C-c mapping from SQLComplete
 let g:omni_sql_no_default_maps = 1
 
+au FileType sql setl formatprg=pg_format\ -
+
 " filetype specific settings
 autocmd MyAutoCmd FileType html setlocal ts=2 sw=2 sta et sts=2 ai
 autocmd MyAutoCmd FileType javascript setlocal ts=2 sw=2 sta et sts=2 ai colorcolumn=110
 autocmd MyAutoCmd FileType json setlocal ts=2 sw=2 sta et sts=2 ai colorcolumn=110
-autocmd MyAutoCmd FileType typescript setlocal ts=2 sw=2 sta et sts=2 ai colorcolumn=110
+autocmd MyAutoCmd FileType typescript setlocal ts=2 sw=2 sta et sts=2 ai colorcolumn=110 omnifunc=TSComplete
 autocmd MyAutoCmd FileType python setlocal omnifunc=jedi#completions
+autocmd MyAutoCmd FileType typescript.tsx setlocal omnifunc=TSComplete
 autocmd MyAutoCmd FileType python let g:argwrap_tail_comma = 1
 autocmd MyAutoCmd FileType javascript.jsx runtime! ftplugin/html/sparkup.vim
 autocmd MyAutoCmd FileType typescript.tsx runtime! ftplugin/html/sparkup.vim
