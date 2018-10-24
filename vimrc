@@ -39,6 +39,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-abolish'  "used to replace camel case with snake case
+Plug 'tpope/vim-dotenv'
+Plug 'tpope/vim-dadbod'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'w0rp/ale'
@@ -196,6 +198,7 @@ set hidden
 
 " remap leader
 let g:mapleader = "\<Space>"
+let g:maplocalleader = "\<Space>"
 nnoremap <Space> <Nop>
 
 " russian keymap
@@ -406,9 +409,6 @@ xmap > >gV
 
 " reselect pasted text
 nmap <Leader>v V`]
-
-" replace multiple
-nmap <Leader>r cgn
 
 " replace selected text
 vnoremap <Leader>p "_dP
