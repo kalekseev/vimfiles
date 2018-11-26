@@ -734,6 +734,12 @@ let g:neoformat_enabled_scss = ['prettier']
 let g:neoformat_enabled_python = ['isort']
 let g:neoformat_run_all_formatters = 1
 
+" typescript
+"==============================================================================
+"
+let g:nvim_typescript#diagnostics_enable = 0
+autocmd MyAutoCmd BufWrite *.ts,*.tsx TSGetDiagnostics
+
 " flow
 "==============================================================================
 "
