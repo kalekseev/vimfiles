@@ -35,6 +35,7 @@ endif
 call plug#begin($VIMHOME.'/bundle/')
 
 Plug 'Shougo/vimproc', {'do': 'make'}
+Plug 'Shougo/neosnippet.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-eunuch'
@@ -602,6 +603,23 @@ else
     " <S-TAB>: completion back.
     inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
 endif
+
+
+"======================
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+imap <expr><TAB>
+\ pumvisible() ? "\<C-n>" :
+\ neosnippet#expandable_or_jumpable() ?
+\    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+let g:neosnippet#snippets_directory='~/.vim/snippets/'
+let g:neosnippet#disable_runtime_snippets = {
+\   '_' : 1,
+\ }
+
 
 " jedi-vim
 "==============================================================================

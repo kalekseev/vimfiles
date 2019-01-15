@@ -1,0 +1,40 @@
+snippet     import-mutations
+abbr        import { Environment, MutationConfig, UploadableMap } from 'relay-runtime';
+options     head
+  import { Environment, MutationConfig, UploadableMap } from 'relay-runtime';
+
+
+snippet     import-lodash
+abbr        import * as _ from 'lodash';
+options     head
+  import * as _ from 'lodash';
+
+
+snippet     mutation
+options     head indent
+  import {
+    $3,
+    $2_$1,
+  } from '__generated__/$2_$1.graphql';
+
+  const ${1:MUTATION} = graphql\`
+    mutation ${2:MODULE}_$1($input: ${3:INPUT}!) {
+      ${4:ACTION}(input: $input) {
+        id
+      }
+    }
+  \`;
+
+  export const $4 = (
+    environment: Environment,
+    input: $3,
+    onCompleted: MutationConfig<
+      $2_$1
+    >['onCompleted'],
+  ) =>
+    commitMutation(environment, {
+      mutation: $1,
+      variables: { input },
+      onCompleted,
+      configs: [],
+    });

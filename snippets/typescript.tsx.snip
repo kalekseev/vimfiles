@@ -1,0 +1,146 @@
+include typescript.snip
+
+snippet     import-react
+abbr        import * as React from 'react';
+options     head
+  import * as React from "react";
+
+snippet     import-react-relay
+abbr        import { ... } from "react-relay";
+options     head
+  import { ${1:graphql}, ${2:createFragmentContainer}, ${3:QueryRenderer} } from "react-relay";
+
+snippet     import-react-router
+abbr        import { ... } from "react-relay";
+options     head
+  import { ${1:RouteComponentProps} } from 'react-router';
+
+snippet     import-bp-core
+abbr        import {  } from '@blueprintjs/core';
+options     head
+        import { ${0} } from '@blueprintjs/core';
+
+snippet     import-css
+abbr        import { css } from '@blueprintjs/core';
+options     head
+        import { css } from "@emotion/core";${0}
+
+snippet     handlechange
+abbr        handleChange = (event) => ...
+options     head
+  handleChange = (event: React.ChangeEvent<${1:HTMLInputElement}>) => {
+    const target = event.currentTarget;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    this.setState({ ${2:overrides}: {...this.state.$2, [target.name]: value} });${0}
+  }
+
+snippet     onchange
+abbr        onChange={this.handleChange}
+options     word
+  onChange={${1:this.handleChange}}
+
+snippet     mergedobject
+abbr        getMergedObject() => { ... }
+options     head
+  getMergedObject() {
+    return { ...initialData, ...this.props.${1:DATA}, ...this.state.overrides };
+  }
+
+snippet     bscheckbox
+options     head indent
+  <div className="form-check">
+    <input className="form-check-input" type="checkbox" name="${1}" checked={${2}} onChange={${3:this.handleChange}} id="${4}" />
+    <label className="form-check-label" htmlFor="$4">${5}</label>
+  </div>
+
+
+snippet         rstrapimpform
+options         head
+  import { ${1:Form,} ${2:FormGroup,} ${3:Label,} ${4:Input,} ${5:FormFeedback} } from 'reactstrap';
+
+
+snippet         rstrapformgroup
+options         head indent
+  <FormGroup>
+    <Label for="${1:ID}">${2}</Label>
+    <Input
+      name="${3}"
+      invalid={!!errors.$3}
+      type="${4:text}"
+      id="$1"
+      value={data.$3}
+      onChange={${5:this.handleChange}}
+      ${6:#:placeholder=}
+    />
+    {errors.$3 &&
+      errors.$3.map((e, i) => <FormFeedback key={i}>{e}</FormFeedback>)}
+  </FormGroup>
+
+snippet     rlmodule
+options     head indent
+  import * as React from 'react';
+  import { graphql, createFragmentContainer, QueryRenderer } from "react-relay";
+  import { ${1:FILENAME}Query } from '__generated__/$1Query.graphql';
+  import { $1_$2 } from '__generated__/$1_$2.graphql';
+  import { environment } from '${8}';
+
+  interface Props {
+    ${2}: $1_$2
+  }
+  const $1: React.SFC<Props> = props => <div />;
+
+  const $1Fragment = createFragmentContainer(
+    $1,
+    graphql\` fragment $1_$2 on ${5}Node ${6:@relay(plural: true) }{ ${7} } \`
+  );
+
+  const $1QueryRender: React.SFC = () => (
+    <QueryRenderer<$1Query>
+      query={graphql\` query $1Query { viewer { ${0} } } \`}
+      environment={environment}
+      variables={{${3}}}
+      render={data =>
+        data.props ? (
+          <$1Fragment $2={data.props.viewer.$2} />
+        ) : (
+          <${4:FullPageLoader} />
+        )
+      }
+    />
+  );
+
+  export default $1QueryRender;
+
+
+snippet     rlfragment
+options     head indent
+  ${0}import { graphql, createFragmentContainer, QueryRenderer } from "react-relay";
+  import { $1_$2 } from '__generated__/$1_$2.graphql';
+  interface Props {
+    ${2}: $1_$2
+  }
+
+  const ${1}Fragment = createFragmentContainer(
+    $1,
+    graphql\` fragment $1_$2 on ${3}Node ${4:#:@relay(plural: true) }{ ${5} } \`
+  );
+
+snippet rlsubmit
+options head indent
+  handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    ${1:MUTATION}(
+      this.props.relay.environment,
+      ${2:PAYLOAD},
+      (response, errors) => {
+        if (errors) {
+          // Some global error notification
+        } else if (response && response.$1 && response.$1.errors) {
+          this.setState({ errors: response.$1.errors });
+        } else {
+          // Success notification${0}
+          this.setState({ errors: {} });
+        }
+      }
+    );
+  };
