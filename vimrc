@@ -106,16 +106,6 @@ Plug 'alfredodeza/pytest.vim'
 Plug 'alfredodeza/coveragepy.vim'
 "Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'sbdchd/neoformat', {
-            \   'for': [
-            \     'javascript',
-            \     'typescript',
-            \     'css',
-            \     'scss',
-            \     'python',
-            \     'vue'
-            \   ]
-            \ }
 Plug 'flowtype/vim-flow', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'jremmen/vim-ripgrep'
 Plug 'sheerun/vim-polyglot'
@@ -429,8 +419,6 @@ command! CopyFilepath execute 'let @+=expand("%:p")'
 command! -range ApplyQMacros execute '<line1>,<line2>normal! @q'
 
 
-" format buffer
-nnoremap <Leader>f :Neoformat<CR>
 "* * * * * * * * * * * * * * * * * PLUGINS * * * * * * * * * * * * * * * * * *
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
@@ -515,18 +503,27 @@ endif
 " ale
 "==============================================================================
 let g:ale_linters = {
-            \   'javascript': ['eslint', 'flow'],
+            \   'javascript': ['eslint'],
             \   'python': ['flake8'],
             \   'scss': ['stylelint'],
-            \   'typescript': ['tslint', 'tsserver', 'typecheck'],
+            \   'typescript': ['eslint', 'tsserver'],
             \}
-let g:ale_sign_error = '>>' " '✗'
+let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '⚠'
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 0
+let g:ale_fix_on_save = 1
+let g:ale_fixers = {
+\   'javascript': ['prettier'],
+\   'typescript': ['prettier'],
+\   'css': ['prettier'],
+\   'scss': ['prettier'],
+\   'python': ['isort', 'black'],
+\}
 
 nmap <silent> <leader>pe <Plug>(ale_previous_wrap)
 nmap <silent> <leader>ne <Plug>(ale_next_wrap)
+nnoremap <Leader>f <Plug>(ale_fix)
 
 
 " fugitive
@@ -737,26 +734,11 @@ let g:indentLine_color_term = 8
 let g:indentLine_noConcealCursor=""
 let g:indentLine_faster = 1
 
-" neoformat
-"==============================================================================
-"
-let g:neoformat_python_black = {
-            \ 'exe': 'black',
-            \ 'stdin': 1,
-            \ 'args': ['--line-length', '110', '-', '2>/dev/null'],
-            \ }
-
-let g:neoformat_enabled_javascript = ['prettiereslint']
-let g:neoformat_enabled_typescript = ['prettier']
-let g:neoformat_enabled_scss = ['prettier']
-let g:neoformat_enabled_python = ['isort']
-let g:neoformat_run_all_formatters = 1
 
 " typescript
 "==============================================================================
 "
 let g:nvim_typescript#diagnostics_enable = 0
-autocmd MyAutoCmd BufWrite *.ts,*.tsx TSGetDiagnostics
 
 " flow
 "==============================================================================
