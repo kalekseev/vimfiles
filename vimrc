@@ -141,6 +141,10 @@ endif
 " turn on syntax highlighting
 syntax on
 
+" load local rc files
+set exrc
+set secure
+
 set regexpengine=1  "work faster on macos
 " allow backspacing over everything in INS mode
 set backspace=indent,eol,start
@@ -641,7 +645,7 @@ let g:deoplete#sources#jedi#python_path = $HOME.'/.local/venvs/neovim3/bin/pytho
 " \ }
 let g:ctrlp_user_command = {
 \   'types': {
-\     1: ['.git', 'cd %s && git ls-files . -co --exclude-standard'],
+\     1: ['.git', 'cd %s && git ls-files . -co --exclude-standard |& egrep -v "__generated__"'],
 \     2: ['.hg', 'hg --cwd %s files --subrepos -X \*\*/__generated__ -I .'],
 \   },
 \   'fallback': 'rg %s --files --hidden --color=never --follow --glob "!.git/*" --glob "!.hg/*"'
