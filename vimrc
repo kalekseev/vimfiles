@@ -110,7 +110,7 @@ Plug 'flowtype/vim-flow', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'jremmen/vim-ripgrep'
 Plug 'sheerun/vim-polyglot'
 Plug 'ianks/vim-tsx'
-Plug 'mhartington/nvim-typescript', {'for': ['typescript', 'tsx'], 'do': './install.sh' }
+Plug 'mhartington/nvim-typescript', {'for': ['typescript', 'typescript.tsx'], 'do': './install.sh' }
 Plug 'wellle/targets.vim'
 Plug 'racer-rust/vim-racer'
 Plug 'nixprime/cpsm', {'do': 'PY3=ON ./install.sh'}
@@ -775,7 +775,7 @@ autocmd MyAutoCmd FileType vue setlocal ts=2 sw=2 sta et sts=2 ai colorcolumn=11
 autocmd MyAutoCmd FileType json setlocal ts=2 sw=2 sta et sts=2 ai colorcolumn=110
 autocmd MyAutoCmd FileType typescript setlocal ts=2 sw=2 sta et sts=2 ai colorcolumn=110 omnifunc=TSComplete
 autocmd MyAutoCmd FileType python setlocal omnifunc=jedi#completions
-autocmd MyAutoCmd FileType typescript.tsx setlocal omnifunc=TSComplete
+autocmd MyAutoCmd FileType typescript.tsx setlocal ts=2 sw=2 sta et sts=2 ai colorcolumn=110 omnifunc=TSComplete
 autocmd MyAutoCmd FileType python let g:argwrap_tail_comma = 1
 autocmd MyAutoCmd FileType javascript.jsx runtime! ftplugin/html/sparkup.vim
 autocmd MyAutoCmd FileType typescript.tsx runtime! ftplugin/html/sparkup.vim
