@@ -34,6 +34,8 @@ endif
 
 call plug#begin($VIMHOME.'/bundle/')
 
+Plug '~/projects/feature_explorer'
+Plug 'zhaocai/GoldenView.Vim'
 Plug 'Shougo/vimproc', {'do': 'make'}
 Plug 'Shougo/neosnippet.vim'
 Plug 'tpope/vim-fugitive'
@@ -519,7 +521,7 @@ let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 0
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
-\   'javascript': ['prettier'],
+\   'javascript': ['eslint'],
 \   'typescript': ['prettier'],
 \   'vue': ['eslint'],
 \   'css': ['prettier'],
@@ -692,8 +694,8 @@ call denite#custom#map('insert', "'",
 call denite#custom#map('normal', 'r',
       \ '<denite:do_action:quickfix>', 'noremap')
 
-call denite#custom#alias('source', 'file_rec/git', 'file_rec')
-call denite#custom#var('file_rec/git', 'command',
+call denite#custom#alias('source', 'file/rec/git', 'file/rec')
+call denite#custom#var('file/rec/git', 'command',
       \ ['git', 'ls-files', '-co', '--exclude-standard'])
 
 " call denite#custom#option('default', 'prompt', '>')
@@ -717,10 +719,27 @@ call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
 
 nmap <Leader>b :Denite buffer -mode=normal -reversed<cr>
 nmap <Leader>h :Denite history/yank<cr>
-nmap <Leader>a :DeniteCursorWord -auto-preview -vertical-preview grep<cr><cr>
+nmap <Leader>a :DeniteCursorWord -auto-action=preview -vertical-preview grep<cr><cr>
 nmap <Leader>s :Denite menu:shortcut<cr>
 nmap <Leader>l :Denite file_mru<CR>
 nmap <Leader>g :Denite grep<CR>
+
+" Define mappings
+autocmd FileType denite call s:denite_my_settings()
+function! s:denite_my_settings() abort
+    nnoremap <silent><buffer><expr> <CR>
+                \ denite#do_map('do_action')
+    nnoremap <silent><buffer><expr> d
+                \ denite#do_map('do_action', 'delete')
+    nnoremap <silent><buffer><expr> p
+                \ denite#do_map('do_action', 'preview')
+    nnoremap <silent><buffer><expr> q
+                \ denite#do_map('quit')
+    nnoremap <silent><buffer><expr> i
+                \ denite#do_map('open_filter_buffer')
+    nnoremap <silent><buffer><expr> <Space>
+                \ denite#do_map('toggle_select').'j'
+endfunction
 
 
 " sneak
