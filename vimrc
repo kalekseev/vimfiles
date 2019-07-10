@@ -34,6 +34,7 @@ endif
 
 call plug#begin($VIMHOME.'/bundle/')
 
+Plug '~/projects/feature_explorer'
 Plug 'Shougo/vimproc', {'do': 'make'}
 Plug 'Shougo/neosnippet.vim'
 Plug 'tpope/vim-fugitive'
@@ -519,8 +520,8 @@ let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 0
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
-\   'javascript': ['prettier'],
-\   'typescript': ['prettier'],
+\   'javascript': ['eslint'],
+\   'typescript': ['eslint'],
 \   'vue': ['eslint'],
 \   'css': ['prettier'],
 \   'scss': ['prettier'],
@@ -846,6 +847,14 @@ func! s:FTjs()
     let n = n + 1
   endwhile
 endfunc
+
+
+nnoremap <silent><Leader>f :<C-u>FeatureExplorerFull<CR>
+autocmd FileType featureexplorer call s:fe_my_settings()
+function! s:fe_my_settings() abort
+    nnoremap <silent><buffer> <CR> :<C-u>FEEnter<CR>
+    nnoremap <silent><buffer> q :<C-u>FEQuit<CR>
+endfunction
 
 
 " Reload .vimrc automatically.
