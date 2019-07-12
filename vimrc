@@ -882,3 +882,5 @@ nnoremap <C-K> <C-W>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 nnoremap <c-w>z <C-W>\| <C-W>_
+autocmd FileType vue syntax sync fromstart
+let g:vue_disable_pre_processors=1
