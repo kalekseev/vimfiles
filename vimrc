@@ -35,7 +35,7 @@ endif
 call plug#begin($VIMHOME.'/bundle/')
 
 Plug '~/projects/feature_explorer'
-Plug 'zhaocai/GoldenView.Vim'
+" Plug 'zhaocai/GoldenView.Vim'
 Plug 'Shougo/vimproc', {'do': 'make'}
 Plug 'Shougo/neosnippet.vim'
 Plug 'tpope/vim-fugitive'
@@ -52,7 +52,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'ludovicchabant/vim-lawrencium'
 Plug 'Raimondi/delimitMate'
 Plug 'Yggdroot/indentLine'
-Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mhinz/vim-signify'
 Plug 'thinca/vim-visualstar'
 Plug 'chriskempson/base16-vim'
@@ -665,12 +665,13 @@ let g:ctrlp_root_markers = ['.hgsub']  "hg subrepos root
 if executable('rg')
   call denite#custom#var('file_rec', 'command',
         \ ['rg', '--files', '--glob', '!.git'])
-  call denite#custom#var('grep', 'command', ['rg', '--threads', '1'])
-  call denite#custom#var('grep', 'recursive_opts', [])
-  call denite#custom#var('grep', 'final_opts', [])
-  call denite#custom#var('grep', 'separator', ['--'])
+  call denite#custom#var('grep', 'command', ['rg'])
   call denite#custom#var('grep', 'default_opts',
-        \ ['--vimgrep', '--no-heading'])
+              \ ['-i', '--vimgrep', '--no-heading'])
+  call denite#custom#var('grep', 'recursive_opts', [])
+  call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
+  call denite#custom#var('grep', 'separator', ['--'])
+  call denite#custom#var('grep', 'final_opts', [])
 else
   call denite#custom#var('file_rec', 'command',
         \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
@@ -696,33 +697,25 @@ call denite#custom#map('normal', 'r',
 
 call denite#custom#alias('source', 'file/rec/git', 'file/rec')
 call denite#custom#var('file/rec/git', 'command',
-      \ ['git', 'ls-files', '-co', '--exclude-standard'])
+            \ ['git', 'ls-files', '-co', '--exclude-standard'])
+nnoremap <silent> <C-p> :<C-u>Denite -start-filter
+            \ `finddir('.git', ';') != '' ? 'file/rec/git' : 'file/rec'`<CR>
 
-" call denite#custom#option('default', 'prompt', '>')
-" call denite#custom#option('default', 'short_source_names', v:true)
 call denite#custom#option('default', {
       \ 'prompt': '>', 'short_source_names': v:true
       \ })
-
-let s:menus = {}
-let s:menus.vim = {
-    \ 'description': 'Vim',
-    \ }
-let s:menus.vim.file_candidates = [
-    \ ['    > Edit configuation file (init.vim)', '~/.config/nvim/init.vim']
-    \ ]
-call denite#custom#var('menu', 'menus', s:menus)
+call denite#custom#option('_', 'highlight_mode_insert', 'CursorLine')
+call denite#custom#option('_', 'highlight_matched_range', 'None')
+call denite#custom#option('_', 'highlight_matched_char', 'None')
 
 call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
       \ [ '.git/', '.hg/', '__pycache__/',
       \   'env/', 'images/', '*.min.*', 'img/', 'fonts/'])
 
-nmap <Leader>b :Denite buffer -mode=normal -reversed<cr>
-nmap <Leader>h :Denite history/yank<cr>
-nmap <Leader>a :DeniteCursorWord -auto-action=preview -vertical-preview grep<cr><cr>
-nmap <Leader>s :Denite menu:shortcut<cr>
+nmap <Leader>b :Denite -reversed buffer<cr>
+nmap <Leader>a :DeniteCursorWord -auto-action=preview grep<cr>
 nmap <Leader>l :Denite file_mru<CR>
-nmap <Leader>g :Denite grep<CR>
+nmap <Leader>g :Denite -auto-action=preview grep<CR>
 
 " Define mappings
 autocmd FileType denite call s:denite_my_settings()
@@ -739,6 +732,11 @@ function! s:denite_my_settings() abort
                 \ denite#do_map('open_filter_buffer')
     nnoremap <silent><buffer><expr> <Space>
                 \ denite#do_map('toggle_select').'j'
+endfunction
+
+autocmd FileType denite-filter call s:denite_filter_my_settings()
+function! s:denite_filter_my_settings() abort
+    inoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
 endfunction
 
 
@@ -867,7 +865,7 @@ func! s:FTjs()
 endfunc
 
 
-nnoremap <silent><Leader>f :<C-u>FeatureExplorerFull<CR>
+nnoremap <silent><Leader>f :<C-u>FeatureExplorer<CR>
 autocmd FileType featureexplorer call s:fe_my_settings()
 function! s:fe_my_settings() abort
     nnoremap <silent><buffer> <CR> :<C-u>FEEnter<CR>
@@ -878,3 +876,9 @@ endfunction
 " Reload .vimrc automatically.
 autocmd MyAutoCmd BufWritePost .vimrc,vimrc,init.vim
     \ source $MYVIMRC | redraw
+
+nnoremap <C-J> <C-W>j
+nnoremap <C-K> <C-W>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+nnoremap <c-w>z <C-W>\| <C-W>_
