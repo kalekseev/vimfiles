@@ -118,6 +118,7 @@ Plug 'wellle/targets.vim'
 Plug 'racer-rust/vim-racer'
 Plug 'nixprime/cpsm', {'do': 'PY3=ON ./install.sh'}
 Plug 'ambv/black'
+Plug 'christoomey/vim-tmux-navigator'
 
 call plug#end()
 
@@ -391,7 +392,8 @@ command! -bang Qa q<bang>
 nmap Y y$
 
 " key mapping for saving file
-nmap <C-s> :w<CR>
+inoremap <C-s> <Esc>:w<CR>
+nnoremap <C-s> :w<CR>
 
 " write with sudo
 cmap w!! %!sudo tee > /dev/null %
@@ -877,10 +879,6 @@ endfunction
 autocmd MyAutoCmd BufWritePost .vimrc,vimrc,init.vim
     \ source $MYVIMRC | redraw
 
-nnoremap <C-J> <C-W>j
-nnoremap <C-K> <C-W>k
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
 nnoremap <c-w>z <C-W>\| <C-W>_
 autocmd FileType vue syntax sync fromstart
 let g:vue_disable_pre_processors=1
