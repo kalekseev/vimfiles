@@ -717,7 +717,8 @@ call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
 nmap <Leader>b :Denite -reversed buffer<cr>
 nmap <Leader>a :DeniteCursorWord -auto-action=preview grep<cr>
 nmap <Leader>l :Denite file_mru<CR>
-nmap <Leader>g :Denite -auto-action=preview grep<CR>
+nmap <Leader>f :Denite -auto-action=preview grep<CR>
+vnoremap <Leader>f "vy:<c-u>Denite -auto-action=preview grep:::`getreg('v')`<CR>
 
 " Define mappings
 autocmd FileType denite call s:denite_my_settings()
@@ -867,7 +868,7 @@ func! s:FTjs()
 endfunc
 
 
-nnoremap <silent><Leader>f :<C-u>FeatureExplorer<CR>
+nnoremap <silent><Leader>e :<C-u>FeatureExplorer<CR>
 autocmd FileType featureexplorer call s:fe_my_settings()
 function! s:fe_my_settings() abort
     nnoremap <silent><buffer> <CR> :<C-u>FEEnter<CR>
