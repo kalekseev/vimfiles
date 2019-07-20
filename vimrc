@@ -35,7 +35,6 @@ endif
 call plug#begin($VIMHOME.'/bundle/')
 
 Plug '~/projects/feature_explorer'
-" Plug 'zhaocai/GoldenView.Vim'
 Plug 'Shougo/vimproc', {'do': 'make'}
 Plug 'Shougo/neosnippet.vim'
 Plug 'tpope/vim-fugitive'
@@ -43,7 +42,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-abolish'  "used to replace camel case with snake case
 Plug 'tpope/vim-dotenv'
-Plug 'tpope/vim-dadbod'
+Plug 'tpope/vim-dadbod', {'on': ['DB']}
+Plug 'tpope/vim-jdaddy'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'w0rp/ale'
@@ -52,28 +52,20 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'ludovicchabant/vim-lawrencium'
 Plug 'Raimondi/delimitMate'
 Plug 'Yggdroot/indentLine'
-" Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mhinz/vim-signify'
 Plug 'thinca/vim-visualstar'
-Plug 'chriskempson/base16-vim'
 Plug 'morhetz/gruvbox'
 Plug 'gorkunov/smartpairs.vim'
-Plug 'xaviershay/tslime.vim'
 Plug 'benjifisher/matchit.zip'
 Plug 'bkad/CamelCaseMotion'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-repeat'
 Plug 'vim-scripts/paredit.vim'
-Plug 'tpope/vim-jdaddy'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'FooSoft/vim-argwrap', {'on': ['ArgWrap']}
-Plug 'justinmk/vim-sneak'
 Plug 'Shougo/neomru.vim' |
             \ Plug 'Shougo/denite.nvim', {'do': ':UpdateRemotePlugins'}
-Plug 'Shougo/unite-help'
-Plug 'tsukkee/unite-tag'
-Plug 'thinca/vim-unite-history'
 Plug 'Shougo/echodoc'
 if has('nvim')
     Plug 'davidhalter/jedi-vim' |
@@ -83,15 +75,11 @@ else
     Plug 'davidhalter/jedi-vim' |
                 \ Plug 'Shougo/neocomplete'
 endif
-Plug 'rking/ag.vim', {'on': ['Ag', 'AgAdd', 'AgFromSearch']}
 Plug 'jmcomets/vim-pony'
 Plug 'chrisbra/csv.vim', {'for': 'csv'}
 Plug 'thinca/vim-qfreplace', {'on': 'Qfreplace'}
-Plug 'thinca/vim-quickrun', {'on': 'QuickRun'}
 Plug 'vim-scripts/ReplaceWithRegister'
-" Plug 'gregsexton/MatchTag'
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
-Plug 'majutsushi/tagbar'
 Plug 'kana/vim-niceblock'
 Plug 't9md/vim-quickhl'
 Plug 'rstacruz/sparkup', {
@@ -106,19 +94,27 @@ Plug 'rstacruz/sparkup', {
             \ }
 Plug 'alfredodeza/pytest.vim'
 Plug 'alfredodeza/coveragepy.vim'
-"Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'flowtype/vim-flow', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'jremmen/vim-ripgrep'
 Plug 'sheerun/vim-polyglot'
 Plug 'ianks/vim-tsx'
 Plug 'mhartington/nvim-typescript', {'for': ['typescript', 'typescript.tsx'], 'do': './install.sh' }
 Plug 'Galooshi/vim-import-js', {'for': ['typescript', 'typescript.tsx', 'javascript', 'javascript.jsx']}
 Plug 'wellle/targets.vim'
-Plug 'racer-rust/vim-racer'
+Plug 'racer-rust/vim-racer', {'for': 'rust'}
 Plug 'nixprime/cpsm', {'do': 'PY3=ON ./install.sh'}
-Plug 'ambv/black'
+Plug 'ambv/black', {'for': ['python']}
 Plug 'christoomey/vim-tmux-navigator'
+" Plug 'chriskempson/base16-vim'
+" Plug 'majutsushi/tagbar'
+" Plug 'gregsexton/MatchTag'
+" Plug 'thinca/vim-quickrun', {'on': 'QuickRun'}
+" Plug 'justinmk/vim-sneak'
+" Plug 'xaviershay/tslime.vim'
+" Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'zhaocai/GoldenView.Vim'
+" Plug 'SirVer/ultisnips'
+" Plug 'flowtype/vim-flow', { 'for': ['javascript', 'javascript.jsx'] }
 
 call plug#end()
 
@@ -182,7 +178,7 @@ set linebreak
 set list listchars=tab:»·
 
 " add some line space for easy reading
-set linespace=4
+" set linespace=4
 
 " disable visual bell
 if !has('nvim')
@@ -230,7 +226,7 @@ set foldnestmax=3
 set nofoldenable
 
 " make cmdline tab completion similar to bash
-set wildmode=list:longest
+set wildmode=longest,list,full
 
 " enable ctrl-n and ctrl-p to scroll thru matches
 set wildmenu
@@ -245,17 +241,36 @@ set sidescrolloff=7
 set sidescroll=1
 
 " some stuff to get the mouse going in term
-set mouse=a
+set mouse=n
 if !has('nvim')
     set ttymouse=xterm2
 endif
 
-" backup
+" BACKUP
+" https://begriffs.com/posts/2019-07-19-history-use-vim.html
+" Protect changes between writes. Default values of
+" updatecount (200 keystrokes) and updatetime
+" (4 seconds) are fine
+set swapfile
+set directory^=~/.vim/swap//
+
+" protect against crash-during-write
+set writebackup
+" but do not persist backup after successful write
 set nobackup
-set nowritebackup
-set noswapfile
-set backupdir-=.
-set autowrite
+" use rename-and-write-new method whenever safe
+set backupcopy=auto
+" patch required to honor double slash at end
+if has("patch-8.1.0251")
+    " consolidate the writebackups -- not a big
+    " deal either way, since they usually get deleted
+    set backupdir^=~/.vim/backup//
+end
+
+" persist the undo tree for each file
+set undofile
+set undodir^=~/.vim/undo//
+" END BACKUP
 
 if has('nvim')
     set viminfo+=n$VIMHOME/.viminfo.shada
@@ -316,21 +331,6 @@ if has("patch-7.4.314")
     set shortmess+=c
 endif
 
-let g:netrw_liststyle=3
-
-if has('gui_running')
-    if IsWindows()
-        set guifont=Consolas:h12:cRUSSIAN
-    else
-        set guifont=Consolas\ 12
-    endif
-    set langmenu=en_US.UTF-8
-else
-    if !has('nvim')
-        set t_Co=16
-    endif
-endif
-
 " theme
 set background=dark
 if has('nvim')
@@ -346,17 +346,6 @@ colorscheme gruvbox
 
 
 set colorcolumn=80
-
-" encoding
-if !has('gui_running')
-    if IsWindows()
-        set termencoding=cp1251
-    else
-        set termencoding=
-    endif
-endif
-
-
 
 "* * * * * * * * * * * * * * * * * MAPPING * * * * * * * * * * * * * * * * * *
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -409,9 +398,6 @@ xmap > >gV
 
 " reselect pasted text
 nmap <Leader>v V`]
-
-" replace selected text
-vnoremap <Leader>p "_dP
 
 " move selected lines
 vnoremap <C-j> :m'>+<CR>gv=gv
@@ -751,11 +737,7 @@ let g:sneak#streak = 1
 
 " indentline
 "==============================================================================
-if IsWindows() || IsPutty()
-    let g:indentLine_char = '|'
-else
-    let g:indentLine_char = '┊'
-endif
+let g:indentLine_char = '┊'
 let g:indentLine_color_term = 8
 let g:indentLine_noConcealCursor=""
 let g:indentLine_faster = 1
@@ -766,11 +748,6 @@ let g:indentLine_faster = 1
 "
 let g:nvim_typescript#diagnostics_enable = 0
 
-" flow
-"==============================================================================
-"
-let g:flow#enable = 0
-let g:flow#showquickfix = 0
 
 
 "* * * * * * * * * * * * * * * * * EXTRA * * * * * * * * * * * * * * * * * * *
@@ -836,22 +813,10 @@ function! BreakpointToggle(lnum, cmd)
     if &modifiable && &modified | write | endif
 endfunction
 
-function! OpenCMD()
-    if IsMac()
-        return '-I {} open'
-    else
-        return '-i xdg-open'
-    endif
-endfunction
-
-nnoremap <leader>o :!echo `hg burl`%\#%:t-<C-R>=line('.')<CR> \| xargs <C-R>=OpenCMD()<CR> {} > /dev/null<CR><CR>
-vnoremap <leader>o <Esc>:!echo `hg burl`%\#%:t-<C-R>=line("'<")<CR>:<C-R>=line("'>")<CR> \| xargs <C-R>=OpenCMD()<CR> {} > /dev/null<CR><CR>gv
-
-
 nnoremap <leader>uu :call GenUUID()<CR>
 func! GenUUID()
   let cmd = 'uuidgen | tr "[:upper:]" "[:lower:]" | tr -d "[:cntrl:]"'
-  silent exec ":normal i" . system(cmd)
+  silent exec ":normal a" . system(cmd)
 endfunc
 
 
