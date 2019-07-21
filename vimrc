@@ -54,7 +54,7 @@ Plug 'Raimondi/delimitMate'
 Plug 'Yggdroot/indentLine'
 Plug 'mhinz/vim-signify'
 Plug 'thinca/vim-visualstar'
-Plug 'morhetz/gruvbox'
+Plug 'gruvbox-community/gruvbox'
 Plug 'gorkunov/smartpairs.vim'
 Plug 'benjifisher/matchit.zip'
 Plug 'bkad/CamelCaseMotion'
@@ -526,6 +526,9 @@ nnoremap <Leader>f <Plug>(ale_fix)
 "==============================================================================
 autocmd MyAutoCmd BufReadPost fugitive://* set bufhidden=delete
 command! -bang -nargs=+ Sgrep execute 'silent Ggrep<bang> <args>' | copen
+map <Leader>1 :diffget LOCAL<CR>
+map <Leader>2 :diffget BASE<CR>
+map <Leader>3 :diffget REMOTE<CR>
 
 
 " delimitMate
@@ -543,11 +546,11 @@ map <F5> <Plug>(quickrun)
 
 " vim-quickhl
 "==============================================================================
-nmap <Leader>1 <Plug>(quickhl-manual-this)
-xmap <Leader>1 <Plug>(quickhl-manual-this)
+nmap <Leader>8 <Plug>(quickhl-manual-this)
+xmap <Leader>8 <Plug>(quickhl-manual-this)
 nmap <Leader>0 <Plug>(quickhl-manual-reset)
 xmap <Leader>0 <Plug>(quickhl-manual-reset)
-nmap <Leader>2 <Plug>(quickhl-cword-toggle)
+nmap <Leader>9 <Plug>(quickhl-cword-toggle)
 
 
 " echodoc
