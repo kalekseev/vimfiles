@@ -522,13 +522,14 @@ nmap <silent> <leader>ne <Plug>(ale_next_wrap)
 nnoremap <Leader>f <Plug>(ale_fix)
 
 
-" fugitive
+" git and diff
 "==============================================================================
 autocmd MyAutoCmd BufReadPost fugitive://* set bufhidden=delete
 command! -bang -nargs=+ Sgrep execute 'silent Ggrep<bang> <args>' | copen
 map <Leader>1 :diffget LOCAL<CR>
 map <Leader>2 :diffget BASE<CR>
 map <Leader>3 :diffget REMOTE<CR>
+set diffopt+=internal,algorithm:patience
 
 
 " delimitMate
