@@ -6,3 +6,4 @@ undo/
 .viminfo.shada
 .init.vim*
 /black
+/swap
