@@ -145,7 +145,7 @@ syntax on
 set exrc
 set secure
 
-set regexpengine=1  "work faster on macos
+" set regexpengine=1  "work faster on macos
 " allow backspacing over everything in INS mode
 set backspace=indent,eol,start
 
@@ -508,6 +508,7 @@ let g:ale_sign_warning = '⚠'
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 0
 let g:ale_fix_on_save = 1
+let g:ale_python_flake8_change_directory = 0
 let g:ale_fixers = {
 \   'javascript': ['eslint'],
 \   'typescript': ['eslint'],
@@ -626,8 +627,8 @@ let g:jedi#completions_enabled = 0
 let g:jedi#auto_vim_configuration = 0
 let g:jedi#show_call_signatures = 2
 let g:jedi#documentation_command = "<leader>d"
-let g:jedi#goto_assignments_command = "gd"
-let g:jedi#goto_definitions_command = "gD"
+let g:jedi#goto_assignments_command = "gD"
+let g:jedi#goto_command = "gd"
 let g:jedi#usages_command = "<leader>ju"
 let g:jedi#rename_command = "<leader>jr"
 let g:deoplete#sources#jedi#python_path = $HOME.'/.local/venvs/neovim3/bin/python'
