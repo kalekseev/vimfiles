@@ -44,6 +44,7 @@ Plug 'tpope/vim-abolish'  "used to replace camel case with snake case
 Plug 'tpope/vim-dotenv'
 Plug 'tpope/vim-dadbod', {'on': ['DB']}
 Plug 'tpope/vim-jdaddy'
+Plug 'radenling/vim-dispatch-neovim' | Plug 'tpope/vim-dispatch'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'w0rp/ale'
@@ -55,6 +56,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'mhinz/vim-signify'
 Plug 'thinca/vim-visualstar'
 Plug 'gruvbox-community/gruvbox'
+Plug 'joshdick/onedark.vim'
 Plug 'gorkunov/smartpairs.vim'
 Plug 'benjifisher/matchit.zip'
 Plug 'bkad/CamelCaseMotion'
@@ -64,6 +66,7 @@ Plug 'tpope/vim-repeat'
 Plug 'vim-scripts/paredit.vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'FooSoft/vim-argwrap', {'on': ['ArgWrap']}
+Plug 'ncm2/float-preview.nvim'
 Plug 'Shougo/neomru.vim' |
             \ Plug 'Shougo/denite.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'Shougo/echodoc'
@@ -82,6 +85,7 @@ Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 Plug 'kana/vim-niceblock'
 Plug 't9md/vim-quickhl'
+Plug 'majutsushi/tagbar'
 Plug 'rstacruz/sparkup', {
             \   'rtp': 'vim',
             \   'for': [
@@ -98,12 +102,12 @@ Plug 'honza/vim-snippets'
 Plug 'jremmen/vim-ripgrep'
 Plug 'sheerun/vim-polyglot'
 Plug 'ianks/vim-tsx'
-Plug 'mhartington/nvim-typescript', {'for': ['typescript', 'typescript.tsx'], 'do': './install.sh' }
+Plug 'mhartington/nvim-typescript', {'for': ['typescript', 'typescript.tsx', 'javascript', 'javascript.jsx'], 'do': './install.sh' }
 Plug 'Galooshi/vim-import-js', {'for': ['typescript', 'typescript.tsx', 'javascript', 'javascript.jsx']}
 Plug 'wellle/targets.vim'
 Plug 'racer-rust/vim-racer', {'for': 'rust'}
 Plug 'nixprime/cpsm', {'do': 'PY3=ON ./install.sh'}
-Plug 'ambv/black', {'for': ['python']}
+Plug 'psf/black', {'for': ['python']}
 Plug 'christoomey/vim-tmux-navigator'
 " Plug 'chriskempson/base16-vim'
 " Plug 'majutsushi/tagbar'
@@ -341,8 +345,9 @@ if has("termguicolors")
 endif
 
 
-let g:gruvbox_italic=1
-colorscheme gruvbox
+" let g:gruvbox_italic=1
+" colorscheme gruvbox
+colorscheme onedark
 
 
 set colorcolumn=80
@@ -353,7 +358,7 @@ set colorcolumn=80
 " edit vimrc
 nnoremap <Leader>ev :<C-u>edit ~/.vim/vimrc<CR>
 
-imap jj <Esc>
+" imap jj <Esc>
 
 " toggle paste
 nmap <F2> :set invpaste paste?<CR>
@@ -509,6 +514,7 @@ let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 0
 let g:ale_fix_on_save = 1
 let g:ale_python_flake8_change_directory = 0
+let g:ale_python_black_executable = $HOME.'/.vim/black/bin/black'
 let g:ale_fixers = {
 \   'javascript': ['eslint'],
 \   'typescript': ['eslint'],
@@ -516,7 +522,9 @@ let g:ale_fixers = {
 \   'css': ['prettier'],
 \   'scss': ['prettier'],
 \   'python': ['isort', 'black'],
+\   'markdown': ['prettier'],
 \}
+
 
 nmap <silent> <leader>pe <Plug>(ale_previous_wrap)
 nmap <silent> <leader>ne <Plug>(ale_next_wrap)
@@ -740,6 +748,7 @@ let g:sneak#streak = 1
 
 " indentline
 "==============================================================================
+let g:indentLine_setConceal = 0
 let g:indentLine_char = '┊'
 let g:indentLine_color_term = 8
 let g:indentLine_noConcealCursor=""
