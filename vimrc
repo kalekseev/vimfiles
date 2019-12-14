@@ -34,7 +34,12 @@ endif
 
 call plug#begin($VIMHOME.'/bundle/')
 
+if !has('nvim')
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
 Plug '~/projects/feature_explorer'
+Plug 'kalekseev/vim-coverage.py', {'do': ':UpdateRemotePlugins'}
 Plug 'Shougo/vimproc', {'do': 'make'}
 Plug 'Shougo/neosnippet.vim'
 Plug 'tpope/vim-fugitive'
@@ -66,7 +71,6 @@ Plug 'tpope/vim-repeat'
 Plug 'vim-scripts/paredit.vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'FooSoft/vim-argwrap', {'on': ['ArgWrap']}
-Plug 'ncm2/float-preview.nvim'
 Plug 'Shougo/neomru.vim' |
             \ Plug 'Shougo/denite.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'Shougo/echodoc'
@@ -107,7 +111,7 @@ Plug 'Galooshi/vim-import-js', {'for': ['typescript', 'typescript.tsx', 'javascr
 Plug 'wellle/targets.vim'
 Plug 'racer-rust/vim-racer', {'for': 'rust'}
 Plug 'nixprime/cpsm', {'do': 'PY3=ON ./install.sh'}
-Plug 'psf/black', {'for': ['python']}
+Plug 'kalekseev/black', {'branch': 'vim-autoload'} ", {'for': ['python']}
 Plug 'christoomey/vim-tmux-navigator'
 " Plug 'chriskempson/base16-vim'
 " Plug 'majutsushi/tagbar'
@@ -347,6 +351,8 @@ endif
 
 " let g:gruvbox_italic=1
 " colorscheme gruvbox
+let g:onedark_hide_endofbuffer = 1
+let g:onedark_terminal_italics = 1
 colorscheme onedark
 
 
@@ -514,7 +520,7 @@ let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 0
 let g:ale_fix_on_save = 1
 let g:ale_python_flake8_change_directory = 0
-let g:ale_python_black_executable = $HOME.'/.vim/black/bin/black'
+let g:ale_python_black_executable = $HOME.'/.local/share/nvim/black/bin/black'
 let g:ale_fixers = {
 \   'javascript': ['eslint'],
 \   'typescript': ['eslint'],
