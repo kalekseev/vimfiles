@@ -40,6 +40,15 @@ if !has('nvim')
 endif
 Plug '~/projects/feature_explorer'
 Plug 'kalekseev/vim-coverage.py', {'do': ':UpdateRemotePlugins'}
+Plug 'sheerun/vim-polyglot'
+Plug 'ryanoasis/vim-devicons'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'dense-analysis/ale'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'Raimondi/delimitMate'
+Plug 'Yggdroot/indentLine'
+Plug 'joshdick/onedark.vim'
 Plug 'Shougo/vimproc', {'do': 'make'}
 Plug 'Shougo/neosnippet.vim'
 Plug 'tpope/vim-fugitive'
@@ -49,63 +58,34 @@ Plug 'tpope/vim-abolish'  "used to replace camel case with snake case
 Plug 'tpope/vim-dotenv'
 Plug 'tpope/vim-dadbod', {'on': ['DB']}
 Plug 'tpope/vim-jdaddy'
-Plug 'radenling/vim-dispatch-neovim' | Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-repeat'
 Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/nerdcommenter'
-Plug 'w0rp/ale'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'ludovicchabant/vim-lawrencium'
-Plug 'Raimondi/delimitMate'
-Plug 'Yggdroot/indentLine'
+Plug 'tomtom/tcomment_vim'
 Plug 'mhinz/vim-signify'
 Plug 'thinca/vim-visualstar'
-Plug 'gruvbox-community/gruvbox'
-Plug 'joshdick/onedark.vim'
-Plug 'gorkunov/smartpairs.vim'
+Plug 'gorkunov/smartpairs.vim' " select in pairs using vvvv
 Plug 'benjifisher/matchit.zip'
 Plug 'bkad/CamelCaseMotion'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'ryanoasis/vim-devicons'
-Plug 'tpope/vim-repeat'
-Plug 'vim-scripts/paredit.vim'
-Plug 'AndrewRadev/splitjoin.vim'
+Plug 'AndrewRadev/splitjoin.vim'  " gS, gJ mappings
 Plug 'FooSoft/vim-argwrap', {'on': ['ArgWrap']}
 Plug 'Shougo/neomru.vim' |
             \ Plug 'Shougo/denite.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'Shougo/echodoc'
-if has('nvim')
-    Plug 'davidhalter/jedi-vim' |
-                \ Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'} |
-                \ Plug 'zchee/deoplete-jedi'
-else
-    Plug 'davidhalter/jedi-vim' |
-                \ Plug 'Shougo/neocomplete'
-endif
-Plug 'jmcomets/vim-pony'
+Plug 'davidhalter/jedi-vim' |
+            \ Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'} |
+            \ Plug 'zchee/deoplete-jedi'
+Plug 'jmcomets/vim-pony', {'for': 'python'}
 Plug 'chrisbra/csv.vim', {'for': 'csv'}
 Plug 'thinca/vim-qfreplace', {'on': 'Qfreplace'}
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 Plug 'kana/vim-niceblock'
-Plug 't9md/vim-quickhl'
 Plug 'majutsushi/tagbar'
-Plug 'rstacruz/sparkup', {
-            \   'rtp': 'vim',
-            \   'for': [
-            \     'html',
-            \     'xml',
-            \     'htmldjango',
-            \     'javascript.jsx',
-            \     'typescript.tsx'
-            \   ]
-            \ }
-Plug 'alfredodeza/pytest.vim'
-Plug 'alfredodeza/coveragepy.vim'
+Plug 'mattn/emmet-vim', {'for': ['html', 'typescript.tsx', 'javascript.jsx']}
+Plug 'alfredodeza/pytest.vim', {'for': 'python'}
 Plug 'honza/vim-snippets'
-Plug 'jremmen/vim-ripgrep'
-Plug 'sheerun/vim-polyglot'
-Plug 'ianks/vim-tsx'
+Plug 'jremmen/vim-ripgrep', {'on': ['Rg']}
+Plug 'ianks/vim-tsx', {'for': ['typescript', 'typescript.tsx']}
 Plug 'mhartington/nvim-typescript', {'for': ['typescript', 'typescript.tsx', 'javascript', 'javascript.jsx'], 'do': './install.sh' }
 Plug 'Galooshi/vim-import-js', {'for': ['typescript', 'typescript.tsx', 'javascript', 'javascript.jsx']}
 Plug 'wellle/targets.vim'
@@ -113,16 +93,11 @@ Plug 'racer-rust/vim-racer', {'for': 'rust'}
 Plug 'nixprime/cpsm', {'do': 'PY3=ON ./install.sh'}
 Plug 'kalekseev/black', {'branch': 'vim-autoload'} ", {'for': ['python']}
 Plug 'christoomey/vim-tmux-navigator'
-" Plug 'chriskempson/base16-vim'
-" Plug 'majutsushi/tagbar'
-" Plug 'gregsexton/MatchTag'
-" Plug 'thinca/vim-quickrun', {'on': 'QuickRun'}
-" Plug 'justinmk/vim-sneak'
-" Plug 'xaviershay/tslime.vim'
-" Plug 'ctrlpvim/ctrlp.vim'
-" Plug 'zhaocai/GoldenView.Vim'
-" Plug 'SirVer/ultisnips'
-" Plug 'flowtype/vim-flow', { 'for': ['javascript', 'javascript.jsx'] }
+" Plug 'radenling/vim-dispatch-neovim' | Plug 'tpope/vim-dispatch'
+" Plug 'vim-scripts/paredit.vim'
+" Plug 'ludovicchabant/vim-lawrencium'
+" Plug 'gruvbox-community/gruvbox'
+" Plug 't9md/vim-quickhl'
 
 call plug#end()
 
@@ -349,8 +324,8 @@ if has("termguicolors")
 endif
 
 
+" colorscheme
 " let g:gruvbox_italic=1
-" colorscheme gruvbox
 let g:onedark_hide_endofbuffer = 1
 let g:onedark_terminal_italics = 1
 colorscheme onedark
@@ -468,10 +443,9 @@ let NERDTreeQuitOnOpen = 1
 
 
 
-" NERDCommenter
+" tComment
 "==============================================================================
-map <Space>/ <Plug>NERDCommenterToggle
-let NERDSpaceDelims = 1
+map <Space>/ :TComment<CR>
 
 
 " vim-niceblock
@@ -554,67 +528,17 @@ let g:delimitMate_expand_cr = 1
 let g:delimitMate_expand_space = 1
 
 
-" vim-quickrun
-"==============================================================================
-let g:quickrun_no_default_key_mappings = 1
-map <F5> <Plug>(quickrun)
-
-
-" vim-quickhl
-"==============================================================================
-nmap <Leader>8 <Plug>(quickhl-manual-this)
-xmap <Leader>8 <Plug>(quickhl-manual-this)
-nmap <Leader>0 <Plug>(quickhl-manual-reset)
-xmap <Leader>0 <Plug>(quickhl-manual-reset)
-nmap <Leader>9 <Plug>(quickhl-cword-toggle)
-
-
 " echodoc
 "==============================================================================
 let g:echodoc_enable_at_startup = 1
 
 
-" neocomplete
+" deoplete.nvim
 "==============================================================================
-if has('nvim')
-    "deoplete.nvim
-    let g:deoplete#enable_at_startup = 1
-    inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-    imap <expr> <CR> pumvisible() ? deoplete#close_popup() . "\<CR>"
-                \: '<Plug>delimitMateCR'
-else
-    let g:neocomplete#enable_at_startup = 1
-    " use smartcase
-    let g:neocomplete#enable_smart_case = 1
-    let g:neocomplete#enable_camel_case = 1
-
-    " use fuzzy completion
-    let g:neocomplete#enable_fuzzy_completion = 1
-    " minimum syntax keyword length
-    let g:neocomplete#sources#syntax#min_keyword_length = 3
-    " Set auto completion length.
-    let g:neocomplete#auto_completion_start_length = 2
-    let g:neocomplete#manual_completion_start_length = 0
-    " Set minimum keyword length.
-    let g:neocomplete#min_keyword_length = 3
-
-    "imap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-    imap <expr> <CR> pumvisible() ? neocomplete#close_popup() . "\<CR>"
-                \: '<Plug>delimitMateCR'
-
-    " <TAB>: completion.
-    inoremap <silent><expr> <TAB>
-                \ pumvisible() ? "\<C-n>" :
-                \ <SID>check_back_space() ? "\<TAB>" :
-                \ neocomplete#start_manual_complete()
-    function! s:check_back_space() abort "{{{
-        let col = col('.') - 1
-        return !col || getline('.')[col - 1]  =~ '\s'
-    endfunction"}}}
-
-    " <S-TAB>: completion back.
-    inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
-endif
+let g:deoplete#enable_at_startup = 1
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+imap <expr> <CR> pumvisible() ? deoplete#close_popup() . "\<CR>"
+            \: '<Plug>delimitMateCR'
 
 
 "======================
@@ -746,12 +670,6 @@ endfunction
 
 
 
-" sneak
-" =============================================================================
-let g:sneak#s_next = 1
-let g:sneak#streak = 1
-
-
 " indentline
 "==============================================================================
 let g:indentLine_setConceal = 0
@@ -763,7 +681,6 @@ let g:indentLine_faster = 1
 
 " typescript
 "==============================================================================
-"
 let g:nvim_typescript#diagnostics_enable = 0
 
 
@@ -799,7 +716,7 @@ autocmd MyAutoCmd FileType typescript.tsx runtime! ftplugin/html/sparkup.vim
 " cuda
 autocmd MyAutoCmd BufRead,BufNewFile *.cuh set ft=cuda
 
-" save on focus lost (gui only)
+" save on focus lost
 autocmd MyAutoCmd FocusLost * :silent! wall
 
 " don't show trailing spaces in insert mode
@@ -859,10 +776,14 @@ function! s:fe_my_settings() abort
 endfunction
 
 
+" windows
+nnoremap <c-w>z <C-W>\| <C-W>_
+
+" vue
+autocmd FileType vue syntax sync fromstart
+let g:vue_disable_pre_processors=1
+
+
 " Reload .vimrc automatically.
 autocmd MyAutoCmd BufWritePost .vimrc,vimrc,init.vim
     \ source $MYVIMRC | redraw
-
-nnoremap <c-w>z <C-W>\| <C-W>_
-autocmd FileType vue syntax sync fromstart
-let g:vue_disable_pre_processors=1
