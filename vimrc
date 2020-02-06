@@ -91,7 +91,6 @@ Plug 'Galooshi/vim-import-js', {'for': ['typescript', 'typescript.tsx', 'javascr
 Plug 'wellle/targets.vim'
 Plug 'racer-rust/vim-racer', {'for': 'rust'}
 Plug 'nixprime/cpsm', {'do': 'PY3=ON ./install.sh'}
-Plug 'kalekseev/black', {'branch': 'vim-autoload'} ", {'for': ['python']}
 Plug 'christoomey/vim-tmux-navigator'
 " Plug 'radenling/vim-dispatch-neovim' | Plug 'tpope/vim-dispatch'
 " Plug 'vim-scripts/paredit.vim'
@@ -494,7 +493,7 @@ let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 0
 let g:ale_fix_on_save = 1
 let g:ale_python_flake8_change_directory = 0
-let g:ale_python_black_executable = $HOME.'/.local/share/nvim/black/bin/black'
+let g:ale_python_black_executable = $HOME.'/.local/bin/black'
 let g:ale_fixers = {
 \   'javascript': ['eslint'],
 \   'typescript': ['eslint'],
