@@ -92,6 +92,10 @@ Plug 'wellle/targets.vim'
 Plug 'racer-rust/vim-racer', {'for': 'rust'}
 Plug 'nixprime/cpsm', {'do': 'PY3=ON ./install.sh'}
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'junegunn/goyo.vim', {'on': ['Goyo']}
+Plug 'junegunn/limelight.vim', {'on': ['Goyo']}
+Plug 'direnv/direnv.vim'
+Plug 'airblade/vim-rooter'
 " Plug 'radenling/vim-dispatch-neovim' | Plug 'tpope/vim-dispatch'
 " Plug 'vim-scripts/paredit.vim'
 " Plug 'ludovicchabant/vim-lawrencium'
@@ -683,6 +687,8 @@ let g:indentLine_faster = 1
 let g:nvim_typescript#diagnostics_enable = 0
 
 
+" rooter
+let g:rooter_use_lcd = 1
 
 "* * * * * * * * * * * * * * * * * EXTRA * * * * * * * * * * * * * * * * * * *
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -782,6 +788,8 @@ nnoremap <c-w>z <C-W>\| <C-W>_
 autocmd FileType vue syntax sync fromstart
 let g:vue_disable_pre_processors=1
 
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
 
 " Reload .vimrc automatically.
 autocmd MyAutoCmd BufWritePost .vimrc,vimrc,init.vim
