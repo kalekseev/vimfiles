@@ -2,3 +2,5 @@ workflow
 java
 frontend
 backend
+postgresql
+redis

@@ -94,7 +94,7 @@ Plug 'nixprime/cpsm', {'do': 'PY3=ON ./install.sh'}
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/goyo.vim', {'on': ['Goyo']}
 Plug 'junegunn/limelight.vim', {'on': ['Goyo']}
-Plug 'direnv/direnv.vim'
+Plug 'kalekseev/direnv.vim'
 Plug 'airblade/vim-rooter'
 " Plug 'radenling/vim-dispatch-neovim' | Plug 'tpope/vim-dispatch'
 " Plug 'vim-scripts/paredit.vim'
@@ -689,6 +689,10 @@ let g:nvim_typescript#diagnostics_enable = 0
 
 " rooter
 let g:rooter_use_lcd = 1
+let g:rooter_silent_chdir = 1
+
+" direnv
+let g:direnv_silent_load = 1
 
 "* * * * * * * * * * * * * * * * * EXTRA * * * * * * * * * * * * * * * * * * *
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
