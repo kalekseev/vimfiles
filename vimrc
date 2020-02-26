@@ -38,7 +38,7 @@ if !has('nvim')
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
-Plug '~/projects/feature_explorer'
+Plug '~/projects/diffmind/vim'
 Plug 'kalekseev/vim-coverage.py', {'do': ':UpdateRemotePlugins'}
 Plug 'sheerun/vim-polyglot'
 Plug 'ryanoasis/vim-devicons'
@@ -95,7 +95,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/goyo.vim', {'on': ['Goyo']}
 Plug 'junegunn/limelight.vim', {'on': ['Goyo']}
 Plug 'kalekseev/direnv.vim'
-Plug 'airblade/vim-rooter'
+Plug 'airblade/vim-rooter', {'on': ['Rooter']}
 " Plug 'radenling/vim-dispatch-neovim' | Plug 'tpope/vim-dispatch'
 " Plug 'vim-scripts/paredit.vim'
 " Plug 'ludovicchabant/vim-lawrencium'
@@ -499,8 +499,8 @@ let g:ale_fix_on_save = 1
 let g:ale_python_flake8_change_directory = 0
 let g:ale_python_black_executable = $HOME.'/.local/bin/black'
 let g:ale_fixers = {
-\   'javascript': ['eslint'],
-\   'typescript': ['eslint'],
+\   'javascript': ['eslint', 'prettier'],
+\   'typescript': ['eslint', 'prettier'],
 \   'vue': ['eslint'],
 \   'css': ['prettier'],
 \   'scss': ['prettier'],
@@ -689,7 +689,8 @@ let g:nvim_typescript#diagnostics_enable = 0
 
 " rooter
 let g:rooter_use_lcd = 1
-let g:rooter_silent_chdir = 1
+" let g:rooter_silent_chdir = 1
+let g:rooter_manual_only = 1
 
 " direnv
 let g:direnv_silent_load = 1
@@ -777,11 +778,11 @@ func! s:FTjs()
 endfunc
 
 
-nnoremap <silent><Leader>e :<C-u>FeatureExplorer<CR>
-autocmd FileType featureexplorer call s:fe_my_settings()
-function! s:fe_my_settings() abort
-    nnoremap <silent><buffer> <CR> :<C-u>FEEnter<CR>
-    nnoremap <silent><buffer> q :<C-u>FEQuit<CR>
+nnoremap <silent><Leader>g :<C-u>DiffMind<CR>
+autocmd FileType diffmind call s:dm_my_settings()
+function! s:dm_my_settings() abort
+    nnoremap <silent><buffer> <CR> :<C-u>DiffMindEnter<CR>
+    nnoremap <silent><buffer> q :<C-u>DiffMindQuit<CR>
 endfunction
 
 
@@ -794,6 +795,8 @@ let g:vue_disable_pre_processors=1
 
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
+
+autocmd TermClose * call feedkeys("i")
 
 " Reload .vimrc automatically.
 autocmd MyAutoCmd BufWritePost .vimrc,vimrc,init.vim
