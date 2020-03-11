@@ -801,3 +801,7 @@ autocmd TermClose * call feedkeys("i")
 " Reload .vimrc automatically.
 autocmd MyAutoCmd BufWritePost .vimrc,vimrc,init.vim
     \ source $MYVIMRC | redraw
+
+" let $NVIM_NODE_HOST_DEBUG = 1
+" let $NVIM_NODE_LOG_FILE='nvim-node.log'
+" let $NVIM_NODE_LOG_LEVEL='warn'
