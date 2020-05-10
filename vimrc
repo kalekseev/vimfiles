@@ -59,6 +59,7 @@ Plug 'tpope/vim-dotenv'
 Plug 'tpope/vim-dadbod', {'on': ['DB']}
 Plug 'tpope/vim-jdaddy'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-rhubarb'
 Plug 'scrooloose/nerdtree'
 Plug 'tomtom/tcomment_vim'
 Plug 'mhinz/vim-signify'
@@ -68,8 +69,6 @@ Plug 'benjifisher/matchit.zip'
 Plug 'bkad/CamelCaseMotion'
 Plug 'AndrewRadev/splitjoin.vim'  " gS, gJ mappings
 Plug 'FooSoft/vim-argwrap', {'on': ['ArgWrap']}
-Plug 'Shougo/neomru.vim' |
-            \ Plug 'Shougo/denite.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'Shougo/echodoc'
 Plug 'davidhalter/jedi-vim' |
             \ Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'} |
@@ -84,9 +83,8 @@ Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim', {'for': ['html', 'typescript.tsx', 'javascript.jsx']}
 Plug 'alfredodeza/pytest.vim', {'for': 'python'}
 Plug 'honza/vim-snippets'
-Plug 'jremmen/vim-ripgrep', {'on': ['Rg']}
 Plug 'ianks/vim-tsx', {'for': ['typescript', 'typescript.tsx']}
-Plug 'mhartington/nvim-typescript', {'for': ['typescript', 'typescript.tsx', 'javascript', 'javascript.jsx'], 'do': './install.sh' }
+Plug 'mhartington/nvim-typescript', {'do': './install.sh' } " 'for': ['typescript', 'typescript.tsx', 'javascript', 'javascript.jsx'],
 Plug 'Galooshi/vim-import-js', {'for': ['typescript', 'typescript.tsx', 'javascript', 'javascript.jsx']}
 Plug 'wellle/targets.vim'
 Plug 'racer-rust/vim-racer', {'for': 'rust'}
@@ -94,8 +92,9 @@ Plug 'nixprime/cpsm', {'do': 'PY3=ON ./install.sh'}
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/goyo.vim', {'on': ['Goyo']}
 Plug 'junegunn/limelight.vim', {'on': ['Goyo']}
-Plug 'kalekseev/direnv.vim'
+Plug 'kalekseev/direnv.vim', {'branch': 'fixes'}
 Plug 'airblade/vim-rooter', {'on': ['Rooter']}
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 " Plug 'radenling/vim-dispatch-neovim' | Plug 'tpope/vim-dispatch'
 " Plug 'vim-scripts/paredit.vim'
 " Plug 'ludovicchabant/vim-lawrencium'
@@ -111,13 +110,6 @@ filetype plugin indent on
 augroup MyAutoCmd
     autocmd!
 augroup END
-
-
-if has('nvim')
-    let g:python_host_prog = $HOME.'/.local/venvs/neovim2/bin/python'
-    let g:python3_host_prog = $HOME.'/.local/venvs/neovim3/bin/python'
-    let g:node_host_prog = $HOME.'/.config/yarn/global/node_modules/.bin/neovim-node-host'
-endif
 
 
 "* * * * * * * * * * * * * * * * * SETUP * * * * * * * * * * * * * * * * * * *
@@ -501,6 +493,7 @@ let g:ale_python_black_executable = $HOME.'/.local/bin/black'
 let g:ale_fixers = {
 \   'javascript': ['eslint', 'prettier'],
 \   'typescript': ['eslint', 'prettier'],
+\   'typescriptreact': ['eslint', 'prettier'],
 \   'vue': ['eslint'],
 \   'css': ['prettier'],
 \   'scss': ['prettier'],
@@ -511,7 +504,7 @@ let g:ale_fixers = {
 
 nmap <silent> <leader>pe <Plug>(ale_previous_wrap)
 nmap <silent> <leader>ne <Plug>(ale_next_wrap)
-nnoremap <Leader>f <Plug>(ale_fix)
+" nnoremap <Leader>f <Plug>(ale_fix)
 
 
 " git and diff
@@ -593,84 +586,18 @@ let g:ctrlp_root_markers = ['.hgsub']  "hg subrepos root
 "let g:ctrlp_use_caching = 0
 
 "---------------------------------------------------------------------------
-" denite.nvim
+" LeaderF
 "
-
-if executable('rg')
-  call denite#custom#var('file_rec', 'command',
-        \ ['rg', '--files', '--glob', '!.git'])
-  call denite#custom#var('grep', 'command', ['rg'])
-  call denite#custom#var('grep', 'default_opts',
-              \ ['-i', '--vimgrep', '--no-heading'])
-  call denite#custom#var('grep', 'recursive_opts', [])
-  call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
-  call denite#custom#var('grep', 'separator', ['--'])
-  call denite#custom#var('grep', 'final_opts', [])
-else
-  call denite#custom#var('file_rec', 'command',
-        \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-endif
-
-call denite#custom#source('file_old', 'matchers',
-      \ ['matcher_fuzzy', 'matcher_project_files'])
-if has('nvim')
-  call denite#custom#source('file_rec,grep', 'matchers',
-        \ ['matcher_cpsm'])
-endif
-call denite#custom#source('file_old', 'converters',
-      \ ['converter_relative_word'])
-
-call denite#custom#map('insert', '<C-j>',
-      \ '<denite:move_to_next_line>', 'noremap')
-call denite#custom#map('insert', '<C-k>',
-      \ '<denite:move_to_previous_line>', 'noremap')
-call denite#custom#map('insert', "'",
-      \ '<denite:move_to_next_line>', 'noremap')
-call denite#custom#map('normal', 'r',
-      \ '<denite:do_action:quickfix>', 'noremap')
-
-call denite#custom#alias('source', 'file/rec/git', 'file/rec')
-call denite#custom#var('file/rec/git', 'command',
-            \ ['git', 'ls-files', '-co', '--exclude-standard'])
-nnoremap <silent> <C-p> :<C-u>Denite -start-filter
-            \ `finddir('.git', ';') != '' ? 'file/rec/git' : 'file/rec'`<CR>
-
-call denite#custom#option('default', {
-      \ 'prompt': '>', 'short_source_names': v:true
-      \ })
-call denite#custom#option('_', 'highlight_mode_insert', 'CursorLine')
-call denite#custom#option('_', 'highlight_matched_range', 'None')
-call denite#custom#option('_', 'highlight_matched_char', 'None')
-
-call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
-      \ [ '.git/', '.hg/', '__pycache__/',
-      \   'env/', 'images/', '*.min.*', 'img/', 'fonts/'])
-
-nmap <Leader>b :Denite -reversed buffer<cr>
-nmap <Leader>a :DeniteCursorWord -auto-action=preview grep<cr>
-nmap <Leader>l :Denite file_mru<CR>
-nmap <Leader>f :Denite -auto-action=preview grep<CR>
-vnoremap <Leader>f "vy:<c-u>Denite -auto-action=preview grep:::`getreg('v')`<CR>
-
-" Define mappings
-autocmd FileType denite call s:denite_my_settings()
-function! s:denite_my_settings() abort
-    nnoremap <silent><buffer><expr> <CR>
-                \ denite#do_map('do_action')
-    nnoremap <silent><buffer><expr> s
-                \ denite#do_map('do_action', 'vsplit')
-    nnoremap <silent><buffer><expr> d
-                \ denite#do_map('do_action', 'delete')
-    nnoremap <silent><buffer><expr> p
-                \ denite#do_map('do_action', 'preview')
-    nnoremap <silent><buffer><expr> q
-                \ denite#do_map('quit')
-    nnoremap <silent><buffer><expr> i
-                \ denite#do_map('open_filter_buffer')
-    nnoremap <silent><buffer><expr> <Space>
-                \ denite#do_map('toggle_select').'j'
-endfunction
-
+let g:Lf_PreviewInPopup = 1
+let g:Lf_PreviewResult = { 'File': 1 }
+let g:Lf_PreviewCode = 1
+let g:Lf_WindowPosition = 'popup'
+let g:Lf_ShortcutF = "<C-p>"
+let g:Lf_Gtagslabel = 'ctags'
+noremap <leader>l :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
+noremap <leader>b :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
+noremap <leader>a :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR><CR>
+nmap <leader>f <Plug>LeaderfRgPrompt
 
 
 " indentline
@@ -781,7 +708,7 @@ endfunc
 nnoremap <silent><Leader>g :<C-u>DiffMind<CR>
 autocmd FileType diffmind call s:dm_my_settings()
 function! s:dm_my_settings() abort
-    nnoremap <silent><buffer> <CR> :<C-u>DiffMindEnter<CR>
+    nnoremap <silent><buffer> <CR> :call DiffMindAction(line('.'), 'enter')<CR>
     nnoremap <silent><buffer> q :<C-u>DiffMindQuit<CR>
 endfunction
 
