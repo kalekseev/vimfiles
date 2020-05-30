@@ -320,11 +320,10 @@ endif
 
 
 " colorscheme
-" let g:gruvbox_italic=1
 let g:onedark_hide_endofbuffer = 1
 let g:onedark_terminal_italics = 1
+let g:airline_theme = 'onedark'
 colorscheme onedark
-
 
 set colorcolumn=80
 
@@ -457,9 +456,6 @@ nmap <silent> <F9> :TagbarToggle<CR>
 
 " vim-airline
 "==============================================================================
-if !has('nvim')
-    let g:airline_theme = 'base16'
-endif
 let g:airline_detect_paste = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#ale#error_symbol = '✗ '
@@ -489,7 +485,6 @@ let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 0
 let g:ale_fix_on_save = 1
 let g:ale_python_flake8_change_directory = 0
-let g:ale_python_black_executable = $HOME.'/.local/bin/black'
 let g:ale_fixers = {
 \   'javascript': ['eslint', 'prettier'],
 \   'typescript': ['eslint', 'prettier'],
@@ -588,16 +583,17 @@ let g:ctrlp_root_markers = ['.hgsub']  "hg subrepos root
 "---------------------------------------------------------------------------
 " LeaderF
 "
-let g:Lf_PreviewInPopup = 1
-let g:Lf_PreviewResult = { 'File': 1 }
+" let g:Lf_PreviewInPopup = 1
+let g:Lf_PreviewResult = { 'File': 1, 'Colorscheme': 1 }
 let g:Lf_PreviewCode = 1
-let g:Lf_WindowPosition = 'popup'
+" let g:Lf_WindowPosition = 'popup'
 let g:Lf_ShortcutF = "<C-p>"
 let g:Lf_Gtagslabel = 'ctags'
-noremap <leader>l :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
+noremap <leader>l :<C-U><C-R>=printf("Leaderf! mru %s", "")<CR><CR>
 noremap <leader>b :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
-noremap <leader>a :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR><CR>
-nmap <leader>f <Plug>LeaderfRgPrompt
+noremap <leader>a :<C-U><C-R>=printf("Leaderf rg -e %s ", expand("<cword>"))<CR><CR>
+nmap <leader>f :<C-U>Leaderf rg --stayOpen<CR>
+noremap <leader>fc :<C-U>Leaderf colorscheme<CR>
 
 
 " indentline
