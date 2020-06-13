@@ -14,4 +14,4 @@ EOL
 map <C-e> :py EvaluateCurrentRange()
 
 
-nnoremap <silent> <buffer> <F7> :call BreakpointToggle(line('.'), "import pdb; pdb.set_trace() ### XXX BREAKPOINT")<CR>
+nnoremap <silent> <buffer> <F7> :call BreakpointToggle(line('.'), "breakpoint()  # XXX BREAKPOINT")<CR>
