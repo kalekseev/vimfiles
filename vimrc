@@ -88,7 +88,6 @@ Plug 'mhartington/nvim-typescript', {'do': './install.sh' } " 'for': ['typescrip
 Plug 'Galooshi/vim-import-js', {'for': ['typescript', 'typescript.tsx', 'javascript', 'javascript.jsx']}
 Plug 'wellle/targets.vim'
 Plug 'racer-rust/vim-racer', {'for': 'rust'}
-Plug 'nixprime/cpsm', {'do': 'PY3=ON ./install.sh'}
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/goyo.vim', {'on': ['Goyo']}
 Plug 'junegunn/limelight.vim', {'on': ['Goyo']}
@@ -335,9 +334,6 @@ nnoremap <Leader>ev :<C-u>edit ~/.vim/vimrc<CR>
 
 " imap jj <Esc>
 
-" toggle paste
-nmap <F2> :set invpaste paste?<CR>
-
 " switch between two files
 map <Leader><Leader> <C-^>
 
@@ -397,8 +393,6 @@ command! -range ApplyQMacros execute '<line1>,<line2>normal! @q'
 "* * * * * * * * * * * * * * * * * PLUGINS * * * * * * * * * * * * * * * * * *
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-"vim-json
-let g:vim_json_syntax_conceal = 0
 "vim-argwrap
 nnoremap <silent>gW :<C-u>:ArgWrap<CR>
 
@@ -562,25 +556,6 @@ let g:jedi#usages_command = "<leader>ju"
 let g:jedi#rename_command = "<leader>jr"
 let g:deoplete#sources#jedi#python_path = $HOME.'/.local/venvs/neovim3/bin/python'
 
-" ctrlp
-"==============================================================================
-" custom ignore doesn't work with ctrlp_user_command
-" let g:ctrlp_custom_ignore = {
-" \    'dir': '\v[\/](\.git|\.hg|\.svn|target|node_modules|bower_components|htmlcov)$',
-" \    'file': '\v\.(exe|ts)$',
-" \ }
-let g:ctrlp_user_command = {
-\   'types': {
-\     1: ['.git', 'cd %s && git ls-files . -co --exclude-standard |& egrep -v "__generated__"'],
-\     2: ['.hg', 'hg --cwd %s files --subrepos -X \*\*/__generated__ -I .'],
-\   },
-\   'fallback': 'rg %s --files --hidden --color=never --follow --glob "!.git/*" --glob "!.hg/*"'
-\ }
-
-let g:ctrlp_root_markers = ['.hgsub']  "hg subrepos root
-"let g:ctrlp_use_caching = 0
-
-"---------------------------------------------------------------------------
 " LeaderF
 "
 " let g:Lf_PreviewInPopup = 1
@@ -593,7 +568,7 @@ noremap <leader>l :<C-U><C-R>=printf("Leaderf! mru %s", "")<CR><CR>
 noremap <leader>b :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
 noremap <leader>a :<C-U><C-R>=printf("Leaderf rg -e %s ", expand("<cword>"))<CR><CR>
 nmap <leader>f :<C-U>Leaderf rg --stayOpen<CR>
-noremap <leader>fc :<C-U>Leaderf colorscheme<CR>
+noremap <leader>c :<C-U>Leaderf colorscheme<CR>
 
 
 " indentline
