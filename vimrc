@@ -60,6 +60,7 @@ Plug 'tpope/vim-dadbod', {'on': ['DB']}
 Plug 'tpope/vim-jdaddy'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-unimpaired'
 Plug 'scrooloose/nerdtree'
 Plug 'tomtom/tcomment_vim'
 Plug 'mhinz/vim-signify'
@@ -81,7 +82,8 @@ Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 Plug 'kana/vim-niceblock'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim', {'for': ['html', 'typescript.tsx', 'javascript.jsx']}
-Plug 'alfredodeza/pytest.vim', {'for': 'python'}
+Plug 'vim-test/vim-test'
+Plug 'skywind3000/asyncrun.vim'
 Plug 'honza/vim-snippets'
 Plug 'ianks/vim-tsx', {'for': ['typescript', 'typescript.tsx']}
 Plug 'mhartington/nvim-typescript', {'do': './install.sh' } " 'for': ['typescript', 'typescript.tsx', 'javascript', 'javascript.jsx'],
@@ -94,11 +96,6 @@ Plug 'junegunn/limelight.vim', {'on': ['Goyo']}
 Plug 'kalekseev/direnv.vim', {'branch': 'fixes'}
 Plug 'airblade/vim-rooter', {'on': ['Rooter']}
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-" Plug 'radenling/vim-dispatch-neovim' | Plug 'tpope/vim-dispatch'
-" Plug 'vim-scripts/paredit.vim'
-" Plug 'ludovicchabant/vim-lawrencium'
-" Plug 'gruvbox-community/gruvbox'
-" Plug 't9md/vim-quickhl'
 
 call plug#end()
 
@@ -554,12 +551,11 @@ let g:jedi#goto_assignments_command = "gD"
 let g:jedi#goto_command = "gd"
 let g:jedi#usages_command = "<leader>ju"
 let g:jedi#rename_command = "<leader>jr"
-let g:deoplete#sources#jedi#python_path = $HOME.'/.local/venvs/neovim3/bin/python'
 
 " LeaderF
 "
 " let g:Lf_PreviewInPopup = 1
-let g:Lf_PreviewResult = { 'File': 1, 'Colorscheme': 1 }
+let g:Lf_PreviewResult = { 'File': 1, 'Colorscheme': 1, 'rg': 1 }
 let g:Lf_PreviewCode = 1
 " let g:Lf_WindowPosition = 'popup'
 let g:Lf_ShortcutF = "<C-p>"
@@ -567,7 +563,7 @@ let g:Lf_Gtagslabel = 'ctags'
 noremap <leader>l :<C-U><C-R>=printf("Leaderf! mru %s", "")<CR><CR>
 noremap <leader>b :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
 noremap <leader>a :<C-U><C-R>=printf("Leaderf rg -e %s ", expand("<cword>"))<CR><CR>
-nmap <leader>f :<C-U>Leaderf rg --stayOpen<CR>
+nmap <leader>f :<C-U>Leaderf rg<CR>
 noremap <leader>c :<C-U>Leaderf colorscheme<CR>
 
 
@@ -592,6 +588,10 @@ let g:rooter_manual_only = 1
 
 " direnv
 let g:direnv_silent_load = 1
+
+" test
+let test#python#runner = 'pytest'
+let test#strategy = "asyncrun_background"
 
 "* * * * * * * * * * * * * * * * * EXTRA * * * * * * * * * * * * * * * * * * *
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -694,7 +694,7 @@ let g:vue_disable_pre_processors=1
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 
-autocmd TermClose * call feedkeys("i")
+autocmd TermClose * q
 
 " Reload .vimrc automatically.
 autocmd MyAutoCmd BufWritePost .vimrc,vimrc,init.vim
