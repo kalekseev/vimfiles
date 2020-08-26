@@ -60,7 +60,7 @@ Plug 'tpope/vim-dadbod', {'on': ['DB']}
 Plug 'tpope/vim-jdaddy'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rhubarb'
-Plug 'tpope/vim-unimpaired'
+" Plug 'tpope/vim-unimpaired'
 Plug 'scrooloose/nerdtree'
 Plug 'tomtom/tcomment_vim'
 Plug 'mhinz/vim-signify'
@@ -560,6 +560,7 @@ let g:Lf_PreviewCode = 1
 " let g:Lf_WindowPosition = 'popup'
 let g:Lf_ShortcutF = "<C-p>"
 let g:Lf_Gtagslabel = 'ctags'
+let g:Lf_PreviewInPopup = 1
 noremap <leader>l :<C-U><C-R>=printf("Leaderf! mru %s", "")<CR><CR>
 noremap <leader>b :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
 noremap <leader>a :<C-U><C-R>=printf("Leaderf rg -e %s ", expand("<cword>"))<CR><CR>
