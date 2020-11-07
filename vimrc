@@ -35,9 +35,18 @@ endif
 call plug#begin($VIMHOME.'/bundle/')
 
 if !has('nvim')
-  Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
+Plug 'roxma/nvim-yarp'
+Plug 'ncm2/ncm2'
+" Fast python completion (use ncm2 if you want type info or snippet support)
+Plug 'ncm2/ncm2-jedi'
+" Words in buffer completion
+Plug 'ncm2/ncm2-bufword'
+" Filepath completion
+Plug 'ncm2/ncm2-path'
+
+
 Plug '~/projects/diffmind/vim'
 Plug 'kalekseev/vim-coverage.py', {'do': ':UpdateRemotePlugins'}
 Plug 'sheerun/vim-polyglot'
@@ -50,7 +59,7 @@ Plug 'Raimondi/delimitMate'
 Plug 'Yggdroot/indentLine'
 Plug 'joshdick/onedark.vim'
 Plug 'Shougo/vimproc', {'do': 'make'}
-Plug 'Shougo/neosnippet.vim'
+" Plug 'Shougo/neosnippet.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-eunuch'
@@ -71,9 +80,7 @@ Plug 'bkad/CamelCaseMotion'
 Plug 'AndrewRadev/splitjoin.vim'  " gS, gJ mappings
 Plug 'FooSoft/vim-argwrap', {'on': ['ArgWrap']}
 Plug 'Shougo/echodoc'
-Plug 'davidhalter/jedi-vim' |
-            \ Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'} |
-            \ Plug 'zchee/deoplete-jedi'
+Plug 'davidhalter/jedi-vim'
 Plug 'jmcomets/vim-pony', {'for': 'python'}
 Plug 'chrisbra/csv.vim', {'for': 'csv'}
 Plug 'thinca/vim-qfreplace', {'on': 'Qfreplace'}
@@ -297,8 +304,6 @@ set pastetoggle=<F2>
 
 " for echodoc
 set noshowmode
-set completeopt+=menuone
-set completeopt-=preview
 
 " don't show messages on completition
 if has("patch-7.4.314")
@@ -515,29 +520,21 @@ let g:delimitMate_expand_space = 1
 let g:echodoc_enable_at_startup = 1
 
 
-" deoplete.nvim
+" ncm2
 "==============================================================================
-let g:deoplete#enable_at_startup = 1
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-imap <expr> <CR> pumvisible() ? deoplete#close_popup() . "\<CR>"
-            \: '<Plug>delimitMateCR'
+autocmd BufEnter * call ncm2#enable_for_buffer()
+" CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
+inoremap <c-c> <ESC>
+set completeopt=noselect,noinsert,menuone
 
+" When the <Enter> key is pressed while the popup menu is visible, it only
+" hides the menu. Use this mapping to close the menu and also start a new
+" line.
+inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 
-"======================
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-imap <expr><TAB>
-\ pumvisible() ? "\<C-n>" :
-\ neosnippet#expandable_or_jumpable() ?
-\    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-let g:neosnippet#snippets_directory='~/.vim/snippets/'
-let g:neosnippet#disable_runtime_snippets = {
-\   '_' : 1,
-\ }
-
+" Use <TAB> to select the popup menu:
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " jedi-vim
 "==============================================================================
