@@ -490,6 +490,7 @@ let g:ale_fixers = {
 \   'scss': ['prettier'],
 \   'python': ['isort', 'black'],
 \   'markdown': ['prettier'],
+\   'nix': ['nixpkgs-fmt'],
 \}
 
 
@@ -551,10 +552,9 @@ let g:jedi#rename_command = "<leader>jr"
 
 " LeaderF
 "
-" let g:Lf_PreviewInPopup = 1
-let g:Lf_PreviewResult = { 'File': 1, 'Colorscheme': 1, 'rg': 1 }
+let g:Lf_PreviewResult = { 'File': 1, 'Colorscheme': 1 }
 let g:Lf_PreviewCode = 1
-" let g:Lf_WindowPosition = 'popup'
+let g:Lf_WindowPosition = 'popup'
 let g:Lf_ShortcutF = "<C-p>"
 let g:Lf_Gtagslabel = 'ctags'
 let g:Lf_PreviewInPopup = 1
