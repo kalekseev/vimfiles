@@ -5,12 +5,12 @@ set formatoptions=cq textwidth=72 foldignore= wildignore+=*.py[co]
 
 set colorcolumn=110
 " Execute a selection of code
-python << EOL
+python3 << EOL
 import vim
 import textwrap
 def EvaluateCurrentRange():
     eval(compile(textwrap.dedent('\n'.join(vim.current.range)),'','exec'),globals())
 EOL
 
-vnoremap <silent> <buffer> <F5> :py EvaluateCurrentRange()<CR>
+vnoremap <silent> <buffer> <F5> :py3 EvaluateCurrentRange()<CR>
 nnoremap <silent> <buffer> <F7> :call BreakpointToggle(line('.'), "breakpoint()  # XXX BREAKPOINT")<CR>

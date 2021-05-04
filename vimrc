@@ -40,11 +40,13 @@ endif
 Plug 'roxma/nvim-yarp'
 Plug 'ncm2/ncm2'
 " Fast python completion (use ncm2 if you want type info or snippet support)
-Plug 'ncm2/ncm2-jedi'
+Plug 'ncm2/ncm2-jedi', {'for': 'python'}
 " Words in buffer completion
 Plug 'ncm2/ncm2-bufword'
+Plug 'fgrsnau/ncm2-otherbuf'
 " Filepath completion
 Plug 'ncm2/ncm2-path'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 
 Plug '~/projects/diffmind/vim'
@@ -80,7 +82,7 @@ Plug 'bkad/CamelCaseMotion'
 Plug 'AndrewRadev/splitjoin.vim'  " gS, gJ mappings
 Plug 'FooSoft/vim-argwrap', {'on': ['ArgWrap']}
 Plug 'Shougo/echodoc'
-Plug 'davidhalter/jedi-vim'
+Plug 'davidhalter/jedi-vim', {'for': 'python'}
 Plug 'jmcomets/vim-pony', {'for': 'python'}
 Plug 'chrisbra/csv.vim', {'for': 'csv'}
 Plug 'thinca/vim-qfreplace', {'on': 'Qfreplace'}
@@ -328,6 +330,9 @@ colorscheme onedark
 
 set colorcolumn=80
 
+" disable python2
+let g:loaded_python_provider = 0
+
 "* * * * * * * * * * * * * * * * * MAPPING * * * * * * * * * * * * * * * * * *
 " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
@@ -480,7 +485,6 @@ let g:ale_sign_warning = '⚠'
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 0
 let g:ale_fix_on_save = 1
-let g:ale_python_flake8_change_directory = 0
 let g:ale_fixers = {
 \   'javascript': ['eslint', 'prettier'],
 \   'typescript': ['eslint', 'prettier'],
@@ -536,6 +540,21 @@ inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 " Use <TAB> to select the popup menu:
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+function! NCM2GoComplete(ctx) abort
+    let [l:line, l:col] = go#lsp#lsp#Position()
+    call go#lsp#Completion(a:ctx.filepath, l:line, l:col)
+endfunction
+
+call ncm2#register_source({
+            \ 'name': 'gopls',
+            \ 'mark': 'go',
+            \ 'priority': 9,
+            \ 'scope': ['go'],
+            \ 'on_complete': ['ncm2#on_complete#omni', 'go#complete#Complete'],
+            \ 'word_pattern': '\w+',
+            \ 'complete_pattern': ['\.', '::', '/'],
+            \ })
 
 " jedi-vim
 "==============================================================================
